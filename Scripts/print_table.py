@@ -8,7 +8,7 @@ def print_table():
             lista = []
             for celula in aba_ativa[coluna]:
                 valores = celula.value
-                lista.append(valores)
+                lista.append(valores) 
             return list(lista)
 
     id = retornar_lista("A")
@@ -27,7 +27,7 @@ def print_table():
     x.field_names = ["ID", "Valor R$", "Data de entrega", "Cliente", "Tipo do bolo"]
 
     for coisa in range(len(id)):
-        x.add_row([id[coisa], valor[coisa], data_entrega[coisa], nome_cliente[coisa], tipo_bolo[coisa]])
+        x.add_row([id[coisa], valor[coisa], data_entrega[coisa], nome_cliente[coisa], tipo_bolo[coisa]]) if id[coisa] != None else ''
     return x
 
 
