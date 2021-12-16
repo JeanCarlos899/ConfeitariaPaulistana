@@ -92,6 +92,7 @@ while True:
     if janela == dar_baixa_encomenda and evento == "Listar encomendas":
         listar_encomendas_atalho = Windows.janela_listar_encomendas()
         dar_baixa_encomenda.hide()
+        
     if janela == listar_encomendas_atalho and evento == sg.WIN_CLOSED or janela == listar_encomendas_atalho and evento == 'Voltar':
         listar_encomendas.hide()
         dar_baixa_encomenda.un_hide()
