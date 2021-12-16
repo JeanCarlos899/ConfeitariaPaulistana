@@ -66,3 +66,5 @@ while True:
     if janela == listar_encomendas and evento == sg.WIN_CLOSED or janela == listar_encomendas and evento == 'Voltar':
         listar_encomendas.hide()
         menu.un_hide()
+
+    # DAR BAIXA EM UMA ENCOMENDA
