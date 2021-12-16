@@ -3,7 +3,7 @@ from openpyxl.reader.excel import load_workbook
 from Scripts.windows import Windows 
 from Scripts.insert_dados import InsertDados
 from Scripts.new_index import get_new_index
-from Scripts.get_type_bolo import get_type_bolo
+from Scripts.get_type_bolo import GetTypeBolo
 
 menu, nova_encomenda, listar_encomendas, dar_baixa_encomenda, dados_cliente, confirmar_baixa, listar_encomendas_atalho = Windows.janela_principal(), None, None, None, None, None, None
 tipo_bolo = 0
@@ -78,9 +78,9 @@ while True:
         planilha = load_workbook("dados.xlsx")
         planilha_ativa = planilha.active
 
-        index_encomenda = int(valor["numero_encomenda"]) + 1
+        index_encomenda = int(valor["numero_encomenda"]) 
         peso_final = valor["peso_final"]
-        tipo_bolo = get_type_bolo(index_encomenda)
+        tipo_bolo = GetTypeBolo(index_encomenda).return_type_bolo()
         
         if tipo_bolo == "Aniversário":
             valor_bolo = float(peso_final) * 5
@@ -103,8 +103,8 @@ while True:
         menu.un_hide()
 
     if janela == confirmar_baixa and evento == 'Sim':
-        sg.popup(f"Encomenda {index_encomenda - 1} baixada com sucesso!")
-        planilha_ativa.delete_rows(index_encomenda)
+        sg.popup(f"Encomenda {index_encomenda} baixada com sucesso!")
+        planilha_ativa.delete_rows(index_encomenda + 1)
         planilha.save("dados.xlsx")
 
         get_new_index()

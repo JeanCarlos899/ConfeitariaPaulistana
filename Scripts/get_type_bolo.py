@@ -1,18 +1,17 @@
 from openpyxl import load_workbook
 
-def retornar_lista(coluna):
+class GetTypeBolo:
+    def __init__(self, index):
+        self.index = index
+    
+    def return_type_bolo(self):
         planilha = load_workbook("dados.xlsx")
         aba_ativa = planilha.active
         lista = []
-        for celula in aba_ativa[coluna]:
+        for celula in aba_ativa["E"]:
             valores = celula.value
-            lista.append(valores)
-        return list(lista)
+            lista.append(valores) if valores != "Tipo bolo" else None
+        
+        index_bolo = lista[int(self.index) - 1]
 
-lista_bolo = retornar_lista("E")
-lista_bolo.pop(0)
-
-def get_type_bolo(index):
-    index = index - 1
-    return str(lista_bolo[index])
-    
+        return index_bolo
