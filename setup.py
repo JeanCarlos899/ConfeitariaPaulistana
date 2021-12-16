@@ -1,7 +1,4 @@
-import pandas
 import PySimpleGUI as sg
-from openpyxl import Workbook, load_workbook
-from Scripts.xlsx_to_list import Xlsx_to_list
 from Scripts.windows import Windows 
 from Scripts.insert_dados import InsertDados
 
@@ -23,13 +20,15 @@ while True:
             menu.hide()
         elif evento == 'Listar encomendas':
             listar_encomendas = Windows.janela_listar_encomendas()
+            menu.hide()
         elif evento == 'Dar baixa encomenda':
             dar_baixa_encomenda = Windows.janela_baixa_encomenda()
+            menu.hide()
         elif evento == 'Sair':
             break
     
     # janela de nova encomenda
-    if janela == nova_encomenda and evento == sg.WIN_CLOSED or evento == 'Voltar':
+    if janela == nova_encomenda and evento == sg.WIN_CLOSED or janela == nova_encomenda and evento == 'Voltar':
         nova_encomenda.hide()
         menu.un_hide()
 
@@ -44,7 +43,7 @@ while True:
             dados_cliente = Windows.janela_dados_cliente()
 
     # janela de dados do cliente e inserir dados
-    if janela == dados_cliente and evento == sg.WIN_CLOSED or evento == 'Voltar':
+    if janela == dados_cliente and evento == sg.WIN_CLOSED or janela == dados_cliente and evento == 'Voltar':
         dados_cliente.hide()
         menu.un_hide()
         
@@ -64,3 +63,6 @@ while True:
             menu.un_hide()
             
     # LISTAR ENCOMENDAS
+    if janela == listar_encomendas and evento == sg.WIN_CLOSED or janela == listar_encomendas and evento == 'Voltar':
+        listar_encomendas.hide()
+        menu.un_hide()

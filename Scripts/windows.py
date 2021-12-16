@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
 import pandas as pd
+from Scripts.print_table import print_table
+
 class Windows:
     def janela_principal():
         sg.theme('Dark Blue 3')
@@ -26,7 +28,8 @@ class Windows:
     def janela_listar_encomendas():
         sg.theme('Dark Blue 3')
         layout = [
-            [sg.Text(pd.read_excel("dados.xlsx"), justification="center", font=("Helvetica", 15))],
+            [sg.Text("Lista de encomendas", font=("Helvetica", 15))],
+            [sg.Text(print_table(), font=("Courier New", 12))], #Fonte monoespaçada para ficar alinhado
             [sg.Button("Voltar", size=(100,2))],
         ]
         return sg.Window("Listar encomendas", layout=layout, finalize=True)
