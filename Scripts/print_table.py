@@ -15,17 +15,19 @@ def print_table():
     valor = retornar_lista("B")
     data_entrega = retornar_lista("C")
     nome_cliente = retornar_lista("D")
+    tipo_bolo = retornar_lista("E")
 
     id.pop(0)
     valor.pop(0)
     data_entrega.pop(0)
     nome_cliente.pop(0)
+    tipo_bolo.pop(0)
 
     x = PrettyTable()
-    x.field_names = ["ID", "Valor", "Data de entrega", "Nome do cliente"]
+    x.field_names = ["ID", "Valor R$", "Data de entrega", "Cliente", "Tipo do bolo"]
 
     for coisa in range(len(id)):
-        x.add_row([id[coisa], valor[coisa], data_entrega[coisa], nome_cliente[coisa]])
+        x.add_row([id[coisa], valor[coisa], data_entrega[coisa], nome_cliente[coisa], tipo_bolo[coisa]])
     return x
 
 
