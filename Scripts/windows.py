@@ -21,10 +21,23 @@ class Windows:
             [sg.Text("Nova encomenda", justification="center", font=("Helvetica", 15))],
             [sg.Checkbox("Bolo de aniversário", key="bolo_aniversario")],
             [sg.Checkbox("Bolo de casamento", key="bolo_casamento")],
+            [sg.Checkbox("Salgadinhos", key="salgadinhos")],
+            [sg.Text("Informações do pedido:")],
+            [sg.InputText(key="info_pedido", size=(115, 10))],
             [sg.Button("Confirmar", size=(100,2))],
             [sg.Button("Voltar", size=(100,2))],
         ]
         return sg.Window("Nova encomenda", layout=layout, finalize=True)
+
+    def janela_salgadinhos():
+        sg.theme("Dark Blue 3")
+        layout = [
+            [sg.Text("Salgadinhos", font=("Helvetica", 15))],
+            [sg.Checkbox("Tamanho mini:   ", key="mini"), sg.InputText(key="qtd_mini", size=(10,1))],
+            [sg.Checkbox("Tamanho normal", key="normal"), sg.InputText(key="qtd_normal", size=(10,1))],
+            [sg.Button("Voltar", size=(30,2)), sg.Button("Confirmar", size=(30,2))],
+        ]
+        return sg.Window("Salgadinhos", layout=layout, finalize=True)
 
     def janela_listar_encomendas():
         sg.theme('Dark Blue 3')

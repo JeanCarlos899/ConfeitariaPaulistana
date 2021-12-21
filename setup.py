@@ -5,7 +5,7 @@ from Scripts.insert_dados import InsertDados
 from Scripts.new_index import get_new_index
 from Scripts.get_type_bolo import GetTypeBolo
 
-menu, nova_encomenda, listar_encomendas, dar_baixa_encomenda, dados_cliente, confirmar_baixa, listar_encomendas_atalho = Windows.janela_principal(), None, None, None, None, None, None
+menu, nova_encomenda, listar_encomendas, dar_baixa_encomenda, dados_cliente, confirmar_baixa, listar_encomendas_atalho, salgadinhos = Windows.janela_principal(), None, None, None, None, None, None, None
 tipo_bolo = 0
 
 while True:
@@ -43,11 +43,19 @@ while True:
             tipo_bolo = 2
             nova_encomenda.hide()
             dados_cliente = Windows.janela_dados_cliente()
+    if janela == nova_encomenda and evento == "Confirmar":
+        if valor['salgadinhos']:
+            salgadinhos = Windows.janela_salgadinhos()
+    
+    # janela de salgadinhos
+    if janela == salgadinhos and evento == sg.WIN_CLOSED or janela == salgadinhos and evento == 'Voltar':
+        salgadinhos.hide()
+        nova_encomenda.un_hide()
 
     # janela de dados do cliente e inserir dados
     if janela == dados_cliente and evento == sg.WIN_CLOSED or janela == dados_cliente and evento == 'Voltar':
         dados_cliente.hide()
-        menu.un_hide()
+        nova_encomenda.un_hide()
         
     if janela == dados_cliente and evento == 'Confirmar':
         if tipo_bolo == 1:
