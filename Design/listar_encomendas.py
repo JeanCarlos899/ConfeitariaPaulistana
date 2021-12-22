@@ -22,7 +22,7 @@ class PrintTable:
 
         x.field_names = [
             "ID", 
-            "Nome Cliente", 
+            "            Nome Cliente            ", 
             "Data Entrega",
             "Bolo Aniversário",
             "Bolo Casamento",

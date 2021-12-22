@@ -8,7 +8,7 @@ class NovaEncomenda:
 
             [sg.Text("Nome do cliente:")],
             [sg.InputText(key="nome_cliente", size=(115,2))],
-            [sg.Text("Data de entrega:")],
+            [sg.Text("Data de entrega dd/mm/aaaa:")],
             [sg.InputText(key="data_entrega", size=(115,2))],
             [sg.Text("", font=("Helvetica", 1))],
             

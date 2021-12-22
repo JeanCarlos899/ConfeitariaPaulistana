@@ -10,14 +10,14 @@ while True:
         ws = wb.active
         ws.title = "Dados"
         ws["A1"] = "ID"
-        ws["B1"] = "           Nome cliente           "
+        ws["B1"] = "Nome cliente"
         ws["C1"] = "Data de entrega"
         ws["D1"] = "Bolo de aniversário"
         ws["E1"] = "Bolo de casamento"
         ws["F1"] = "Salgado mini"
         ws["G1"] = "Salgado normal"
         ws["H1"] = "Valor final"
-        ws["J1"] = "Status"
+        ws["I1"] = "Status"
         wb.save("dados.xlsx")
         continue
 
@@ -47,6 +47,6 @@ class InsertDados:
         planilha_ativa[f"E{index+1}"] = int(self.qtd_casamento)
         planilha_ativa[f"F{index+1}"] = int(self.qtd_salgadinho_mini)
         planilha_ativa[f"G{index+1}"] = int(self.qtd_salgadinho_normal)
-        planilha_ativa[f"J{index+1}"] = self.status
+        planilha_ativa[f"I{index+1}"] = self.status
         
         dados.save("dados.xlsx")
