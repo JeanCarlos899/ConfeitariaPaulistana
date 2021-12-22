@@ -1,30 +1,42 @@
 import PySimpleGUI as sg
 from openpyxl.reader.excel import load_workbook
-from Scripts.windows import Windows 
+
 from Scripts.insert_dados import InsertDados
 from Scripts.new_index import get_new_index
 from Scripts.get_type_bolo import GetTypeBolo
 
-menu, nova_encomenda, listar_encomendas, dar_baixa_encomenda, dados_cliente, confirmar_baixa, listar_encomendas_atalho, salgadinhos = Windows.janela_principal(), None, None, None, None, None, None, None
+from Design.menu_principal import MenuPrincipal
+from Design.nova_encomenda import NovaEncomenda
+from Design.listar_encomendas import ListarEncomendas
+from Design.baixa_encomenda import BaixaEncomenda
+
+menu, nova_encomenda = MenuPrincipal.menu_principal(), None
+listar_encomendas, dar_baixa_encomenda, dados_cliente = None, None, None
+confirmar_baixa, listar_encomendas_atalho, salgadinhos = None, None, None
+
 tipo_bolo = 0
 
 while True:
     janela, evento, valor = sg.read_all_windows()
 
-    # INSERÇÃO DE CADASTROS DE CLIENTES
+    ##########################################################################
+    ##########################################################################
+    ###########################JANELA PRINCIPAL###############################
+    ##########################################################################
+    ##########################################################################
 
-    # janela principal
     if janela == menu and evento == sg.WIN_CLOSED:
         break
+
     if janela == menu:
         if evento == 'Nova encomenda':
-            nova_encomenda = Windows.janela_nova_encomenda()
+            nova_encomenda = NovaEncomenda.nova_encomenda()
             menu.hide()
         elif evento == 'Listar encomendas':
-            listar_encomendas = Windows.janela_listar_encomendas()
+            listar_encomendas = ListarEncomendas.listar_encomendas()
             menu.hide()
         elif evento == 'Dar baixa em encomenda':
-            dar_baixa_encomenda = Windows.janela_baixa_encomenda()
+            dar_baixa_encomenda = BaixaEncomenda.baixa_encomenda()
             menu.hide()
         elif evento == 'Sair':
             break
@@ -38,14 +50,15 @@ while True:
         if valor['bolo_aniversario']:
             tipo_bolo = 1
             nova_encomenda.hide()
-            dados_cliente = Windows.janela_dados_cliente()
+            dados_cliente = NovaEncomenda.dados_encomenda()
         elif valor['bolo_casamento']:
             tipo_bolo = 2
             nova_encomenda.hide()
-            dados_cliente = Windows.janela_dados_cliente()
+            dados_cliente = NovaEncomenda.dados_encomenda()
+
     if janela == nova_encomenda and evento == "Confirmar":
         if valor['salgadinhos']:
-            salgadinhos = Windows.janela_salgadinhos()
+            salgadinhos = NovaEncomenda.salgadinhos()
     
     # janela de salgadinhos
     if janela == salgadinhos and evento == sg.WIN_CLOSED or janela == salgadinhos and evento == 'Voltar':
@@ -72,12 +85,22 @@ while True:
             dados_cliente.hide()
             menu.un_hide()
             
-    # LISTAR ENCOMENDAS
+    ##########################################################################
+    ##########################################################################
+    ###########################LISTAR ENCOMENDAS##############################
+    ##########################################################################
+    ##########################################################################
+
     if janela == listar_encomendas and evento == sg.WIN_CLOSED or janela == listar_encomendas and evento == 'Voltar':
         listar_encomendas.hide()
         menu.un_hide()
 
-    # DAR BAIXA EM UMA ENCOMENDA
+    ##########################################################################
+    ##########################################################################
+    ###########################BAIXA EM ENCOMENDA#############################
+    ##########################################################################
+    ##########################################################################
+
     if janela == dar_baixa_encomenda and evento == sg.WIN_CLOSED or janela == dar_baixa_encomenda and evento == 'Voltar':
         dar_baixa_encomenda.hide()
         menu.un_hide()
@@ -95,10 +118,11 @@ while True:
         elif tipo_bolo == "Casamento":
             valor_bolo = float(peso_final) * 10
 
-        confirmar_baixa = Windows.janela_confirmar_baixa(valor_bolo)
+        confirmar_baixa = BaixaEncomenda.confirmar_baixa(valor_bolo)
     
+    # Atalho para ver as encomendas
     if janela == dar_baixa_encomenda and evento == "Listar encomendas":
-        listar_encomendas_atalho = Windows.janela_listar_encomendas()
+        listar_encomendas_atalho = ListarEncomendas.listar_encomendas()
         dar_baixa_encomenda.hide()
         
     if janela == listar_encomendas_atalho and evento == sg.WIN_CLOSED or janela == listar_encomendas_atalho and evento == 'Voltar':
