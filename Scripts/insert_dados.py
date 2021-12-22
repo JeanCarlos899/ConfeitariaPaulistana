@@ -10,19 +10,28 @@ while True:
         ws = wb.active
         ws.title = "Dados"
         ws["A1"] = "ID"
-        ws["B1"] = "Valor aproximado"
+        ws["B1"] = "Nome cliente"
         ws["C1"] = "Data de entrega"
-        ws["D1"] = "Nome do cliente"
-        ws["E1"] = "Tipo bolo"
+        ws["D1"] = "Bolo de aniversário"
+        ws["E1"] = "Bolo de casamento"
+        ws["F1"] = "Salgado mini"
+        ws["G1"] = "Salgado normal"
+        ws["H1"] = "Valor aproximado"
+        ws["I1"] = "Valor final"
+        ws["J1"] = "Status"
         wb.save("dados.xlsx")
         continue
 
 class InsertDados:
-    def __init__(self, valor_bolo, data_entrega, nome_cliente, tipo_bolo):
-        self.valor_bolo = valor_bolo
-        self.data_entrega = data_entrega
+    def __init__(self, nome_cliente, data_entrega, qtd_aniversario = 0, qtd_casamento = 0, qtd_salgadinho_mini = 0, qtd_salgadinho_normal = 0, status = "Pendente"):
         self.nome_cliente = nome_cliente
-        self.tipo_bolo = tipo_bolo
+        self.data_entrega = data_entrega
+        self.qtd_aniversario = qtd_aniversario
+        self.qtd_casamento = qtd_casamento
+        self.qtd_salgadinho_mini = qtd_salgadinho_mini
+        self.qtd_salgadinho_normal = qtd_salgadinho_normal
+        self.status = status
+        
     def inserir_dados(self):
         dados = load_workbook("dados.xlsx")
         planilha_ativa = dados.active
@@ -33,12 +42,12 @@ class InsertDados:
             index = 1
             
         planilha_ativa[f"A{index+1}"] = index
-        planilha_ativa[f"B{index+1}"] = self.valor_bolo
+        planilha_ativa[f"B{index+1}"] = self.nome_cliente
         planilha_ativa[f"C{index+1}"] = self.data_entrega
-        planilha_ativa[f"D{index+1}"] = self.nome_cliente
-        if self.tipo_bolo == 1:
-            planilha_ativa[f"E{index+1}"] = "Aniversário"
-        else: 
-            planilha_ativa[f"E{index+1}"] = "Casamento"
+        planilha_ativa[f"D{index+1}"] = self.qtd_aniversario
+        planilha_ativa[f"E{index+1}"] = self.qtd_casamento
+        planilha_ativa[f"F{index+1}"] = self.qtd_salgadinho_mini
+        planilha_ativa[f"G{index+1}"] = self.qtd_salgadinho_normal
+        planilha_ativa[f"H{index+1}"] = self.status
         
         dados.save("dados.xlsx")
