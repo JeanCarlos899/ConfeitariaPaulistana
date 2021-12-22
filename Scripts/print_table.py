@@ -26,8 +26,8 @@ def print_table():
     x = PrettyTable()
     x.field_names = ["ID", "Valor R$", "Data de entrega", "Cliente", "Tipo do bolo"]
 
-    for coisa in range(len(id)):
-        x.add_row([id[coisa], valor[coisa], data_entrega[coisa], nome_cliente[coisa], tipo_bolo[coisa]]) if id[coisa] != None else ''
+    for valor in range(len(id)):
+        x.add_row([id[valor], valor[valor], data_entrega[valor], nome_cliente[valor], tipo_bolo[valor]]) if id[valor] != None else ''
     return x
 
 
