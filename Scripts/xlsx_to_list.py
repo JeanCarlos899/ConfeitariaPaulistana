@@ -20,6 +20,7 @@ class Xlsx_to_list:
         lista = []
         for celula in aba_ativa[self.coluna]:
             valores = celula.value
-            if valores != None and valores != "":
-                    lista.append(valores)
+            if valores == None:
+                valores = " "
+            lista.append(valores)
         return list(lista)

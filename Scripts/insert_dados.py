@@ -10,14 +10,13 @@ while True:
         ws = wb.active
         ws.title = "Dados"
         ws["A1"] = "ID"
-        ws["B1"] = "Nome cliente"
+        ws["B1"] = "           Nome cliente           "
         ws["C1"] = "Data de entrega"
         ws["D1"] = "Bolo de aniversário"
         ws["E1"] = "Bolo de casamento"
         ws["F1"] = "Salgado mini"
         ws["G1"] = "Salgado normal"
-        ws["H1"] = "Valor aproximado"
-        ws["I1"] = "Valor final"
+        ws["H1"] = "Valor final"
         ws["J1"] = "Status"
         wb.save("dados.xlsx")
         continue
@@ -44,10 +43,10 @@ class InsertDados:
         planilha_ativa[f"A{index+1}"] = index
         planilha_ativa[f"B{index+1}"] = self.nome_cliente
         planilha_ativa[f"C{index+1}"] = self.data_entrega
-        planilha_ativa[f"D{index+1}"] = self.qtd_aniversario
-        planilha_ativa[f"E{index+1}"] = self.qtd_casamento
-        planilha_ativa[f"F{index+1}"] = self.qtd_salgadinho_mini
-        planilha_ativa[f"G{index+1}"] = self.qtd_salgadinho_normal
-        planilha_ativa[f"H{index+1}"] = self.status
+        planilha_ativa[f"D{index+1}"] = int(self.qtd_aniversario)
+        planilha_ativa[f"E{index+1}"] = int(self.qtd_casamento)
+        planilha_ativa[f"F{index+1}"] = int(self.qtd_salgadinho_mini)
+        planilha_ativa[f"G{index+1}"] = int(self.qtd_salgadinho_normal)
+        planilha_ativa[f"J{index+1}"] = self.status
         
         dados.save("dados.xlsx")

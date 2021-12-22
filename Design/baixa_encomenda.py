@@ -1,9 +1,11 @@
 import PySimpleGUI as sg
+from Design.listar_encomendas import PrintTable
 
 class BaixaEncomenda:
     def baixa_encomenda():
         sg.theme('Dark Blue 3')
         layout = [
+            [sg.Text(PrintTable.imprimir_tabela("Pendente"), font=("Courier New", 10))],
             [sg.Text("Informe o número da encomenda: ")],
             [sg.InputText(key="numero_encomenda", size=(115,2))],
             [sg.Text("Informe o peso final da encomenda:")],
