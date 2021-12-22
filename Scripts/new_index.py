@@ -3,7 +3,7 @@ from openpyxl import load_workbook
 
 
 def get_new_index():
-    indices = Xlsx_to_list("A").toList()
+    indices = Xlsx_to_list("A").toListNum()
     qtd_indices = len(indices)
     lista_indices = list(range(1, qtd_indices+1))
 

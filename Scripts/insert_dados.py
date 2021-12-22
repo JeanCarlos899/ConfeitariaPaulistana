@@ -37,7 +37,7 @@ class InsertDados:
         planilha_ativa = dados.active
 
         try:
-            index = max(Xlsx_to_list("A").toList()) + 1
+            index = max(Xlsx_to_list("A").toListNum()) + 1
         except:
             index = 1
             
