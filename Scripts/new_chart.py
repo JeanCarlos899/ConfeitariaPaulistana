@@ -14,5 +14,38 @@ def graficoPizza():
     plt.axis('equal')
     plt.show()
 
-graficoPizza()
+def graficoBarras():
+    data = arquivo['Data de entrega']
+    jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    for i in range(len(data)):
+        if data[i].month == 1:
+            jan += 1
+        elif data[i].month == 2:
+            fev += 1
+        elif data[i].month == 3:
+            mar += 1
+        elif data[i].month == 4:
+            abr += 1
+        elif data[i].month == 5:
+            mai += 1
+        elif data[i].month == 6:
+            jun += 1
+        elif data[i].month == 7:
+            jul += 1
+        elif data[i].month == 8:
+            ago += 1
+        elif data[i].month == 9:
+            set += 1
+        elif data[i].month == 10:
+            out += 1
+        elif data[i].month == 11:
+            nov += 1
+        elif data[i].month == 12:
+            dez += 1
+    meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+    valores = [jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez]
+    plt.title('Quantidade de pedidos por mês')
+    plt.bar(meses, valores)
+    plt.show()
 
+graficoBarras()
