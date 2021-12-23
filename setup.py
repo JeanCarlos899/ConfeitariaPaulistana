@@ -1,6 +1,4 @@
-from tkinter.constants import N
 import PySimpleGUI as sg
-from openpyxl.reader.excel import load_workbook
 from Scripts.insert_dados import InsertDados
 from Scripts.price_end import PrecoFinal
 
@@ -108,4 +106,3 @@ while True:
     if janela == popup_baixa and evento == sg.WIN_CLOSED or janela == popup_baixa and evento == 'Ok':
         popup_baixa.hide()
         menu.un_hide()
-        
