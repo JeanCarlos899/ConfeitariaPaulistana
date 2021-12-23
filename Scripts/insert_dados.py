@@ -16,9 +16,8 @@ while True:
         ws["E1"] = "Bolo de casamento"
         ws["F1"] = "Salgado mini"
         ws["G1"] = "Salgado normal"
-        ws["H1"] = "Valor aproximado"
-        ws["I1"] = "Valor final"
-        ws["J1"] = "Status"
+        ws["H1"] = "Valor final"
+        ws["I1"] = "Status"
         wb.save("dados.xlsx")
         continue
 
@@ -37,17 +36,17 @@ class InsertDados:
         planilha_ativa = dados.active
 
         try:
-            index = max(Xlsx_to_list("A").toList()) + 1
+            index = max(Xlsx_to_list("A").toListNum()) + 1
         except:
             index = 1
             
         planilha_ativa[f"A{index+1}"] = index
         planilha_ativa[f"B{index+1}"] = self.nome_cliente
         planilha_ativa[f"C{index+1}"] = self.data_entrega
-        planilha_ativa[f"D{index+1}"] = self.qtd_aniversario
-        planilha_ativa[f"E{index+1}"] = self.qtd_casamento
-        planilha_ativa[f"F{index+1}"] = self.qtd_salgadinho_mini
-        planilha_ativa[f"G{index+1}"] = self.qtd_salgadinho_normal
-        planilha_ativa[f"H{index+1}"] = self.status
+        planilha_ativa[f"D{index+1}"] = int(self.qtd_aniversario)
+        planilha_ativa[f"E{index+1}"] = int(self.qtd_casamento)
+        planilha_ativa[f"F{index+1}"] = int(self.qtd_salgadinho_mini)
+        planilha_ativa[f"G{index+1}"] = int(self.qtd_salgadinho_normal)
+        planilha_ativa[f"I{index+1}"] = self.status
         
         dados.save("dados.xlsx")
