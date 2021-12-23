@@ -2,6 +2,7 @@ from tkinter.constants import N
 import PySimpleGUI as sg
 from openpyxl.reader.excel import load_workbook
 from Scripts.insert_dados import InsertDados
+from Scripts.price_end import PrecoFinal
 
 from Design.menu_principal import MenuPrincipal
 from Design.nova_encomenda import NovaEncomenda
@@ -10,7 +11,7 @@ from Design.baixa_encomenda import BaixaEncomenda
 
 menu, nova_encomenda, lista_encomenda = MenuPrincipal.menu_principal(), None, None
 menu_encomenda, dar_baixa_encomenda, dados_cliente = None, None, None
-confirmar_baixa, menu_encomenda_atalho, salgadinhos = None, None, None
+popup_baixa, menu_encomenda_atalho, salgadinhos = None, None, None
 
 tipo_bolo = 0
 
@@ -80,7 +81,7 @@ while True:
         menu_encomenda.hide()
     
     if janela == menu_encomenda and evento == 'Encomendas fechadas':
-        lista_encomenda = ListarEncomendas.listar_encomendas("Concluída")
+        lista_encomenda = ListarEncomendas.listar_encomendas("Concluído")
         menu_encomenda.hide()
 
     ##########################################################################
@@ -92,4 +93,18 @@ while True:
     if janela == dar_baixa_encomenda and evento == sg.WIN_CLOSED or janela == dar_baixa_encomenda and evento == 'Voltar':
         dar_baixa_encomenda.hide()
         menu.un_hide()
+    
+    if janela == dar_baixa_encomenda and evento == 'Confirmar':
+        id = valor['id']
+        kg_aniversario = valor['kg_bolo_aniversario']
+        kg_casamento = valor['kg_bolo_casamento']
 
+        preco_final = PrecoFinal(id, kg_aniversario, kg_casamento).modificar_status()
+        
+        dar_baixa_encomenda.hide()
+        menu.un_hide()
+        popup_baixa = BaixaEncomenda.popup_baixa(preco_final)
+
+    if janela == popup_baixa and evento == sg.WIN_CLOSED or janela == popup_baixa and evento == 'Ok':
+        popup_baixa.hide()
+        menu.un_hide()
