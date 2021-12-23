@@ -100,7 +100,7 @@ while True:
         kg_casamento = valor['kg_bolo_casamento']
 
         preco_final = PrecoFinal(id, kg_aniversario, kg_casamento).modificar_status()
-        
+
         dar_baixa_encomenda.hide()
         menu.un_hide()
         popup_baixa = BaixaEncomenda.popup_baixa(preco_final)
@@ -108,3 +108,4 @@ while True:
     if janela == popup_baixa and evento == sg.WIN_CLOSED or janela == popup_baixa and evento == 'Ok':
         popup_baixa.hide()
         menu.un_hide()
+        
