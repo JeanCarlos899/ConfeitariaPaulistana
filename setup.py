@@ -11,7 +11,6 @@ menu, nova_encomenda, lista_encomenda = MenuPrincipal.menu_principal(), None, No
 menu_encomenda, dar_baixa_encomenda, dados_cliente = None, None, None
 popup_baixa, menu_encomenda_atalho, salgadinhos = None, None, None
 
-tipo_bolo = 0
 
 while True:
     janela, evento, valor = sg.read_all_windows()
@@ -22,19 +21,22 @@ while True:
     ##########################################################################
     ##########################################################################
 
+    #verificar se F1 foi pressionado
+    
+
     if janela == menu and evento == sg.WIN_CLOSED:
         break
 
     if janela == menu:
         if evento == 'Nova encomenda':
             nova_encomenda = NovaEncomenda.nova_encomenda()
-            menu.hide()
+            nova_encomenda.un_hide()
         elif evento == 'Listar encomendas':
             menu_encomenda = ListarEncomendas.menu_encomendas()
-            menu.hide()
+
         elif evento == 'Dar baixa em encomenda':
             dar_baixa_encomenda = BaixaEncomenda.baixa_encomenda()
-            menu.hide()
+
         elif evento == 'Sair':
             break
     ##########################################################################
@@ -44,7 +46,7 @@ while True:
     ##########################################################################
     if janela == nova_encomenda and evento == sg.WIN_CLOSED or janela == nova_encomenda and evento == 'Voltar':
         nova_encomenda.hide()
-        menu.un_hide()
+
 
     if janela == nova_encomenda and evento == 'Confirmar':
         InsertDados(
@@ -58,7 +60,7 @@ while True:
 
         sg.popup("Encomenda cadastrada com sucesso!")
         nova_encomenda.hide()
-        menu.un_hide()
+
         
     ##########################################################################
     ##########################################################################
@@ -68,7 +70,7 @@ while True:
 
     if janela == menu_encomenda and evento == sg.WIN_CLOSED or janela == menu_encomenda and evento == 'Voltar':
         menu_encomenda.hide()
-        menu.un_hide()
+
 
     if janela == lista_encomenda and evento == sg.WIN_CLOSED or janela == lista_encomenda and evento == 'Voltar':
         lista_encomenda.hide()
@@ -90,7 +92,7 @@ while True:
 
     if janela == dar_baixa_encomenda and evento == sg.WIN_CLOSED or janela == dar_baixa_encomenda and evento == 'Voltar':
         dar_baixa_encomenda.hide()
-        menu.un_hide()
+
     
     if janela == dar_baixa_encomenda and evento == 'Confirmar':
         id = valor['id']
@@ -100,9 +102,11 @@ while True:
         preco_final = PrecoFinal(id, kg_aniversario, kg_casamento).modificar_status()
 
         dar_baixa_encomenda.hide()
-        menu.un_hide()
+
         popup_baixa = BaixaEncomenda.popup_baixa(preco_final)
 
     if janela == popup_baixa and evento == sg.WIN_CLOSED or janela == popup_baixa and evento == 'Ok':
         popup_baixa.hide()
-        menu.un_hide()
+
+
+
