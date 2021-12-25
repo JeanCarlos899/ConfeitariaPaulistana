@@ -31,6 +31,7 @@ while True:
         if evento == 'Nova encomenda':
             nova_encomenda = NovaEncomenda.nova_encomenda()
             nova_encomenda.un_hide()
+            
         elif evento == 'Listar encomendas':
             menu_encomenda = ListarEncomendas.menu_encomendas()
 
