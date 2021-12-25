@@ -52,11 +52,36 @@ def graficoBarrasPedidos():
     plt.bar(meses, valores)
     plt.show()
 
-graficoBarrasPedidos()
+def graficoTipoBolo():
+    bolosA = arquivo['Bolo de aniversário']
+    bolosA = bolosA.sum()
+
+    bolosC = arquivo['Bolo de casamento']
+    bolosC = bolosC.sum()
+
+    plt.title('Quantidade de bolos por tipo')
+    plt.pie([bolosA, bolosC], labels=['Bolo de aniversário','Bolo de casamento'], autopct='%1.1f%%')
+    plt.axis('equal')
+    plt.show()
+
+def graficoTipoSalgados():
+    salgadosM = arquivo['Salgado mini']
+    salgadosM = salgadosM.sum()
+
+    salgadoN = arquivo['Salgado normal']
+    salgadoN = salgadoN.sum()
+
+    plt.title('Quantidade de salgados por tipo')
+    plt.pie([salgadosM, salgadoN], labels=['Salgado mini','Salgado normal'], autopct='%1.1f%%')
+    plt.axis('equal')
+    plt.show()
+
+def lucrototal():
+    lucro = arquivo['Valor final']
+    lucro = lucro.sum()
+    return lucro
 
 
-            
-            
 
 
 
