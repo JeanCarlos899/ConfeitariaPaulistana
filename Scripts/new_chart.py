@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
+
 arquivo = pd.read_excel('dados.xlsx')
 
 def graficoPizza():
@@ -14,8 +15,10 @@ def graficoPizza():
     plt.axis('equal')
     plt.show()
 
-def graficoBarras():
+def graficoBarrasPedidos():
     data = arquivo['Data de entrega']
+    data = pd.to_datetime(data)
+
     jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     for i in range(len(data)):
         if data[i].month == 1:
@@ -42,10 +45,19 @@ def graficoBarras():
             nov += 1
         elif data[i].month == 12:
             dez += 1
+
     meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
     valores = [jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez]
     plt.title('Quantidade de pedidos por mês')
     plt.bar(meses, valores)
     plt.show()
 
-graficoBarras()
+graficoBarrasPedidos()
+
+
+            
+            
+
+
+
+    
