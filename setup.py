@@ -109,4 +109,3 @@ while True:
         popup_baixa.hide()
 
 
-

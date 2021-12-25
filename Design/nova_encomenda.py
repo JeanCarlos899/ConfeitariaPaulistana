@@ -4,31 +4,33 @@ class NovaEncomenda:
     def nova_encomenda():
         sg.theme('Dark Blue 3')
         layout = [
-            [sg.Text("Nova encomenda", justification="center", font=("Helvetica", 15))],
+            [sg.Frame('Dados do cliente e entrega (obrigatório)',
+                [
+                    [sg.Text("Nome do cliente:")],
+                    [sg.InputText(key="nome_cliente", size=(115,2))],
+                    [sg.Text("Data de entrega dd/mm/aaaa:")],
+                    [sg.InputText(key="data_entrega", size=(115,2))],
+                    [sg.Text("Hora de entrega: exemplo(10:53):")],
+                    [sg.InputText(key="hora_entrega", size=(115,2))],
+                ]
+            )],
+            [sg.Frame('Dados do pedido (obrigatório)',
+                [
+                    [sg.Frame('Bolos', 
+                        [
+                            [sg.Text("Bolo de aniversário:"), sg.InputText(key="bolo_aniversario")],
+                            [sg.Text("Bolo de casamento:"), sg.InputText(key="bolo_casamento")],
+                        ]    
+                    )],
 
-            [sg.Text("Nome do cliente:")],
-            [sg.InputText(key="nome_cliente", size=(115,2))],
-            [sg.Text("Data de entrega dd/mm/aaaa:")],
-            [sg.InputText(key="data_entrega", size=(115,2))],
-            [sg.Text("", font=("Helvetica", 1))],
-            
-            [sg.Text("Tipo                                 Quantidade")],
-
-            [sg.Text("Bolos:", font=("Helvetica", 14))],
-            [sg.Text("Bolo de aniversário", font=("Helvetica", 11)), sg.Text("    ", font=("Helvetica", 2)), sg.InputText(key="bolo_aniversario", default_text=0 , size=(10,1))],
-            [sg.Text("Bolo de casamento", font=("Helvetica", 11)), sg.Text("  ", font=("Helvetica", 2)), sg.InputText(key="bolo_casamento", default_text=0, size=(10,1))],   
-        
-            [sg.Text("Salgadinhos:", font=("Helvetica", 14))],
-            [
-                sg.Text("Tamanho mini", font=("Helvetica", 11)),
-                sg.Text("                 ", font=("Helvetica", 5)),
-                sg.InputText(key="qtd_mini", size=(10,1), default_text=0),
-            ],
-            [
-                sg.Text("Tamanho normal", font=("Helvetica", 11)),
-                sg.Text("        ", font=("Helvetica", 5)),
-                sg.InputText(key="qtd_normal", size=(10,1), default_text=0)
-            ],
+                    [sg.Frame('Salgadinhos', 
+                        [
+                            [sg.Text("Mini salgadinho:"), sg.InputText(key="qtd_mini")],
+                            [sg.Text("Salgadinho normal:"), sg.InputText(key="qtd_normal")],
+                        ]    
+                    )],
+                ]
+            )],
 
             [sg.Text("Informações complementares do pedido:")],
             [sg.InputText(key="info_pedido", size=(115, 10))],
