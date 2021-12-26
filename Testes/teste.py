@@ -1,23 +1,14 @@
-import PySimpleGUI as sg 
-from Scripts.xlsx_to_list import Xlsx_to_list
- 
+# from openpyxl import load_workbook
+import PySimpleGUI as sg
+
+
+import PySimpleGUI as sg
+   
 class ListarEncomendas:
-    def valores_tabela():
-        lista = []
-
-        id = Xlsx_to_list("A").toListNum()
-        nome = Xlsx_to_list("B").toListStr()
-        data_entrega = Xlsx_to_list("C").toListStr()
-        hora_entrega = Xlsx_to_list("D").toListStr()
-
-        for valor in range(len(id)):
-            lista.append([id[valor], nome[valor], data_entrega[valor], hora_entrega[valor]])
-        return lista
-
     def listar_encomendas():
         sg.theme('Dark Blue 3')
 
-        data_values = ListarEncomendas.valores_tabela()
+        data_values = [['1', 'Jean Carlos', '20/20/2020', '10:45'], ['2', 'Carlos', '20/20/0220', '10:20']]
         data_headings = ['ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
         data_cols_width = [5, 40, 20, 18]
 
@@ -55,3 +46,13 @@ class ListarEncomendas:
             )]
         ]
         return sg.Window("Listar encomendas", layout=layout, finalize=True, size=(800, 490))
+
+if __name__ == "__main__":
+    janela = ListarEncomendas.listar_encomendas()
+
+    while True:
+        janela, evento, valor = sg.read_all_windows()
+        if evento == sg.WIN_CLOSED:
+            break
+
+

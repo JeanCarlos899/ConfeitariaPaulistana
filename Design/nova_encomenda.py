@@ -11,7 +11,7 @@ class NovaEncomenda:
                     [sg.Text("Data de entrega dd/mm/aaaa:")],
                     [sg.InputText(key="data_entrega", size=(115,2))],
                     [sg.Text("Hora de entrega:")],
-                    [sg.InputText(key="hora_entrega", size=(115,2), default_text="00:00")],
+                    [sg.InputText(key="horario_entrega", size=(115,2), default_text="00:00")],
                 ], size=(800, 180)
             )],
             [
@@ -21,8 +21,8 @@ class NovaEncomenda:
                             [
                                 [sg.Text("Bolo de aniversário:"), sg.Text("   ", font=(None, 1)), sg.InputText(key="bolo_aniversario", size=(100,1), default_text=0)],
                                 [sg.Text("Bolo de casamento:"), sg.Text("", font=(None, 1)), sg.InputText(key="bolo_casamento", size=(100,1), default_text=0)],
-                            ], size=(480, 80)    
-                        )],
+                            ], size=(480, 80))
+                        ],
 
                         [sg.Frame('Salgadinhos', 
                             [

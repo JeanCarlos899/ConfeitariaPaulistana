@@ -9,7 +9,7 @@ from Design.baixa_encomenda import BaixaEncomenda
 
 menu, nova_encomenda, lista_encomenda = MenuPrincipal.menu_principal(), None, None
 menu_encomenda, dar_baixa_encomenda, dados_cliente = None, None, None
-popup_baixa, menu_encomenda_atalho, salgadinhos = None, None, None
+popup_baixa, salgadinhos = None, None
 
 
 while True:
@@ -33,7 +33,7 @@ while True:
             nova_encomenda.un_hide()
             
         elif evento == 'Listar encomendas':
-            menu_encomenda = ListarEncomendas.menu_encomendas()
+            menu_encomenda = ListarEncomendas.listar_encomendas()
 
         elif evento == 'Dar baixa em encomenda':
             dar_baixa_encomenda = BaixaEncomenda.baixa_encomenda()
@@ -51,12 +51,14 @@ while True:
 
     if janela == nova_encomenda and evento == 'Confirmar':
         InsertDados(
-            valor["nome_cliente"], 
-            valor["data_entrega"],
-            valor["bolo_aniversario"],
-            valor["bolo_casamento"],
-            valor["qtd_mini"],
-            valor["qtd_normal"],
+            str(valor["nome_cliente"]), 
+            str(valor["data_entrega"]),
+            str(valor["horario_entrega"]),
+            int(valor["bolo_aniversario"]),
+            int(valor["bolo_casamento"]),
+            int(valor["qtd_mini"]),
+            int(valor["qtd_normal"]),
+            str(valor["info_complementares"])
         ).inserir_dados()
 
         sg.popup("Encomenda cadastrada com sucesso!")
@@ -69,21 +71,7 @@ while True:
     ##########################################################################
     ##########################################################################
 
-    if janela == menu_encomenda and evento == sg.WIN_CLOSED or janela == menu_encomenda and evento == 'Voltar':
-        menu_encomenda.hide()
-
-
-    if janela == lista_encomenda and evento == sg.WIN_CLOSED or janela == lista_encomenda and evento == 'Voltar':
-        lista_encomenda.hide()
-        menu_encomenda.un_hide()
     
-    if janela == menu_encomenda and evento == 'Encomendas em aberto':
-        lista_encomenda = ListarEncomendas.listar_encomendas("Pendente")
-        menu_encomenda.hide()
-    
-    if janela == menu_encomenda and evento == 'Encomendas fechadas':
-        lista_encomenda = ListarEncomendas.listar_encomendas("Concluído")
-        menu_encomenda.hide()
 
     ##########################################################################
     ##########################################################################

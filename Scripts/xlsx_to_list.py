@@ -23,4 +23,6 @@ class Xlsx_to_list:
             if valores == None:
                 valores = " "
             lista.append(valores)
+        lista.pop(0)
         return list(lista)
+

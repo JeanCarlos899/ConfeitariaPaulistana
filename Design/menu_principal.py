@@ -23,7 +23,7 @@ class MenuPrincipal:
                 ], border_width=2, background_color="#EEAD2D", size=(1366, 115), pad=(0,0), element_justification="left")
             ],
         
-            [sg.Image(filename="Design/Images/logo.png", size=(1366, 500))],
+            [sg.Image(filename="Design/Images/logo.png", size=(1366, 500), key="logo")],
 
             [
                 sg.Text("Um produto desenvolvido por JD technology® e licenciado para Confeitaria Paulistana.\nTelefone para suporte: 0800-000-1234\nsuporte@jdtechnology.com.br", 
