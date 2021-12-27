@@ -5,11 +5,38 @@ except ImportError:
     pass
  
 class ListarEncomendas:
+    def get_dados_pedido(x):
+        bolo_aniversario = Xlsx_to_list("E").toListStr()
+        bolo_casamento = Xlsx_to_list("F").toListStr()
+        salgado_mini = Xlsx_to_list("G").toListStr()
+        salgado_normal = Xlsx_to_list("H").toListStr()
+        valor_final = Xlsx_to_list("I").toListStr()
+        mensagem = Xlsx_to_list("J").toListStr()
+        status = Xlsx_to_list("K").toListStr()
+
+        lista = []
+        
+        for valor in range(len(bolo_aniversario)):
+            if x == 1:
+                lista.append(
+                    [
+                        str(bolo_aniversario[valor]), 
+                        str(bolo_casamento[valor]), 
+                        str(salgado_mini[valor]), 
+                        str(salgado_normal[valor]), 
+                        str(valor_final[valor]), 
+                        str(status[valor])
+                    ]
+                )
+            else:
+                lista.append([str(mensagem[valor])])
+        return lista
+
     def valores_tabela(tipo):
         try:
             lista = []
 
-            id = Xlsx_to_list("A").toListNum()
+            id = Xlsx_to_list("A").toListStr()
             nome = Xlsx_to_list("B").toListStr()
             data_entrega = Xlsx_to_list("C").toListStr()
             hora_entrega = Xlsx_to_list("D").toListStr()
@@ -19,11 +46,11 @@ class ListarEncomendas:
 
             for valor in range(len(id)):
                 if status[valor] == tipo:
-                    lista.append([cont, id[valor], nome[valor], data_entrega[valor], hora_entrega[valor]])
+                    lista.append([str(cont), str(id[valor]), nome[valor], data_entrega[valor], hora_entrega[valor]])
                     cont += 1
             return lista
         except:
-            return ['', '', '', '']
+            return ['', '', '', '', '']
 
     def listar_encomendas(tipo):
         sg.theme('Dark Blue 3')
@@ -53,7 +80,7 @@ class ListarEncomendas:
                                 auto_size_columns=False,
                                 justification='left',
                                 enable_events=True,
-                                num_rows=20, key='_filestable_')
+                                num_rows=20, key='index_encomenda')
                     ],
                     [sg.Button('Voltar', size=(46, 2)), sg.Button('Mais informações', size=(46, 2))]
                     
@@ -61,6 +88,56 @@ class ListarEncomendas:
             )]
         ]
         return sg.Window("Listar encomendas", layout=layout, finalize=True, size=(800, 490))
+
+    def mais_informacoes(cliente_selecionado, index_da_lista):
+        sg.theme('Dark Blue 3')
+        
+        #informações do cliente e horários
+        data_values = [cliente_selecionado]
+        data_headings = ['Nº', 'ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
+        data_cols_width = [5, 5, 35, 20, 18]
+
+        #informações da encomenda
+        data_values_encomenda = [ListarEncomendas.get_dados_pedido(1)[index_da_lista]]
+        data_headings_encomenda = ['Bolo aniverário', 'Bolo casamento', 'Salgado mini', 'Salgado normal', 'Valor final', 'Status']
+        data_cols_width_encomenda = [14, 14, 14, 14, 14, 14]
+        mensagem = str(ListarEncomendas.get_dados_pedido(0)[index_da_lista]).replace("[", "").replace("]", "").replace("'", "")
+
+        layout = [
+            [sg.Frame('Informações completas do pedido',
+                [
+                    [sg.Table(
+                                values=data_values, 
+                                headings=data_headings,
+                                max_col_width=65,
+                                col_widths=data_cols_width,
+                                auto_size_columns=False,
+                                justification='left',
+                                enable_events=False,
+                                num_rows=5),
+                    ],
+                    [sg.Table(
+                                values=data_values_encomenda,
+                                headings=data_headings_encomenda,
+                                max_col_width=65,
+                                col_widths=data_cols_width_encomenda,
+                                auto_size_columns=False,
+                                justification='left',
+                                enable_events=False,
+                                num_rows=5),
+                    ],
+                    [sg.Frame('Mensagem adicional',
+                        [
+                            [sg.Multiline(size=(800, 12), default_text=mensagem, disabled=True)],
+                        ], size=(800, 200)
+                    )],
+                    [sg.Button('Voltar', size=(100, 2))]
+
+                    
+                ], size=(800, 500)
+            )]
+        ]
+        return sg.Window("Mais informações", layout=layout, finalize=True, size=(800, 500)) 
 
 if __name__ == "__main__":
     janela = ListarEncomendas.listar_encomendas("Pendente")

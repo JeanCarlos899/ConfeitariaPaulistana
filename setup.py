@@ -9,7 +9,7 @@ from Design.baixa_encomenda import BaixaEncomenda
 
 menu, nova_encomenda, lista_encomenda = MenuPrincipal.menu_principal(), None, None
 menu_encomenda, dar_baixa_encomenda, dados_cliente = None, None, None
-popup_baixa, salgadinhos = None, None
+popup_baixa, salgadinhos, mais_informacoes = None, None, None
 
 
 while True:
@@ -20,10 +20,7 @@ while True:
     ###########################JANELA PRINCIPAL###############################
     ##########################################################################
     ##########################################################################
-
-    #verificar se F1 foi pressionado
     
-
     if janela == menu and evento == sg.WIN_CLOSED:
         break
 
@@ -85,6 +82,27 @@ while True:
             menu_encomenda.close()
             menu_encomenda = ListarEncomendas.listar_encomendas("Pendente")
             menu_encomenda["status_pendente"].update(True)
+
+    ##########################MAIS INFORMAÇÕES###############################
+    if janela == menu_encomenda and evento == 'Mais informações':
+        index_da_lista = valor["index_encomenda"]
+        status_pendente = valor["status_pendente"] #true or false
+        status_concluido = valor["status_concluido"] #true or false
+
+        if status_concluido == True:
+            lista_clientes = ListarEncomendas.valores_tabela("Concluído")
+        elif status_pendente == True:
+            lista_clientes = ListarEncomendas.valores_tabela("Pendente")
+        
+        index_da_lista = int(index_da_lista[0])
+
+        mais_informacoes = ListarEncomendas.mais_informacoes(lista_clientes[index_da_lista], index_da_lista)
+        menu_encomenda.hide()
+
+    if janela == mais_informacoes and evento == sg.WIN_CLOSED or janela == mais_informacoes and evento == 'Voltar':
+        mais_informacoes.hide()
+        menu_encomenda.un_hide()
+
 
     ##########################################################################
     ##########################################################################
