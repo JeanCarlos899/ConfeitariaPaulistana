@@ -43,7 +43,7 @@ class InsertDados:
             index = max(Xlsx_to_list("A").toListNum()) + 1
         except:
             index = 1
-            
+        
         planilha_ativa[f"A{index+1}"] = index
         planilha_ativa[f"B{index+1}"] = self.nome_cliente
         planilha_ativa[f"C{index+1}"] = self.data_entrega

@@ -1,39 +1,45 @@
 import PySimpleGUI as sg 
-from Scripts.xlsx_to_list import Xlsx_to_list
+try:
+    from Scripts.xlsx_to_list import Xlsx_to_list
+except ImportError:
+    pass
  
 class ListarEncomendas:
-    def valores_tabela():
-        lista = []
+    def valores_tabela(tipo):
+        try:
+            lista = []
 
-        id = Xlsx_to_list("A").toListNum()
-        nome = Xlsx_to_list("B").toListStr()
-        data_entrega = Xlsx_to_list("C").toListStr()
-        hora_entrega = Xlsx_to_list("D").toListStr()
+            id = Xlsx_to_list("A").toListNum()
+            nome = Xlsx_to_list("B").toListStr()
+            data_entrega = Xlsx_to_list("C").toListStr()
+            hora_entrega = Xlsx_to_list("D").toListStr()
+            status = Xlsx_to_list("K").toListStr()
 
-        for valor in range(len(id)):
-            lista.append([id[valor], nome[valor], data_entrega[valor], hora_entrega[valor]])
-        return lista
+            cont = 1
 
-    def listar_encomendas():
+            for valor in range(len(id)):
+                if status[valor] == tipo:
+                    lista.append([cont, id[valor], nome[valor], data_entrega[valor], hora_entrega[valor]])
+                    cont += 1
+            return lista
+        except:
+            return ['', '', '', '']
+
+    def listar_encomendas(tipo):
         sg.theme('Dark Blue 3')
 
-        data_values = ListarEncomendas.valores_tabela()
-        data_headings = ['ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
-        data_cols_width = [5, 40, 20, 18]
+        data_values = ListarEncomendas.valores_tabela(tipo)
+        data_headings = ['Nº', 'ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
+        data_cols_width = [5, 5, 35, 20, 18]
 
         layout = [ 
             [sg.Frame('Filtros',
                 [
                     [
-                        sg.Text("De:"), 
-                        sg.Combo(['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']),
-                        sg.Text("Até:"), 
-                        sg.Combo(['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']),
-                        sg.Text("Ano:"),
-                        sg.Combo(["2022", "2021", "2020"], default_value="2021"),
-                        sg.Radio("Pendentes", "status", default=True, key="pendentes"),
-                        sg.Radio("Entregues", "status", key="entregues"),
-                        sg.Button("Filtrar", size=(50, 1))
+                        sg.Radio("Pendentes", "status", default=True, key="status_pendente"),
+                        sg.Radio("Entregues", "status", key="status_concluido"),
+                        sg.Button("Filtrar", size=(20, 1)),
+                        sg.Text("*Selecione uma modalidade de filtro e clique em filtrar")
                     ],
                 ], size=(800, 60)
             )],  
@@ -49,9 +55,17 @@ class ListarEncomendas:
                                 enable_events=True,
                                 num_rows=20, key='_filestable_')
                     ],
-                    [sg.Button('Voltar', size=(46, 2)), sg.Button('Mais informções', size=(46, 2))]
+                    [sg.Button('Voltar', size=(46, 2)), sg.Button('Mais informações', size=(46, 2))]
                     
                 ], size=(800, 400)
             )]
         ]
         return sg.Window("Listar encomendas", layout=layout, finalize=True, size=(800, 490))
+
+if __name__ == "__main__":
+    janela = ListarEncomendas.listar_encomendas("Pendente")
+
+    while True:
+        janela, evento, valor = sg.read_all_windows()
+        if evento == sg.WIN_CLOSED:
+            break

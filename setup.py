@@ -30,10 +30,9 @@ while True:
     if janela == menu:
         if evento == 'Nova encomenda':
             nova_encomenda = NovaEncomenda.nova_encomenda()
-            nova_encomenda.un_hide()
-            
+
         elif evento == 'Listar encomendas':
-            menu_encomenda = ListarEncomendas.listar_encomendas()
+            menu_encomenda = ListarEncomendas.listar_encomendas("Pendente")
 
         elif evento == 'Dar baixa em encomenda':
             dar_baixa_encomenda = BaixaEncomenda.baixa_encomenda()
@@ -71,7 +70,21 @@ while True:
     ##########################################################################
     ##########################################################################
 
-    
+    if janela == menu_encomenda and evento == sg.WIN_CLOSED or janela == menu_encomenda and evento == 'Voltar':
+        menu_encomenda.hide()
+
+    if janela == menu_encomenda and evento == 'Filtrar':
+        status_pendente = valor["status_pendente"] #true or false
+        status_concluido = valor["status_concluido"] #true or false
+
+        if status_concluido == True:
+            menu_encomenda.close()
+            menu_encomenda = ListarEncomendas.listar_encomendas("Concluído")
+            menu_encomenda["status_concluido"].update(True)
+        elif status_pendente == True:
+            menu_encomenda.close()
+            menu_encomenda = ListarEncomendas.listar_encomendas("Pendente")
+            menu_encomenda["status_pendente"].update(True)
 
     ##########################################################################
     ##########################################################################
