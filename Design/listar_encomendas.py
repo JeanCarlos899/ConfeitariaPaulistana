@@ -29,7 +29,7 @@ class ListarEncomendas:
                     ]
                 )
             else:
-                lista.append([str(mensagem[valor])])
+                lista.append(str(mensagem[valor]))
         return lista
 
     def valores_tabela(tipo):
@@ -101,8 +101,8 @@ class ListarEncomendas:
         data_values_encomenda = [ListarEncomendas.get_dados_pedido(1)[index_da_lista]]
         data_headings_encomenda = ['Bolo aniverário', 'Bolo casamento', 'Salgado mini', 'Salgado normal', 'Valor final', 'Status']
         data_cols_width_encomenda = [14, 14, 14, 14, 14, 14]
-        mensagem = str(ListarEncomendas.get_dados_pedido(0)[index_da_lista]).replace("[", "").replace("]", "").replace("'", "")
-
+        mensagem = str(ListarEncomendas.get_dados_pedido(0)[index_da_lista]) 
+        
         layout = [
             [sg.Frame('Informações completas do pedido',
                 [
@@ -132,8 +132,6 @@ class ListarEncomendas:
                         ], size=(800, 200)
                     )],
                     [sg.Button('Voltar', size=(100, 2))]
-
-                    
                 ], size=(800, 500)
             )]
         ]
