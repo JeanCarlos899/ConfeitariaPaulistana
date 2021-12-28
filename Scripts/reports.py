@@ -161,7 +161,6 @@ class FrontRelatorio:
 
         layout = [
             [sg.Text('Tabela gerada com sucesso', size=(30, 1), font=('Helvetica', 15))],
-            [sg.Button('OK',key='Ok', size=(100, 1), font=('Helvetica', 15))]
         ]
         return sg.Window("Sucesso", layout=layout, finalize=True)
 
@@ -199,11 +198,5 @@ class FrontRelatorio:
 
             elif event == 'Voltar':
                 janela.close()
-            
-            elif event == 'Ok' or event == 'OkErro':
-                FrontRelatorio.fecharpopups()
-                janela.close()
-  
-
 
 FrontRelatorio.janela_Relatorios()
