@@ -13,7 +13,7 @@ class Relatorios:
         pdf = canvas.Canvas(file_name + '.pdf')
         pdf.setPageSize((750,1000))
 
-        pdf.drawString(100,950,'Histórico de todos os pedidos')
+        pdf.drawString(315,950,'Histórico de todos os pedidos')
         pdf.setFont('Helvetica', 12)
         pdf.drawString(10,900,'ID')
         pdf.drawString(50,900,'Nome cliente')
@@ -45,7 +45,7 @@ class Relatorios:
         pdf = canvas.Canvas(file_name + '.pdf')
         pdf.setPageSize((750,1000))
 
-        pdf.drawString(100,950,'Histórico de pedidos concluídos')
+        pdf.drawString(315,950,'Histórico de pedidos concluídos')
         pdf.setFont('Helvetica', 12)
         pdf.drawString(10,900,'ID')
         pdf.drawString(50,900,'Nome cliente')
@@ -78,7 +78,7 @@ class Relatorios:
         pdf = canvas.Canvas(file_name + '.pdf')
         pdf.setPageSize((750,1000))
 
-        pdf.drawString(100,950,'Histórico de pedidos não entregues')
+        pdf.drawString(315,950,'Histórico de pedidos não entregues')
         pdf.setFont('Helvetica', 12)
         pdf.drawString(10,900,'ID')
         pdf.drawString(50,900,'Nome cliente')
@@ -113,7 +113,7 @@ class Relatorios:
         pdf = canvas.Canvas(file_name + '.pdf')
         pdf.setPageSize((750,1000))
 
-        pdf.drawString(100,950,'Pedidos pendentes')
+        pdf.drawString(315,950,'Pedidos pendentes')
         pdf.setFont('Helvetica', 12)
         pdf.drawString(10,900,'ID')
         pdf.drawString(50,900,'Nome cliente')
