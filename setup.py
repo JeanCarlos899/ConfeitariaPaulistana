@@ -26,37 +26,37 @@ while True:
         break
 
     if janela == menu:
-        if evento == 'Nova encomenda':
+        if evento == "-NOVA_ENCOMENDA-":
             nova_encomenda = NovaEncomenda.nova_encomenda()
 
-        elif evento == 'Listar encomendas':
+        elif evento == "-LISTAR_ENCOMENDAS-":
             menu_encomenda = ListarEncomendas.listar_encomendas("Pendente")
 
-        elif evento == 'Dar baixa em encomenda':
+        elif evento == "-DAR_BAIXA_ENCOMENDA-":
             dar_baixa_encomenda = BaixaEncomenda.baixa_encomenda()
 
-        elif evento == 'Sair':
+        elif evento == "-SAIR-":
             break
     ##########################################################################
     ##########################################################################
     ###########################NOVA ENCOMENDA#################################
     ##########################################################################
     ##########################################################################
-    if janela == nova_encomenda and evento == sg.WIN_CLOSED or janela == nova_encomenda and evento == 'Voltar':
+    if janela == nova_encomenda and evento == sg.WIN_CLOSED or janela == nova_encomenda and evento == "-VOLTAR-":
         nova_encomenda.hide()
 
 
-    if janela == nova_encomenda and evento == 'Confirmar':
+    if janela == nova_encomenda and evento == "-CONFIRMAR-":
         InsertDados(
-            str(valor["nome_cliente"]), 
-            str(valor["data_entrega"]),
-            str(valor["horario_entrega"]),
-            int(valor["bolo_aniversario"]),
-            int(valor["bolo_casamento"]),
-            int(valor["qtd_mini"]),
-            int(valor["qtd_normal"]),
-            str(valor["info_complementares"])
-        ).inserir_dados()
+            str(valor["-NOME_CLIENTE-"]), 
+            str(valor["-DATA_ENTREGA-"]),
+            str(valor["-HORA_ENTREGA-"]),
+            int(valor["-BOLO_ANIVERSARIO-"]),
+            int(valor["-BOLO_CASAMENTO-"]),
+            int(valor["-QTD_MINI-"]),
+            int(valor["-QTD_NORMAL-"]),
+            str(valor["-INFO_COMPLEMENTARES-"])
+            ).inserir_dados()
 
         sg.popup("Encomenda cadastrada com sucesso!")
         nova_encomenda.hide()
@@ -68,27 +68,28 @@ while True:
     ##########################################################################
     ##########################################################################
 
-    if janela == menu_encomenda and evento == sg.WIN_CLOSED or janela == menu_encomenda and evento == 'Voltar':
+    if janela == menu_encomenda and evento == sg.WIN_CLOSED or janela == menu_encomenda and evento == "-VOLTAR-":
         menu_encomenda.hide()
 
-    if janela == menu_encomenda and evento == 'Filtrar':
-        status_pendente = valor["status_pendente"] #true or false
-        status_concluido = valor["status_concluido"] #true or false
+    if janela == menu_encomenda and evento == "-FILTRAR-":
+        status_pendente = valor["-STATUS_PENDENTE-"] #true or false
+        status_concluido = valor["-STATUS_CONCLUIDO-"] #true or false
 
         if status_concluido == True:
             menu_encomenda.close()
             menu_encomenda = ListarEncomendas.listar_encomendas("Concluído")
-            menu_encomenda["status_concluido"].update(True)
+            menu_encomenda["-STATUS_CONCLUIDO-"].update(True)
         elif status_pendente == True:
             menu_encomenda.close()
             menu_encomenda = ListarEncomendas.listar_encomendas("Pendente")
-            menu_encomenda["status_pendente"].update(True)
+            menu_encomenda["-STATUS_PENDENTE-"].update(True)
 
-    ##########################MAIS INFORMAÇÕES###############################
-    if janela == menu_encomenda and evento == 'Mais informações':
-        index_da_lista = valor["index_encomenda"]
-        status_pendente = valor["status_pendente"] #true or false
-        status_concluido = valor["status_concluido"] #true or false
+    ##########################-MAIS_INFORMACOES-###############################
+
+    if janela == menu_encomenda and evento == "-MAIS_INFORMACOES-":
+        index_da_lista = valor["-INDEX_ENCOMENDA-"]
+        status_pendente = valor["-STATUS_PENDENTE-"] #true or false
+        status_concluido = valor["-STATUS_CONCLUIDO-"] #true or false
 
         index_da_lista = int(index_da_lista[0])
 
@@ -106,7 +107,7 @@ while True:
                 )
             menu_encomenda.hide()
 
-    if janela == mais_informacoes and evento == sg.WIN_CLOSED or janela == mais_informacoes and evento == 'Voltar':
+    if janela == mais_informacoes and evento == sg.WIN_CLOSED or janela == mais_informacoes and evento == "-VOLTAR-":
         mais_informacoes.hide()
         menu_encomenda.un_hide()
 
@@ -117,24 +118,29 @@ while True:
     ##########################################################################
     ##########################################################################
 
-    if janela == dar_baixa_encomenda and evento == sg.WIN_CLOSED or janela == dar_baixa_encomenda and evento == 'Voltar':
+    if janela == dar_baixa_encomenda and evento == sg.WIN_CLOSED or janela == dar_baixa_encomenda and evento == "-VOLTAR-":
         dar_baixa_encomenda.hide()
 
-    if janela == dar_baixa_encomenda and evento == 'Finalizar encomenda':
+    if janela == dar_baixa_encomenda and evento == "-FINALIZAR_ENCOMENDA-":
         index_encomenda = valor["-TABLE_LISTAR_ENCOMENDA-"]
-        kg_aniversario = valor['bolo_aniversario']
-        kg_casamento = valor['bolo_casamento']
+        kg_aniversario = valor["-BOLO_ANIVERSARIO-"]
+        kg_casamento = valor["-BOLO_CASAMENTO-"]
         lista_encomenda = DataList("Pendente").get_dados_pedido_resumido()
 
-        preco_final = FinalizeOrder(lista_encomenda, index_encomenda, kg_aniversario, kg_casamento).get_preco_final()
+        preco_final = FinalizeOrder(
+            lista_encomenda, index_encomenda, 
+            kg_aniversario, kg_casamento
+            ).get_preco_final()
 
         dar_baixa_encomenda["-VALOR_FINAL-"].update("R$" + str(preco_final))
-        dar_baixa_encomenda["Finalizar encomenda"].update(disabled=True)
-    if janela == dar_baixa_encomenda and evento == "Atualizar lista":
+        dar_baixa_encomenda["-FINALIZAR_ENCOMENDA-"].update(disabled=True)
+
+    if janela == dar_baixa_encomenda and evento == "-ATUALIZAR_LISTA-":
         dar_baixa_encomenda["-TABLE_LISTAR_ENCOMENDA-"].update(
             DataList("Pendente").get_dados_pedido_resumido()
-        )
-        dar_baixa_encomenda["Finalizar encomenda"].update(disabled=False)
-
-
-
+            )
+            
+        dar_baixa_encomenda["-FINALIZAR_ENCOMENDA-"].update(disabled=False)
+        dar_baixa_encomenda["-VALOR_FINAL-"].update("R$0,00")
+        dar_baixa_encomenda["-BOLO_ANIVERSARIO-"].update(0)
+        dar_baixa_encomenda["-BOLO_CASAMENTO-"].update(0)

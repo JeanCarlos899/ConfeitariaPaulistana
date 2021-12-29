@@ -26,8 +26,8 @@ class BaixaEncomenda:
                             [
                                 [sg.Text("Selecione uma encomenda acima, insira a quantidade de Kg total do(s) bolo(s) de aniversário e casamento, depois clique em finalizar encomenda.", size=(45, 3))],
                                 [sg.Text('')],
-                                [sg.Text('Bolo Aniversário:', size=(15, 1)), sg.InputText(size=(10, 1), key='bolo_aniversario')],
-                                [sg.Text('Bolo Casamento:', size=(15, 1)), sg.InputText(size=(10, 1), key='bolo_casamento')]
+                                [sg.Text('Bolo Aniversário:', size=(15, 1)), sg.InputText(size=(10, 1), key='-BOLO_ANIVERSARIO-')],
+                                [sg.Text('Bolo Casamento:', size=(15, 1)), sg.InputText(size=(10, 1), key='-BOLO_CASAMENTO-')]
                             ], size=(377, 190)
                         ),
                     sg.Frame('Valor final',
@@ -37,7 +37,7 @@ class BaixaEncomenda:
                         )
                     ],
                     [sg.Text('', font=(None, 1))],
-                    [sg.Button('Finalizar encomenda', size=(30, 2)), sg.Button("Atualizar lista", size=(30, 2)), sg.Button('Voltar', size=(30, 2))],
+                    [sg.Button('Finalizar encomenda', size=(30, 2), key="-FINALIZAR_ENCOMENDA-"), sg.Button("Atualizar lista", size=(30, 2), key="-ATUALIZAR_LISTA-"), sg.Button('Voltar', size=(30, 2), key="-VOLTAR-")],
 
                 ], size=(800, 490)
             )]

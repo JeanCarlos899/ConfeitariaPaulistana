@@ -14,9 +14,9 @@ class ListarEncomendas:
             [sg.Frame('Filtros',
                 [
                     [
-                        sg.Radio("Pendentes", "status", default=True, key="status_pendente"),
-                        sg.Radio("Entregues", "status", key="status_concluido"),
-                        sg.Button("Filtrar", size=(20, 1)),
+                        sg.Radio("Pendentes", "status", default=True, key="-STATUS_PENDENTE-"),
+                        sg.Radio("Entregues", "status", key="-STATUS_CONCLUIDO-"),
+                        sg.Button("Filtrar", size=(20, 1), key="-FILTRAR-"),
                         sg.Text("*Selecione uma modalidade de filtro e clique em filtrar")
                     ],
                 ], size=(800, 60)
@@ -31,9 +31,9 @@ class ListarEncomendas:
                                 auto_size_columns=False,
                                 justification='left',
                                 enable_events=True,
-                                num_rows=20, key='index_encomenda')
+                                num_rows=20, key='-INDEX_ENCOMENDA-')
                     ],
-                    [sg.Button('Voltar', size=(46, 2)), sg.Button('Mais informações', size=(46, 2))]
+                    [sg.Button('Voltar', size=(46, 2), key="-VOLTAR-"), sg.Button('Mais informações', size=(46, 2), key="-MAIS_INFORMACOES-")]
                     
                 ], size=(800, 400)
             )]
@@ -82,7 +82,7 @@ class ListarEncomendas:
                             [sg.Multiline(size=(800, 12), default_text=mensagem, disabled=True)],
                         ], size=(800, 200)
                     )],
-                    [sg.Button('Voltar', size=(100, 2))]
+                    [sg.Button('Voltar', size=(100, 2), key="-VOLTAR-")]
                 ], size=(800, 500)
             )]
         ]
