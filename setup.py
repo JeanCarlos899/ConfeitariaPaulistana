@@ -78,8 +78,8 @@ while True:
         continue
 
     if janela == menu_encomenda and evento == "-FILTRAR-":
-        status_pendente = valor["-STATUS_PENDENTE-"] #true or false
-        status_concluido = valor["-STATUS_CONCLUIDO-"] #true or false
+        status_concluido = valor["-STATUS_CONCLUIDO-"] 
+        status_pendente = valor["-STATUS_PENDENTE-"]
 
         if status_concluido == True:
             menu_encomenda.close()
@@ -106,7 +106,7 @@ while True:
                 "Concluído", lista_clientes[index_da_lista], index_da_lista
                 )
             menu_encomenda.hide()
-
+            
         if status_pendente == True:
             lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
             mais_informacoes = ListarEncomendas.mais_informacoes(
