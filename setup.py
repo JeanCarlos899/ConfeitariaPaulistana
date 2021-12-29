@@ -15,7 +15,6 @@ lista_encomenda, menu_encomenda = None, None
 dar_baixa_encomenda, dados_cliente = None, None
 salgadinhos, mais_informacoes = None, None
 
-
 while True:
 
     janela, evento, valor = sg.read_all_windows() # Leitura de todas as janelas abertas
