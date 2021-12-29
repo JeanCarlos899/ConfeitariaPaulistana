@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+
 from Scripts.data_list import DataList
 from Scripts.insert_dados import InsertDados
 from Scripts.finalize_order import FinalizeOrder
@@ -14,12 +15,11 @@ popup_baixa, salgadinhos, mais_informacoes = None, None, None
 
 
 while True:
-    janela, evento, valor = sg.read_all_windows()
+    
+    janela, evento, valor = sg.read_all_windows() # Leitura de todas as janelas abertas
 
     ##########################################################################
-    ##########################################################################
     ###########################JANELA PRINCIPAL###############################
-    ##########################################################################
     ##########################################################################
     
     if janela == menu and evento == sg.WIN_CLOSED:
@@ -40,15 +40,14 @@ while True:
 
         elif evento == "-SAIR-":
             break
-    ##########################################################################
+ 
     ##########################################################################
     ###########################NOVA ENCOMENDA#################################
     ##########################################################################
-    ##########################################################################
+
     if janela == nova_encomenda and evento == sg.WIN_CLOSED or janela == nova_encomenda and evento == "-VOLTAR-":
         nova_encomenda.hide()
         continue
-
 
     if janela == nova_encomenda and evento == "-CONFIRMAR-":
         InsertDados(
@@ -66,11 +65,8 @@ while True:
         nova_encomenda.hide()
         continue
 
-        
-    ##########################################################################
     ##########################################################################
     ###########################LISTAR ENCOMENDAS##############################
-    ##########################################################################
     ##########################################################################
 
     if janela == menu_encomenda and evento == sg.WIN_CLOSED or janela == menu_encomenda and evento == "-VOLTAR-":
@@ -106,7 +102,7 @@ while True:
                 "Concluído", lista_clientes[index_da_lista], index_da_lista
                 )
             menu_encomenda.hide()
-            
+
         if status_pendente == True:
             lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
             mais_informacoes = ListarEncomendas.mais_informacoes(
@@ -120,11 +116,8 @@ while True:
         menu_encomenda.un_hide()
         continue
 
-
-    ##########################################################################
     ##########################################################################
     ###########################BAIXA EM ENCOMENDA#############################
-    ##########################################################################
     ##########################################################################
 
     if janela == dar_baixa_encomenda and evento == sg.WIN_CLOSED or janela == dar_baixa_encomenda and evento == "-VOLTAR-":
