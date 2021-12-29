@@ -86,7 +86,7 @@ while True:
             menu_encomenda["-STATUS_PENDENTE-"].update(True)
         continue
 
-    ##########################-MAIS_INFORMACOES-###############################
+    ##########################MAIS INFORMACOES###############################
 
     if janela == menu_encomenda and evento == "-MAIS_INFORMACOES-":
         index_da_lista = valor["-INDEX_ENCOMENDA-"]
