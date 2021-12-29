@@ -10,7 +10,7 @@ from Design.listar_encomendas import ListarEncomendas
 from Design.baixa_encomenda import BaixaEncomenda
 
 #############INICIANDO JANELAS######################
-menu, nova_encomenda= MenuPrincipal.menu_principal()
+menu, nova_encomenda = MenuPrincipal.menu_principal(), None
 lista_encomenda, menu_encomenda = None, None
 dar_baixa_encomenda, dados_cliente = None, None
 salgadinhos, mais_informacoes = None, None
