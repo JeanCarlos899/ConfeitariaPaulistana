@@ -33,4 +33,4 @@ class Graficos:
                 break
 
 
-tela = Graficos.janela_graficos()
+Graficos.janela_graficos()
