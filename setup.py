@@ -43,7 +43,8 @@ while True:
     ###########################NOVA ENCOMENDA#################################
     ##########################################################################
 
-    if janela == nova_encomenda and evento == sg.WIN_CLOSED or janela == nova_encomenda and evento == "-VOLTAR-":
+    if (janela == nova_encomenda and evento == sg.WIN_CLOSED  
+        or janela == nova_encomenda and evento == "-VOLTAR-"):
         nova_encomenda.hide()
         continue
 
@@ -67,7 +68,8 @@ while True:
     ###########################LISTAR ENCOMENDAS##############################
     ##########################################################################
 
-    if janela == menu_encomenda and evento == sg.WIN_CLOSED or janela == menu_encomenda and evento == "-VOLTAR-":
+    if (janela == menu_encomenda and evento == sg.WIN_CLOSED 
+        or janela == menu_encomenda and evento == "-VOLTAR-"):
         menu_encomenda.hide()
         continue
 
@@ -109,7 +111,8 @@ while True:
             menu_encomenda.hide()
         continue
 
-    if janela == mais_informacoes and evento == sg.WIN_CLOSED or janela == mais_informacoes and evento == "-VOLTAR-":
+    if (janela == mais_informacoes and evento == sg.WIN_CLOSED 
+        or janela == mais_informacoes and evento == "-VOLTAR-"):
         mais_informacoes.hide()
         menu_encomenda.un_hide()
         continue
@@ -118,7 +121,8 @@ while True:
     ###########################BAIXA EM ENCOMENDA#############################
     ##########################################################################
 
-    if janela == dar_baixa_encomenda and evento == sg.WIN_CLOSED or janela == dar_baixa_encomenda and evento == "-VOLTAR-":
+    if (janela == dar_baixa_encomenda and evento == sg.WIN_CLOSED 
+        or janela == dar_baixa_encomenda and evento == "-VOLTAR-"):
         dar_baixa_encomenda.hide()
         continue
 
