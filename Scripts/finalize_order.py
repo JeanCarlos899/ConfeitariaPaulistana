@@ -13,7 +13,7 @@ class FinalizeOrder:
         
         def get_real_index(lista_encomenda, index_encomenda):
             encomenda = lista_encomenda[int(index_encomenda[0])]
-            id_encomenda = encomenda[0]
+            id_encomenda = encomenda[1]
             return int(int(id_encomenda) + 1)
         
         index = get_real_index(self.lista_encomendas, self.index_encomenda)

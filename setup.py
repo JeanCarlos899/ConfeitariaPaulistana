@@ -129,8 +129,12 @@ while True:
         preco_final = FinalizeOrder(lista_encomenda, index_encomenda, kg_aniversario, kg_casamento).get_preco_final()
 
         dar_baixa_encomenda["-VALOR_FINAL-"].update("R$" + str(preco_final))
-
-
+        dar_baixa_encomenda["Finalizar encomenda"].update(disabled=True)
+    if janela == dar_baixa_encomenda and evento == "Atualizar lista":
+        dar_baixa_encomenda["-TABLE_LISTAR_ENCOMENDA-"].update(
+            DataList("Pendente").get_dados_pedido_resumido()
+        )
+        dar_baixa_encomenda["Finalizar encomenda"].update(disabled=False)
 
 
 

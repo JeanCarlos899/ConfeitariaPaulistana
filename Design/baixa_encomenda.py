@@ -37,7 +37,7 @@ class BaixaEncomenda:
                         )
                     ],
                     [sg.Text('', font=(None, 1))],
-                    [sg.Button('Finalizar encomenda', size=(46, 2)), sg.Button('Voltar', size=(46, 2))],
+                    [sg.Button('Finalizar encomenda', size=(30, 2)), sg.Button("Atualizar lista", size=(30, 2)), sg.Button('Voltar', size=(30, 2))],
 
                 ], size=(800, 490)
             )]
