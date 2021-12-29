@@ -5,7 +5,7 @@ class BaixaEncomenda:
     def baixa_encomenda():
         sg.theme('Dark Blue 3')
 
-        data_values = DataList.get_dados_pedido_resumido("Pendente")
+        data_values = DataList("Pendente").get_dados_pedido_resumido()
         data_headings = ['Nº', 'ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
         data_cols_width = [5, 5, 35, 20, 18]
 

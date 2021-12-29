@@ -124,7 +124,7 @@ while True:
         index_encomenda = valor["-TABLE_LISTAR_ENCOMENDA-"]
         kg_aniversario = valor['bolo_aniversario']
         kg_casamento = valor['bolo_casamento']
-        lista_encomenda = DataList.get_dados_pedido_resumido("Pendente")
+        lista_encomenda = DataList("Pendente").get_dados_pedido_resumido()
 
         preco_final = FinalizeOrder(lista_encomenda, index_encomenda, kg_aniversario, kg_casamento).get_preco_final()
 
