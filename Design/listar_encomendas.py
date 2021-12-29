@@ -1,61 +1,12 @@
 import PySimpleGUI as sg 
-try:
-    from Scripts.xlsx_to_list import Xlsx_to_list
-except ImportError:
-    pass
+from Scripts.data_list import DataList
  
 class ListarEncomendas:
-    def get_dados_pedido(x):
-        bolo_aniversario = Xlsx_to_list("E").toListStr()
-        bolo_casamento = Xlsx_to_list("F").toListStr()
-        salgado_mini = Xlsx_to_list("G").toListStr()
-        salgado_normal = Xlsx_to_list("H").toListStr()
-        valor_final = Xlsx_to_list("I").toListStr()
-        mensagem = Xlsx_to_list("J").toListStr()
-        status = Xlsx_to_list("K").toListStr()
-
-        lista = []
-        
-        for valor in range(len(bolo_aniversario)):
-            if x == 1:
-                lista.append(
-                    [
-                        str(bolo_aniversario[valor]), 
-                        str(bolo_casamento[valor]), 
-                        str(salgado_mini[valor]), 
-                        str(salgado_normal[valor]), 
-                        str(valor_final[valor]), 
-                        str(status[valor])
-                    ]
-                )
-            else:
-                lista.append(str(mensagem[valor]))
-        return lista
-
-    def valores_tabela(tipo):
-        try:
-            lista = []
-
-            id = Xlsx_to_list("A").toListStr()
-            nome = Xlsx_to_list("B").toListStr()
-            data_entrega = Xlsx_to_list("C").toListStr()
-            hora_entrega = Xlsx_to_list("D").toListStr()
-            status = Xlsx_to_list("K").toListStr()
-
-            cont = 1
-
-            for valor in range(len(id)):
-                if status[valor] == tipo:
-                    lista.append([str(cont), str(id[valor]), nome[valor], data_entrega[valor], hora_entrega[valor]])
-                    cont += 1
-            return lista
-        except:
-            return ['', '', '', '', '']
 
     def listar_encomendas(tipo):
         sg.theme('Dark Blue 3')
 
-        data_values = ListarEncomendas.valores_tabela(tipo)
+        data_values = DataList(tipo).get_dados_pedido_resumido()
         data_headings = ['Nº', 'ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
         data_cols_width = [5, 5, 35, 20, 18]
 
@@ -89,7 +40,7 @@ class ListarEncomendas:
         ]
         return sg.Window("Listar encomendas", layout=layout, finalize=True, size=(800, 490))
 
-    def mais_informacoes(cliente_selecionado, index_da_lista):
+    def mais_informacoes(tipo, cliente_selecionado, index_da_lista):
         sg.theme('Dark Blue 3')
         
         #informações do cliente e horários
@@ -98,10 +49,10 @@ class ListarEncomendas:
         data_cols_width = [5, 5, 35, 20, 18]
 
         #informações da encomenda
-        data_values_encomenda = [ListarEncomendas.get_dados_pedido(1)[index_da_lista]]
+        data_values_encomenda = [DataList(tipo).get_dados_pedido(False)[index_da_lista]]
         data_headings_encomenda = ['Bolo aniverário', 'Bolo casamento', 'Salgado mini', 'Salgado normal', 'Valor final', 'Status']
         data_cols_width_encomenda = [14, 14, 14, 14, 14, 14]
-        mensagem = str(ListarEncomendas.get_dados_pedido(0)[index_da_lista]) 
+        mensagem = str(DataList(tipo).get_dados_pedido(True)[index_da_lista]) 
         
         layout = [
             [sg.Frame('Informações completas do pedido',
@@ -136,11 +87,3 @@ class ListarEncomendas:
             )]
         ]
         return sg.Window("Mais informações", layout=layout, finalize=True, size=(800, 500)) 
-
-if __name__ == "__main__":
-    janela = ListarEncomendas.listar_encomendas("Pendente")
-
-    while True:
-        janela, evento, valor = sg.read_all_windows()
-        if evento == sg.WIN_CLOSED:
-            break

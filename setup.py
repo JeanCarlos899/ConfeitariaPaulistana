@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
+from Scripts.data_list import DataList
 from Scripts.insert_dados import InsertDados
-from Scripts.price_end import PrecoFinal
+from Scripts.finalize_order import FinalizeOrder
 
 from Design.menu_principal import MenuPrincipal
 from Design.nova_encomenda import NovaEncomenda
@@ -89,15 +90,21 @@ while True:
         status_pendente = valor["status_pendente"] #true or false
         status_concluido = valor["status_concluido"] #true or false
 
-        if status_concluido == True:
-            lista_clientes = ListarEncomendas.valores_tabela("Concluído")
-        elif status_pendente == True:
-            lista_clientes = ListarEncomendas.valores_tabela("Pendente")
-        
         index_da_lista = int(index_da_lista[0])
 
-        mais_informacoes = ListarEncomendas.mais_informacoes(lista_clientes[index_da_lista], index_da_lista)
-        menu_encomenda.hide()
+        if status_concluido == True:
+            lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
+            mais_informacoes = ListarEncomendas.mais_informacoes(
+                "Concluído", lista_clientes[index_da_lista], index_da_lista
+                )
+            menu_encomenda.hide()
+
+        if status_pendente == True:
+            lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
+            mais_informacoes = ListarEncomendas.mais_informacoes(
+                "Pendente", lista_clientes[index_da_lista], index_da_lista
+                )
+            menu_encomenda.hide()
 
     if janela == mais_informacoes and evento == sg.WIN_CLOSED or janela == mais_informacoes and evento == 'Voltar':
         mais_informacoes.hide()
@@ -113,19 +120,17 @@ while True:
     if janela == dar_baixa_encomenda and evento == sg.WIN_CLOSED or janela == dar_baixa_encomenda and evento == 'Voltar':
         dar_baixa_encomenda.hide()
 
-    
-    if janela == dar_baixa_encomenda and evento == 'Confirmar':
-        id = valor['id']
-        kg_aniversario = valor['kg_bolo_aniversario']
-        kg_casamento = valor['kg_bolo_casamento']
+    if janela == dar_baixa_encomenda and evento == 'Finalizar encomenda':
+        index_encomenda = valor["-TABLE_LISTAR_ENCOMENDA-"]
+        kg_aniversario = valor['bolo_aniversario']
+        kg_casamento = valor['bolo_casamento']
+        lista_encomenda = DataList.get_dados_pedido_resumido("Pendente")
 
-        preco_final = PrecoFinal(id, kg_aniversario, kg_casamento).modificar_status()
+        preco_final = FinalizeOrder(lista_encomenda, index_encomenda, kg_aniversario, kg_casamento).get_preco_final()
 
-        dar_baixa_encomenda.hide()
+        dar_baixa_encomenda["-VALOR_FINAL-"].update("R$" + str(preco_final))
 
-        popup_baixa = BaixaEncomenda.popup_baixa(preco_final)
 
-    if janela == popup_baixa and evento == sg.WIN_CLOSED or janela == popup_baixa and evento == 'Ok':
-        popup_baixa.hide()
+
 
 
