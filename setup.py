@@ -9,13 +9,15 @@ from Design.nova_encomenda import NovaEncomenda
 from Design.listar_encomendas import ListarEncomendas
 from Design.baixa_encomenda import BaixaEncomenda
 
-menu, nova_encomenda, lista_encomenda = MenuPrincipal.menu_principal(), None, None
-menu_encomenda, dar_baixa_encomenda, dados_cliente = None, None, None
-popup_baixa, salgadinhos, mais_informacoes = None, None, None
+#############INICIANDO JANELAS######################
+menu, nova_encomenda= MenuPrincipal.menu_principal()
+lista_encomenda, menu_encomenda = None, None
+dar_baixa_encomenda, dados_cliente = None, None
+salgadinhos, mais_informacoes = None, None
 
 
 while True:
-    
+
     janela, evento, valor = sg.read_all_windows() # Leitura de todas as janelas abertas
 
     ##########################################################################
@@ -26,20 +28,17 @@ while True:
         break
 
     if janela == menu:
-        if evento == "-NOVA_ENCOMENDA-":
+        if evento == "-SAIR-":
+            break
+        elif evento == "-NOVA_ENCOMENDA-":
             nova_encomenda = NovaEncomenda.nova_encomenda()
             continue
-
         elif evento == "-LISTAR_ENCOMENDAS-":
             menu_encomenda = ListarEncomendas.listar_encomendas("Pendente")
             continue
-
         elif evento == "-DAR_BAIXA_ENCOMENDA-":
             dar_baixa_encomenda = BaixaEncomenda.baixa_encomenda()
             continue
-
-        elif evento == "-SAIR-":
-            break
  
     ##########################################################################
     ###########################NOVA ENCOMENDA#################################
