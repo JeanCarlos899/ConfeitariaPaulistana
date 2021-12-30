@@ -30,8 +30,9 @@ salgadinhos, mais_informacoes = None, None
 >>>>>>> 8fba3c0d0e176f0c78f04865d1978c0cfdfa8d36
 
 while True:
-
-    janela, evento, valor = sg.read_all_windows() # Leitura de todas as janelas abertas
+    
+    # Leitura de todas as janelas abertas
+    janela, evento, valor = sg.read_all_windows() 
 
     ##########################################################################
     ###########################JANELA PRINCIPAL###############################
