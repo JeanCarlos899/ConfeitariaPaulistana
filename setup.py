@@ -211,42 +211,32 @@ while True:
         relatorios.hide()
         relatorios.un_hide()
     
-    if evento in [
-        '-PEDIDOS_ENTREGUES-',
-        '-PEDIDOS_NAO_ENTREGUES-',
-        '-PEDIDOS_PENDENTES-',
-        '-TODOS_PEDIDOS-',
-        '-VOLTAR-' ]:
-    
-        if janela == relatorios and evento == '-PEDIDOS_ENTREGUES-':
-            Relatorios.historico_pedidos_concluido()
-            relatorios.hide()
-            sg.popup("Relatório gerado com sucesso!")
-            continue
+    if janela == relatorios and evento == '-PEDIDOS_ENTREGUES-':
+        Relatorios.historico_pedidos_concluido()
+        relatorios.hide()
+        sg.popup("Relatório gerado com sucesso!")
+        continue
 
-        if janela == relatorios and evento == '-PEDIDOS_NAO_ENTREGUES-':
-            Relatorios.historico_pedidos_naoentregues()
-            relatorios.hide()
-            sg.popup("Relatório gerado com sucesso!")
-            continue
+    if janela == relatorios and evento == '-PEDIDOS_NAO_ENTREGUES-':
+        Relatorios.historico_pedidos_naoentregues()
+        relatorios.hide()
+        sg.popup("Relatório gerado com sucesso!")
+        continue
 
-        if janela == relatorios and evento == '-PEDIDOS_PENDENTES-':
-            Relatorios.pedidos_pendentes()
-            relatorios.hide()
-            sg.popup("Relatório gerado com sucesso!")
-            continue
+    if janela == relatorios and evento == '-PEDIDOS_PENDENTES-':
+        Relatorios.pedidos_pendentes()
+        relatorios.hide()
+        sg.popup("Relatório gerado com sucesso!")
+        continue
 
-        if janela == relatorios and evento == '-TODOS_PEDIDOS-':
-            Relatorios.historico_todos_pedidos()
-            relatorios.hide()
-            sg.popup("Relatório gerado com sucesso!")
-            continue
+    if janela == relatorios and evento == '-TODOS_PEDIDOS-':
+        Relatorios.historico_todos_pedidos()
+        relatorios.hide()
+        sg.popup("Relatório gerado com sucesso!")
+        continue
 
-        if janela == relatorios and evento == '-VOLTAR-':
-            relatorios.close()
-        
-    else:
-        sg.popup("Não foi possível gerar o relatório!")
+    if janela == relatorios and evento == '-VOLTAR-':
+        relatorios.hide()
 
     ##########################################################################
     ############################DELETAR ENCOMENDA#############################
