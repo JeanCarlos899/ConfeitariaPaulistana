@@ -1,10 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-arquivo = pd.read_excel('dados.xlsx')
-
 class NewChart:
     def graficoPizza():
+        arquivo = pd.read_excel('dados.xlsx')
+
         Entregue = arquivo.loc[arquivo['Status']=='Concluído']
         Pendente = arquivo.loc[arquivo['Status']=='Pendente']
         plt.title('Status dos pedidos')
@@ -13,6 +13,8 @@ class NewChart:
         plt.show()
 
     def graficoBarrasPedidos():
+        arquivo = pd.read_excel('dados.xlsx')
+
         data = arquivo['Data de entrega']
         data = pd.to_datetime(data)
 
@@ -51,6 +53,8 @@ class NewChart:
         data = arquivo['Data de entrega'].to_string()
 
     def graficoTipoBolo():
+        arquivo = pd.read_excel('dados.xlsx')
+
         bolosA = arquivo['Bolo de aniversário']
         bolosA = bolosA.sum()
 
@@ -63,6 +67,8 @@ class NewChart:
         plt.show()
 
     def graficoTipoSalgados():
+        arquivo = pd.read_excel('dados.xlsx')
+
         salgadosM = arquivo['Salgado mini']
         salgadosM = salgadosM.sum()
 

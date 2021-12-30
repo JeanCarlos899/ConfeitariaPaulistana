@@ -5,6 +5,7 @@ from Scripts.insert_dados import InsertDados
 from Scripts.finalize_order import FinalizeOrder
 from Scripts.new_chart import NewChart
 from Scripts.reports import Relatorios
+from Scripts.delete_order import DeleteOrder
 
 from Design.menu_principal import MenuPrincipal
 from Design.nova_encomenda import NovaEncomenda
@@ -12,13 +13,14 @@ from Design.listar_encomendas import ListarEncomendas
 from Design.baixa_encomenda import BaixaEncomenda
 from Design.graficos import Graficos
 from Design.relatorios import FrontRelatorio
+from Design.deletar_encomenda import DeletarEncomenda
 
 ####################INICIANDO JANELAS######################
 menu, nova_encomenda = MenuPrincipal.menu_principal(), None
 lista_encomenda, menu_encomenda = None, None
 dar_baixa_encomenda, dados_cliente = None, None
 salgadinhos, mais_informacoes = None, None
-graficos, relatorios = None, None
+graficos, relatorios, deletar_encomenda = None, None, None
 
 while True:
     # Leitura de todas as janelas abertas
@@ -48,6 +50,9 @@ while True:
             continue
         elif evento == '-RELATORIOS-':
             relatorios = FrontRelatorio.menu_relatorios()
+            continue
+        elif evento == '-DELETAR_ENCOMENDA-':
+            deletar_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
             continue
 
  
@@ -197,9 +202,7 @@ while True:
         graficos.close()
 
     ##########################################################################
-    ##########################################################################
     ###########################RELATÓRIOS#####################################
-    ##########################################################################
     ##########################################################################
 
     if (janela == relatorios and evento == sg.WIN_CLOSED 
@@ -230,6 +233,53 @@ while True:
     if janela == relatorios and evento == '-VOLTAR-':
         relatorios.close()
 
+    ##########################################################################
+    ############################DELETAR ENCOMENDA#############################
+    ##########################################################################
+
+    if (janela == deletar_encomenda and evento == sg.WIN_CLOSED 
+        or janela == deletar_encomenda and evento == "-VOLTAR-"):
+        deletar_encomenda.hide()
+    
+    if janela == deletar_encomenda:
+        status_concluido = valor["-STATUS_CONCLUIDO-"] 
+        status_pendente = valor["-STATUS_PENDENTE-"]
+    
+    if janela == deletar_encomenda and evento == "-FILTRAR-":
+        if status_concluido == True:
+            lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
+            deletar_encomenda.close()
+            deletar_encomenda = DeletarEncomenda.deletar_encomenda("Concluído")
+            deletar_encomenda["-STATUS_CONCLUIDO-"].update(True)
+
+        elif status_pendente == True:
+            lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
+            deletar_encomenda.close()
+            menu_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
+            deletar_encomenda["-STATUS_PENDENTE-"].update(True)
+        continue
+
+    ##########################DELETAR ENCOMENDA###############################
+
+    if janela == deletar_encomenda and evento == "-DELETAR_ENCOMENDA-":
+        if status_pendente == True:
+            lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
+        else:
+            lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
+            
+        index_encomenda = valor["-INDEX_ENCOMENDA-"]
+        DeleteOrder(index_encomenda, lista_clientes).deletar_encomenda()
+        deletar_encomenda["-DELETAR_ENCOMENDA-"].update(disabled=True)
+
+        if status_concluido == True:
+            deletar_encomenda.close()
+            deletar_encomenda = DeletarEncomenda.deletar_encomenda("Concluído")
+            deletar_encomenda["-STATUS_CONCLUIDO-"].update(True)
+        elif status_pendente == True:
+            deletar_encomenda.close()
+            deletar_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
+            deletar_encomenda["-STATUS_PENDENTE-"].update(True)
+        continue
 
 
 
