@@ -181,6 +181,7 @@ while True:
         NewChart.graficoTipoBolo()
         graficos.hide()
         continue
+
     if janela == graficos and evento == '-TIPO_SALGADO-':
         NewChart.graficoTipoSalgados()
         graficos.hide()

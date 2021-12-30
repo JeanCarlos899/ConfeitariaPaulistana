@@ -48,6 +48,7 @@ class NewChart:
         plt.title('Quantidade de pedidos por mês')
         plt.bar(meses, valores)
         plt.show()
+        data = arquivo['Data de entrega'].to_string()
 
     def graficoTipoBolo():
         bolosA = arquivo['Bolo de aniversário']
