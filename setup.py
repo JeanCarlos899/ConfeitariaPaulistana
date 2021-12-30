@@ -236,7 +236,7 @@ while True:
         continue
 
     if janela == relatorios and evento == '-VOLTAR-':
-        relatorios.hide()
+        relatorios.close()
 
     ##########################################################################
     ############################DELETAR ENCOMENDA#############################
