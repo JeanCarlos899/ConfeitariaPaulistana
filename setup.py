@@ -21,8 +21,8 @@ salgadinhos, mais_informacoes = None, None
 graficos, relatorios = None, None
 
 while True:
-
-    janela, evento, valor = sg.read_all_windows() # Leitura de todas as janelas abertas
+    # Leitura de todas as janelas abertas
+    janela, evento, valor = sg.read_all_windows() 
 
     ##########################################################################
     ###########################JANELA PRINCIPAL###############################
@@ -168,7 +168,8 @@ while True:
     ###########################GRAFICOS#######################################
     ##########################################################################
 
-    if janela == graficos and evento == sg.WIN_CLOSED or janela == graficos and evento == 'Voltar':
+    if (janela == graficos and evento == sg.WIN_CLOSED 
+        or janela == graficos and evento == 'Voltar'):
         graficos.hide()
         graficos.un_hide()
 
@@ -201,7 +202,8 @@ while True:
     ##########################################################################
     ##########################################################################
 
-    if janela == relatorios and evento == sg.WIN_CLOSED or janela == relatorios and evento == 'Voltar':
+    if (janela == relatorios and evento == sg.WIN_CLOSED 
+        or janela == relatorios and evento == 'Voltar'):
         relatorios.hide()
         relatorios.un_hide()
     
