@@ -1,4 +1,3 @@
-from PySimpleGUI.PySimpleGUI import Canvas
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -73,4 +72,3 @@ class NewChart:
         plt.pie([salgadosM, salgadoN], labels=['Salgado mini','Salgado normal'], autopct='%1.1f%%')
         plt.axis('equal')
         plt.show()
-

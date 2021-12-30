@@ -2,37 +2,24 @@ import PySimpleGUI as sg
 
 from Scripts.data_list import DataList
 from Scripts.insert_dados import InsertDados
-<<<<<<< HEAD
-from Scripts.new_chart import NewChart
-from Scripts.price_end import PrecoFinal
-=======
 from Scripts.finalize_order import FinalizeOrder
->>>>>>> 8fba3c0d0e176f0c78f04865d1978c0cfdfa8d36
+from Scripts.new_chart import NewChart
 
 from Design.menu_principal import MenuPrincipal
 from Design.nova_encomenda import NovaEncomenda
 from Design.listar_encomendas import ListarEncomendas
 from Design.baixa_encomenda import BaixaEncomenda
-
-<<<<<<< HEAD
-menu, nova_encomenda, lista_encomenda, graficos, relatorios = MenuPrincipal.menu_principal(), None, None, None, None
-menu_encomenda, dar_baixa_encomenda, dados_cliente = None, None, None
-popup_baixa, salgadinhos, mais_informacoes = None, None, None
-
 from Design.graficos import Graficos
 
-=======
 ####################INICIANDO JANELAS######################
-menu, nova_encomenda = MenuPrincipal.menu_principal(), None
+menu, nova_encomenda, graficos, relatorios = MenuPrincipal.menu_principal(), None, None, None
 lista_encomenda, menu_encomenda = None, None
 dar_baixa_encomenda, dados_cliente = None, None
 salgadinhos, mais_informacoes = None, None
->>>>>>> 8fba3c0d0e176f0c78f04865d1978c0cfdfa8d36
 
 while True:
-    
-    # Leitura de todas as janelas abertas
-    janela, evento, valor = sg.read_all_windows() 
+
+    janela, evento, valor = sg.read_all_windows() # Leitura de todas as janelas abertas
 
     ##########################################################################
     ###########################JANELA PRINCIPAL###############################
@@ -52,21 +39,14 @@ while True:
             continue
         elif evento == "-DAR_BAIXA_ENCOMENDA-":
             dar_baixa_encomenda = BaixaEncomenda.baixa_encomenda()
-<<<<<<< HEAD
-
-        elif evento == 'graficos':
+            continue
+        elif evento == '-GRAFICOS-':
             graficos = Graficos.menu_graficos()
 
         # elif evento == 'relatorios':
         #     relatorios = FrontRelatorio.menu_relatorios()
 
-        elif evento == 'Sair':
-            break
-    ##########################################################################
-=======
-            continue
  
->>>>>>> 8fba3c0d0e176f0c78f04865d1978c0cfdfa8d36
     ##########################################################################
     ###########################NOVA ENCOMENDA#################################
     ##########################################################################
@@ -152,23 +132,33 @@ while True:
     if (janela == dar_baixa_encomenda and evento == sg.WIN_CLOSED 
         or janela == dar_baixa_encomenda and evento == "-VOLTAR-"):
         dar_baixa_encomenda.hide()
-<<<<<<< HEAD
+        continue
 
-    
-    if janela == dar_baixa_encomenda and evento == 'Confirmar':
-        id = valor['id']
-        kg_aniversario = valor['kg_bolo_aniversario']
-        kg_casamento = valor['kg_bolo_casamento']
+    if janela == dar_baixa_encomenda and evento == "-FINALIZAR_ENCOMENDA-":
+        index_encomenda = valor["-TABLE_LISTAR_ENCOMENDA-"]
+        kg_aniversario = valor["-BOLO_ANIVERSARIO-"]
+        kg_casamento = valor["-BOLO_CASAMENTO-"]
+        lista_encomenda = DataList("Pendente").get_dados_pedido_resumido()
 
-        preco_final = PrecoFinal(id, kg_aniversario, kg_casamento).modificar_status()
+        preco_final = FinalizeOrder(
+            lista_encomenda, index_encomenda, 
+            kg_aniversario, kg_casamento
+            ).get_preco_final()
 
-        dar_baixa_encomenda.hide()
+        dar_baixa_encomenda["-VALOR_FINAL-"].update("R$" + str(preco_final))
+        dar_baixa_encomenda["-FINALIZAR_ENCOMENDA-"].update(disabled=True)
+        continue
 
-        popup_baixa = BaixaEncomenda.popup_baixa(preco_final)
+    if janela == dar_baixa_encomenda and evento == "-ATUALIZAR_LISTA-":
+        dar_baixa_encomenda["-TABLE_LISTAR_ENCOMENDA-"].update(
+            DataList("Pendente").get_dados_pedido_resumido()
+            )
 
-    if janela == popup_baixa and evento == sg.WIN_CLOSED or janela == popup_baixa and evento == 'Ok':
-        popup_baixa.hide()
-
+        dar_baixa_encomenda["-FINALIZAR_ENCOMENDA-"].update(disabled=False)
+        dar_baixa_encomenda["-VALOR_FINAL-"].update("R$0,00")
+        dar_baixa_encomenda["-BOLO_ANIVERSARIO-"].update(0)
+        dar_baixa_encomenda["-BOLO_CASAMENTO-"].update(0)
+        continue
 
     ##########################################################################
     ##########################################################################
@@ -203,41 +193,3 @@ while True:
 
     if janela == graficos and evento == '-SAIR-':
         graficos.close()
-
-    ##########################################################################
-    ##########################################################################
-    ###########################RELATORIO#####################################
-    ##########################################################################
-    ##########################################################################
-
-
- 
-=======
-        continue
-
-    if janela == dar_baixa_encomenda and evento == "-FINALIZAR_ENCOMENDA-":
-        index_encomenda = valor["-TABLE_LISTAR_ENCOMENDA-"]
-        kg_aniversario = valor["-BOLO_ANIVERSARIO-"]
-        kg_casamento = valor["-BOLO_CASAMENTO-"]
-        lista_encomenda = DataList("Pendente").get_dados_pedido_resumido()
-
-        preco_final = FinalizeOrder(
-            lista_encomenda, index_encomenda, 
-            kg_aniversario, kg_casamento
-            ).get_preco_final()
-
-        dar_baixa_encomenda["-VALOR_FINAL-"].update("R$" + str(preco_final))
-        dar_baixa_encomenda["-FINALIZAR_ENCOMENDA-"].update(disabled=True)
-        continue
-
-    if janela == dar_baixa_encomenda and evento == "-ATUALIZAR_LISTA-":
-        dar_baixa_encomenda["-TABLE_LISTAR_ENCOMENDA-"].update(
-            DataList("Pendente").get_dados_pedido_resumido()
-            )
-
-        dar_baixa_encomenda["-FINALIZAR_ENCOMENDA-"].update(disabled=False)
-        dar_baixa_encomenda["-VALOR_FINAL-"].update("R$0,00")
-        dar_baixa_encomenda["-BOLO_ANIVERSARIO-"].update(0)
-        dar_baixa_encomenda["-BOLO_CASAMENTO-"].update(0)
-        continue
->>>>>>> 8fba3c0d0e176f0c78f04865d1978c0cfdfa8d36
