@@ -174,58 +174,45 @@ while True:
     ##########################################################################
 
     if (janela == graficos and evento == sg.WIN_CLOSED 
-        or janela == graficos and evento == 'Voltar'):
+        or janela == graficos and evento == '-VOLTAR-'):
         graficos.hide()
-        graficos.un_hide()
-        
 
     if janela == graficos and evento == '-STATUS_PEDIDO-':
         NewChart.graficoPizza()
-        graficos.hide()
         continue
 
     if janela == graficos and evento == '-TIPO_BOLO-':
         NewChart.graficoTipoBolo()
-        graficos.hide()
         continue
 
     if janela == graficos and evento == '-TIPO_SALGADO-':
         NewChart.graficoTipoSalgados()
-        graficos.hide()
         continue
 
     if janela == graficos and evento == '-MENSAIS-':
         NewChart.graficoBarrasPedidos()
-        graficos.hide()
         continue
-
-    if janela == graficos and evento == '-SAIR-':
-        graficos.close()
 
     ##########################################################################
     ###########################RELATÓRIOS#####################################
     ##########################################################################
 
     if (janela == relatorios and evento == sg.WIN_CLOSED 
-        or janela == relatorios and evento == 'Voltar'):
+        or janela == relatorios and evento == '-VOLTAR-'):
         relatorios.hide()
-        relatorios.un_hide()
     
     if janela == relatorios and evento == '-PEDIDOS_ENTREGUES-':
         Relatorios.historico_pedidos_concluido()
-        relatorios.hide()
         sg.popup("Relatório gerado com sucesso!")
         continue
 
     if janela == relatorios and evento == '-PEDIDOS_NAO_ENTREGUES-':
         Relatorios.historico_pedidos_naoentregues()
-        relatorios.hide()
         sg.popup("Relatório gerado com sucesso!")
         continue
 
     if janela == relatorios and evento == '-PEDIDOS_PENDENTES-':
         Relatorios.pedidos_pendentes()
-        relatorios.hide()
         sg.popup("Relatório gerado com sucesso!")
         continue
 
@@ -234,9 +221,6 @@ while True:
         relatorios.hide()
         sg.popup("Relatório gerado com sucesso!")
         continue
-
-    if janela == relatorios and evento == '-VOLTAR-':
-        relatorios.close()
 
     ##########################################################################
     ############################DELETAR ENCOMENDA#############################
