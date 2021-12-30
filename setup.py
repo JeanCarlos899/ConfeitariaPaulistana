@@ -12,10 +12,11 @@ from Design.baixa_encomenda import BaixaEncomenda
 from Design.graficos import Graficos
 
 ####################INICIANDO JANELAS######################
-menu, nova_encomenda, graficos, relatorios = MenuPrincipal.menu_principal(), None, None, None
+menu, nova_encomenda = MenuPrincipal.menu_principal(), None
 lista_encomenda, menu_encomenda = None, None
 dar_baixa_encomenda, dados_cliente = None, None
 salgadinhos, mais_informacoes = None, None
+graficos, relatorios = None, None
 
 while True:
 
@@ -161,12 +162,8 @@ while True:
         continue
 
     ##########################################################################
-    ##########################################################################
     ###########################GRAFICOS#######################################
     ##########################################################################
-    ##########################################################################
-
-
 
     if janela == graficos and evento == sg.WIN_CLOSED or janela == graficos and evento == 'Voltar':
         graficos.hide()
