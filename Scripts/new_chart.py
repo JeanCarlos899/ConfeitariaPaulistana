@@ -75,3 +75,4 @@ class NewChart:
         plt.pie([salgadosM, salgadoN], labels=['Salgado mini','Salgado normal'], autopct='%1.1f%%')
         plt.axis('equal')
         plt.show()
+

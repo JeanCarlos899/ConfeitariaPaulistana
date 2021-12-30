@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 from Scripts.insert_dados import InsertDados
+from Scripts.new_chart import NewChart
 from Scripts.price_end import PrecoFinal
 
 from Design.menu_principal import MenuPrincipal
@@ -7,9 +8,11 @@ from Design.nova_encomenda import NovaEncomenda
 from Design.listar_encomendas import ListarEncomendas
 from Design.baixa_encomenda import BaixaEncomenda
 
-menu, nova_encomenda, lista_encomenda = MenuPrincipal.menu_principal(), None, None
+menu, nova_encomenda, lista_encomenda, graficos, relatorios = MenuPrincipal.menu_principal(), None, None, None, None
 menu_encomenda, dar_baixa_encomenda, dados_cliente = None, None, None
 popup_baixa, salgadinhos, mais_informacoes = None, None, None
+
+from Design.graficos import Graficos
 
 
 while True:
@@ -33,6 +36,12 @@ while True:
 
         elif evento == 'Dar baixa em encomenda':
             dar_baixa_encomenda = BaixaEncomenda.baixa_encomenda()
+
+        elif evento == 'graficos':
+            graficos = Graficos.menu_graficos()
+
+        # elif evento == 'relatorios':
+        #     relatorios = FrontRelatorio.menu_relatorios()
 
         elif evento == 'Sair':
             break
@@ -129,3 +138,45 @@ while True:
         popup_baixa.hide()
 
 
+    ##########################################################################
+    ##########################################################################
+    ###########################GRAFICOS#######################################
+    ##########################################################################
+    ##########################################################################
+
+
+
+    if janela == graficos and evento == sg.WIN_CLOSED or janela == graficos and evento == 'Voltar':
+        graficos.hide()
+        graficos.un_hide()
+
+    if janela == graficos and evento == '-STATUS_PEDIDO-':
+        NewChart.graficoPizza()
+        graficos.hide()
+        continue
+
+    if janela == graficos and evento == '-TIPO_BOLO-':
+        NewChart.graficoTipoBolo()
+        graficos.hide()
+        continue
+    if janela == graficos and evento == '-TIPO_SALGADO-':
+        NewChart.graficoTipoSalgados()
+        graficos.hide()
+        continue
+
+    if janela == graficos and evento == '-MENSAIS-':
+        NewChart.graficoBarrasPedidos()
+        graficos.hide()
+        continue
+
+    if janela == graficos and evento == '-SAIR-':
+        graficos.close()
+
+    ##########################################################################
+    ##########################################################################
+    ###########################RELATORIO#####################################
+    ##########################################################################
+    ##########################################################################
+
+
+ 
