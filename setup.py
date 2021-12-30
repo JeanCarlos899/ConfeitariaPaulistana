@@ -4,12 +4,14 @@ from Scripts.data_list import DataList
 from Scripts.insert_dados import InsertDados
 from Scripts.finalize_order import FinalizeOrder
 from Scripts.new_chart import NewChart
+from Scripts.reports import Relatorios
 
 from Design.menu_principal import MenuPrincipal
 from Design.nova_encomenda import NovaEncomenda
 from Design.listar_encomendas import ListarEncomendas
 from Design.baixa_encomenda import BaixaEncomenda
 from Design.graficos import Graficos
+from Design.relatorios import FrontRelatorio
 
 ####################INICIANDO JANELAS######################
 menu, nova_encomenda = MenuPrincipal.menu_principal(), None
@@ -43,9 +45,10 @@ while True:
             continue
         elif evento == '-GRAFICOS-':
             graficos = Graficos.menu_graficos()
-
-        # elif evento == 'relatorios':
-        #     relatorios = FrontRelatorio.menu_relatorios()
+            continue
+        elif evento == '-RELATORIOS-':
+            relatorios = FrontRelatorio.menu_relatorios()
+            continue
 
  
     ##########################################################################
@@ -190,3 +193,40 @@ while True:
 
     if janela == graficos and evento == '-SAIR-':
         graficos.close()
+
+    ##########################################################################
+    ##########################################################################
+    ###########################RELATÓRIOS#####################################
+    ##########################################################################
+    ##########################################################################
+
+    if janela == relatorios and evento == sg.WIN_CLOSED or janela == relatorios and evento == 'Voltar':
+        relatorios.hide()
+        relatorios.un_hide()
+    
+    if janela == relatorios and evento == '-PEDIDOS_ENTREGUES-':
+        Relatorios.historico_pedidos_concluido()
+        relatorios.hide()
+        continue
+
+    if janela == relatorios and evento == '-PEDIDOS_NAO_ENTREGUES-':
+        Relatorios.historico_pedidos_naoentregues()
+        relatorios.hide()
+        continue
+
+    if janela == relatorios and evento == '-PEDIDOS_PENDENTES-':
+        Relatorios.pedidos_pendentes()
+        relatorios.hide()
+        continue
+
+    if janela == relatorios and evento == '-TODOS_PEDIDOS-':
+        Relatorios.historico_todos_pedidos()
+        relatorios.hide()
+        continue
+
+    if janela == relatorios and evento == '-VOLTAR-':
+        relatorios.close()
+
+
+
+
