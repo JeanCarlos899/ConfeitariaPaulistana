@@ -64,7 +64,7 @@ while True:
         if evento == "-SAIR-":
             break
         elif evento == "-NOVA_ENCOMENDA-":
-            nova_encomenda = NovaEncomenda.nova_encomenda()
+            nova_encomenda = NovaEncomenda.nova_encomenda("Nova Encomenda")
             buttons("off")
             continue
         elif evento == "-LISTAR_ENCOMENDAS-":
@@ -354,7 +354,7 @@ while True:
             msg = DataList("Pendente").get_dados_pedido(True)
         
         editar_encomenda.hide()
-        editar_encomenda = NovaEncomenda.nova_encomenda()
+        editar_encomenda = NovaEncomenda.nova_encomenda("Editar Encomenda")
 
         editar_encomenda["-NOME_CLIENTE-"].update(lista_clientes[index_encomenda[0]][2])
         editar_encomenda["-DATA_ENTREGA-"].update(lista_clientes[index_encomenda[0]][3])
@@ -377,4 +377,7 @@ while True:
             int(valor["-QTD_NORMAL-"]),
             str(valor["-INFO_COMPLEMENTARES-"]),
             status).editar_encomenda()
+        sg.popup("Encomenda editada com sucesso!")
+        editar_encomenda.close()
+        buttons("on")
         continue
