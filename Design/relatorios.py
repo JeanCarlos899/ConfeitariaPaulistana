@@ -12,7 +12,7 @@ class FrontRelatorio:
                         sg.Button(image_filename="Design/Images/pedidos_nao_entregues.png", button_color=("#E8E5EA", "#E8E5EA"), key="-PEDIDOS_NAO_ENTREGUES-",image_size=(150, 100), pad=(10, 10))
                     ],
                     [
-                        sg.Button(image_filename="Design/Images/pedidos_pendentes.png", button_color=("#E8E5EA", "#E8E5EA"), key="PEDIDOS_PENDENTES",image_size=(150, 100), pad=(10, 10)),
+                        sg.Button(image_filename="Design/Images/pedidos_pendentes.png", button_color=("#E8E5EA", "#E8E5EA"), key="-PEDIDOS_PENDENTES-",image_size=(150, 100), pad=(10, 10)),
                         sg.Button(image_filename="Design/Images/todos_pedidos.png", button_color=("#E8E5EA", "#E8E5EA"), key="-TODOS_PEDIDOS-",image_size=(150, 100), pad=(10, 10))
                     ],
                     [sg.Button("Voltar", size=(100, 2), button_color=("White", "#FF8C01"), key="-VOLTAR-")]
