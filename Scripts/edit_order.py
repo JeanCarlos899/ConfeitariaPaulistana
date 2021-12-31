@@ -1,4 +1,4 @@
-from openpyxl import load_workbook, Workbook
+from openpyxl import load_workbook
 
 class EditOrder:
     def __init__(self, order_id, customer_list, nome_cliente:str, 

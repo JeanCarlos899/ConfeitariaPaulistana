@@ -17,7 +17,6 @@ from Design.relatorios import FrontRelatorio
 from Design.deletar_encomenda import DeletarEncomenda
 from Design.editar_encomenda import EditarEncomenda
 
-
 def buttons(on_off):
     if on_off == "on":
         menu["-NOVA_ENCOMENDA-"].update(disabled=False)
@@ -60,7 +59,6 @@ while True:
         break
 
     if janela == menu:
-
         if evento == "-SAIR-":
             break
         elif evento == "-NOVA_ENCOMENDA-":
