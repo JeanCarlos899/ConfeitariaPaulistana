@@ -3,17 +3,24 @@ from Scripts.reports import Relatorios
 
 class FrontRelatorio:
     def menu_relatorios():
-        sg.theme('Dark Blue 3')
+        sg.theme('Default1')
         layout = [
-            [sg.Text('Relatórios', size=(15, 1), font=('Helvetica', 25))],
-            [sg.Text('Selecione o relatório desejado:', size=(30, 1), font=('Helvetica', 15))],
-            [sg.Button('Pedidos entregues',key='-PEDIDOS_ENTREGUES-', size=(100, 1), font=('Helvetica', 15))],
-            [sg.Button('Pedidos não entregues', key='-PEDIDOS_NAO_ENTREGUES-', size=(100, 1), font=('Helvetica', 15))],
-            [sg.Button('Pedidos pendentes', key='-PEDIDOS_PENDENTES-', size=(100, 1), font=('Helvetica', 15))],
-            [sg.Button('Todos os pedidos', key='-TODOS_PEDIDOS-', size=(100, 1), font=('Helvetica', 15))],
-            [sg.Button('Voltar', key='-VOLTAR-', size=(100, 1), font=('Helvetica', 15))]
+            [sg.Frame("Opções de gráficos", 
+                [
+                    [
+                        sg.Button(image_filename="Design/Images/pedidos_entregues.png", button_color=("#E8E5EA", "#E8E5EA"), key="-PEDIDOS_ENTREGUES-",image_size=(150, 100), pad=(10, 10)),
+                        sg.Button(image_filename="Design/Images/pedidos_nao_entregues.png", button_color=("#E8E5EA", "#E8E5EA"), key="-PEDIDOS_NAO_ENTREGUES-",image_size=(150, 100), pad=(10, 10))
+                    ],
+                    [
+                        sg.Button(image_filename="Design/Images/pedidos_pendentes.png", button_color=("#E8E5EA", "#E8E5EA"), key="PEDIDOS_PENDENTES",image_size=(150, 100), pad=(10, 10)),
+                        sg.Button(image_filename="Design/Images/todos_pedidos.png", button_color=("#E8E5EA", "#E8E5EA"), key="-TODOS_PEDIDOS-",image_size=(150, 100), pad=(10, 10))
+                    ],
+                    [sg.Button("Voltar", size=(100, 2), button_color=("White", "#FF8C01"), key="-VOLTAR-")]
+                ]
+            )],
         ]
-        return sg.Window("Relatórios", layout=layout, finalize=True)
+        return sg.Window("Relatórios", layout=layout, finalize=True, size=(370, 330))
+
 
     def popupConfirmacao():
         sg.theme('Dark Blue 3')
