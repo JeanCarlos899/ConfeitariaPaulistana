@@ -5,7 +5,7 @@ class FrontRelatorio:
     def menu_relatorios():
         sg.theme('Default1')
         layout = [
-            [sg.Frame("Opções de gráficos", 
+            [sg.Frame("Opções de relatórios", 
                 [
                     [
                         sg.Button(image_filename="Design/Images/pedidos_entregues.png", button_color=("#E8E5EA", "#E8E5EA"), key="-PEDIDOS_ENTREGUES-",image_size=(150, 100), pad=(10, 10)),
