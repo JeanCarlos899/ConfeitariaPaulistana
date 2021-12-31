@@ -378,6 +378,7 @@ while True:
         editar_encomenda["-INFO_COMPLEMENTARES-"].update(
             msg[index_encomenda[0]]
             )
+        continue
 
     if janela == editar_encomenda and evento == "-CONFIRMAR-":
         EditOrder(
