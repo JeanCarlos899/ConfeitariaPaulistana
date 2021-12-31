@@ -356,14 +356,28 @@ while True:
         editar_encomenda.hide()
         editar_encomenda = NovaEncomenda.nova_encomenda("Editar Encomenda")
 
-        editar_encomenda["-NOME_CLIENTE-"].update(lista_clientes[index_encomenda[0]][2])
-        editar_encomenda["-DATA_ENTREGA-"].update(lista_clientes[index_encomenda[0]][3])
-        editar_encomenda["-HORA_ENTREGA-"].update(lista_clientes[index_encomenda[0]][4])
-        editar_encomenda["-BOLO_ANIVERSARIO-"].update(info_encomenda[index_encomenda[0]][0])
-        editar_encomenda["-BOLO_CASAMENTO-"].update(info_encomenda[index_encomenda[0]][1])
-        editar_encomenda["-QTD_MINI-"].update(info_encomenda[index_encomenda[0]][2])
-        editar_encomenda["-QTD_NORMAL-"].update(info_encomenda[index_encomenda[0]][3])
-        editar_encomenda["-INFO_COMPLEMENTARES-"].update(msg[index_encomenda[0]])
+        editar_encomenda["-NOME_CLIENTE-"].update(
+            lista_clientes[index_encomenda[0]][2]
+            )
+        editar_encomenda["-DATA_ENTREGA-"].update(
+            lista_clientes[index_encomenda[0]][3]
+            )
+        editar_encomenda["-HORA_ENTREGA-"].update(
+            lista_clientes[index_encomenda[0]][4])
+        editar_encomenda["-BOLO_ANIVERSARIO-"].update(
+            info_encomenda[index_encomenda[0]][0]
+            )   
+        editar_encomenda["-BOLO_CASAMENTO-"].update(
+            info_encomenda[index_encomenda[0]][1])
+        editar_encomenda["-QTD_MINI-"].update(
+            info_encomenda[index_encomenda[0]][2]
+            )
+        editar_encomenda["-QTD_NORMAL-"].update(
+            info_encomenda[index_encomenda[0]][3]
+            )
+        editar_encomenda["-INFO_COMPLEMENTARES-"].update(
+            msg[index_encomenda[0]]
+            )
 
     if janela == editar_encomenda and evento == "-CONFIRMAR-":
         EditOrder(
