@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 from Scripts.new_chart import NewChart
 
+# Layout
 class Graficos:
     def menu_graficos():
         sg.theme('Default1')
