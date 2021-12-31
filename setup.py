@@ -15,6 +15,26 @@ from Design.graficos import Graficos
 from Design.relatorios import FrontRelatorio
 from Design.deletar_encomenda import DeletarEncomenda
 
+def buttons(on_off):
+    if on_off == "on":
+        menu["-NOVA_ENCOMENDA-"].update(disabled=False)
+        menu["-LISTAR_ENCOMENDAS-"].update(disabled=False)
+        menu["-DAR_BAIXA_ENCOMENDA-"].update(disabled=False)
+        menu["-EDITAR_ENCOMENDA-"].update(disabled=False)
+        menu["-GRAFICOS-"].update(disabled=False)
+        menu["-RELATORIOS-"].update(disabled=False)
+        menu["-DELETAR_ENCOMENDA-"].update(disabled=False)
+        menu["-SAIR-"].update(disabled=False)
+    else: 
+        menu["-NOVA_ENCOMENDA-"].update(disabled=True)
+        menu["-LISTAR_ENCOMENDAS-"].update(disabled=True)
+        menu["-DAR_BAIXA_ENCOMENDA-"].update(disabled=True)
+        menu["-EDITAR_ENCOMENDA-"].update(disabled=True)
+        menu["-GRAFICOS-"].update(disabled=True)
+        menu["-RELATORIOS-"].update(disabled=True)
+        menu["-DELETAR_ENCOMENDA-"].update(disabled=True)
+        menu["-SAIR-"].update(disabled=True)
+
 ####################INICIANDO JANELAS######################
 menu, nova_encomenda = MenuPrincipal.menu_principal(), None
 lista_encomenda, menu_encomenda = None, None
@@ -27,11 +47,11 @@ menu.maximize()
 while True:
     # Leitura de todas as janelas abertas
     janela, evento, valor = sg.read_all_windows() 
-
+    
     ##########################################################################
     ###########################JANELA PRINCIPAL###############################
     ##########################################################################
-    
+
     if janela == menu and evento == sg.WIN_CLOSED:
         break
 
@@ -41,21 +61,27 @@ while True:
             break
         elif evento == "-NOVA_ENCOMENDA-":
             nova_encomenda = NovaEncomenda.nova_encomenda()
+            buttons("off")
             continue
         elif evento == "-LISTAR_ENCOMENDAS-":
             menu_encomenda = ListarEncomendas.listar_encomendas("Pendente")
+            buttons("off")
             continue
         elif evento == "-DAR_BAIXA_ENCOMENDA-":
             dar_baixa_encomenda = BaixaEncomenda.baixa_encomenda()
+            buttons("off")
             continue
         elif evento == '-GRAFICOS-':
             graficos = Graficos.menu_graficos()
+            buttons("off")
             continue
         elif evento == '-RELATORIOS-':
             relatorios = FrontRelatorio.menu_relatorios()
+            buttons("off")
             continue
         elif evento == '-DELETAR_ENCOMENDA-':
             deletar_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
+            buttons("off")
             continue
         
     ##########################################################################
@@ -65,6 +91,7 @@ while True:
     if (janela == nova_encomenda and evento == sg.WIN_CLOSED  
         or janela == nova_encomenda and evento == "-VOLTAR-"):
         nova_encomenda.hide()
+        buttons("on")
         continue
 
     if janela == nova_encomenda and evento == "-CONFIRMAR-":
@@ -81,6 +108,7 @@ while True:
 
         sg.popup("Encomenda cadastrada com sucesso!")
         nova_encomenda.hide()
+        buttons("on")
         continue
 
     ##########################################################################
@@ -90,12 +118,14 @@ while True:
     if (janela == menu_encomenda and evento == sg.WIN_CLOSED 
         or janela == menu_encomenda and evento == "-VOLTAR-"):
         menu_encomenda.hide()
+        buttons("on")
         continue
 
-    if janela == menu_encomenda and evento == "-FILTRAR-":
+    if janela == menu_encomenda:
         status_concluido = valor["-STATUS_CONCLUIDO-"] 
         status_pendente = valor["-STATUS_PENDENTE-"]
 
+    if janela == menu_encomenda and evento == "-FILTRAR-":
         if status_concluido == True:
             menu_encomenda.close()
             menu_encomenda = ListarEncomendas.listar_encomendas("Concluído")
@@ -109,11 +139,7 @@ while True:
     ##########################MAIS INFORMACOES###############################
 
     if janela == menu_encomenda and evento == "-MAIS_INFORMACOES-":
-        index_da_lista = valor["-INDEX_ENCOMENDA-"]
-        status_pendente = valor["-STATUS_PENDENTE-"] #true or false
-        status_concluido = valor["-STATUS_CONCLUIDO-"] #true or false
-
-        index_da_lista = int(index_da_lista[0])
+        index_da_lista = int(valor["-INDEX_ENCOMENDA-"][0])
 
         if status_concluido == True:
             lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
@@ -143,6 +169,7 @@ while True:
     if (janela == dar_baixa_encomenda and evento == sg.WIN_CLOSED 
         or janela == dar_baixa_encomenda and evento == "-VOLTAR-"):
         dar_baixa_encomenda.hide()
+        buttons("on")
         continue
 
     if janela == dar_baixa_encomenda and evento == "-FINALIZAR_ENCOMENDA-":
@@ -178,6 +205,7 @@ while True:
     if (janela == graficos and evento == sg.WIN_CLOSED 
         or janela == graficos and evento == '-VOLTAR-'):
         graficos.hide()
+        buttons("on")
 
     if janela == graficos and evento == '-STATUS_PEDIDO-':
         NewChart.graficoPizza()
@@ -202,6 +230,7 @@ while True:
     if (janela == relatorios and evento == sg.WIN_CLOSED 
         or janela == relatorios and evento == '-VOLTAR-'):
         relatorios.hide()
+        buttons("on")
     
     if janela == relatorios and evento == '-PEDIDOS_ENTREGUES-':
         Relatorios.historico_pedidos_concluido()
@@ -231,6 +260,7 @@ while True:
     if (janela == deletar_encomenda and evento == sg.WIN_CLOSED 
         or janela == deletar_encomenda and evento == "-VOLTAR-"):
         deletar_encomenda.hide()
+        buttons("on")
     
     if janela == deletar_encomenda:
         status_concluido = valor["-STATUS_CONCLUIDO-"] 
@@ -271,6 +301,3 @@ while True:
             deletar_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
             deletar_encomenda["-STATUS_PENDENTE-"].update(True)
         continue
-
-
-
