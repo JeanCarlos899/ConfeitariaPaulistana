@@ -15,6 +15,7 @@ from Design.graficos import Graficos
 from Design.relatorios import FrontRelatorio
 from Design.deletar_encomenda import DeletarEncomenda
 
+
 def buttons(on_off):
     if on_off == "on":
         menu["-NOVA_ENCOMENDA-"].update(disabled=False)
