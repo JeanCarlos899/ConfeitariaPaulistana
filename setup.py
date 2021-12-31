@@ -22,6 +22,8 @@ dar_baixa_encomenda, dados_cliente = None, None
 salgadinhos, mais_informacoes = None, None
 graficos, relatorios, deletar_encomenda = None, None, None
 
+menu.maximize()
+
 while True:
     # Leitura de todas as janelas abertas
     janela, evento, valor = sg.read_all_windows() 
@@ -34,6 +36,7 @@ while True:
         break
 
     if janela == menu:
+
         if evento == "-SAIR-":
             break
         elif evento == "-NOVA_ENCOMENDA-":
@@ -54,6 +57,7 @@ while True:
         elif evento == '-DELETAR_ENCOMENDA-':
             deletar_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
             continue
+        
 
  
     ##########################################################################

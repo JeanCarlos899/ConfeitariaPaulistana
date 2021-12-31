@@ -38,5 +38,5 @@ class MenuPrincipal:
                 font=(None, 10), justification="center", size=(1366, 3), pad=(2, 0))
             ]
         ]
-
         return sg.Window("Confeitaria Paulistana", layout=layout, finalize=True, resizable=True, size=(1366,768), margins=(0,0))
+        
