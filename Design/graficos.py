@@ -19,5 +19,5 @@ class Graficos:
                 ]
             )],
         ]
-        return sg.Window("Gráficos", layout=layout, finalize=True, size=(370, 330)).TKroot.state('zoomed')
+        return sg.Window("Gráficos", layout=layout, finalize=True, size=(370, 330))
 
