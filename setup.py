@@ -18,24 +18,23 @@ from Design.deletar_encomenda import DeletarEncomenda
 from Design.editar_encomenda import EditarEncomenda
 
 def buttons(on_off):
+    keys = [
+        "-NOVA_ENCOMENDA-", 
+        "-LISTAR_ENCOMENDAS-",
+        "-DAR_BAIXA_ENCOMENDA-",
+        "-EDITAR_ENCOMENDA-",
+        "-GRAFICOS-",
+        "-RELATORIOS-",
+        "-DELETAR_ENCOMENDA-",
+        "-SAIR-"
+        ]
+
     if on_off == "on":
-        menu["-NOVA_ENCOMENDA-"].update(disabled=False)
-        menu["-LISTAR_ENCOMENDAS-"].update(disabled=False)
-        menu["-DAR_BAIXA_ENCOMENDA-"].update(disabled=False)
-        menu["-EDITAR_ENCOMENDA-"].update(disabled=False)
-        menu["-GRAFICOS-"].update(disabled=False)
-        menu["-RELATORIOS-"].update(disabled=False)
-        menu["-DELETAR_ENCOMENDA-"].update(disabled=False)
-        menu["-SAIR-"].update(disabled=False)
+        for button in keys:
+            menu[button].update(disabled=False)
     else: 
-        menu["-NOVA_ENCOMENDA-"].update(disabled=True)
-        menu["-LISTAR_ENCOMENDAS-"].update(disabled=True)
-        menu["-DAR_BAIXA_ENCOMENDA-"].update(disabled=True)
-        menu["-EDITAR_ENCOMENDA-"].update(disabled=True)
-        menu["-GRAFICOS-"].update(disabled=True)
-        menu["-RELATORIOS-"].update(disabled=True)
-        menu["-DELETAR_ENCOMENDA-"].update(disabled=True)
-        menu["-SAIR-"].update(disabled=True)
+        for button in keys:
+            menu[button].update(disabled=True)
 
 ####################INICIANDO JANELAS######################
 menu, nova_encomenda = MenuPrincipal.menu_principal(), None
@@ -354,28 +353,27 @@ while True:
         editar_encomenda.hide()
         editar_encomenda = NovaEncomenda.nova_encomenda("Editar Encomenda")
 
-        editar_encomenda["-NOME_CLIENTE-"].update(
-            lista_clientes[index_encomenda[0]][2]
-            )
-        editar_encomenda["-DATA_ENTREGA-"].update(
-            lista_clientes[index_encomenda[0]][3]
-            )
-        editar_encomenda["-HORA_ENTREGA-"].update(
-            lista_clientes[index_encomenda[0]][4])
-        editar_encomenda["-BOLO_ANIVERSARIO-"].update(
-            info_encomenda[index_encomenda[0]][0]
-            )   
-        editar_encomenda["-BOLO_CASAMENTO-"].update(
-            info_encomenda[index_encomenda[0]][1])
-        editar_encomenda["-QTD_MINI-"].update(
-            info_encomenda[index_encomenda[0]][2]
-            )
-        editar_encomenda["-QTD_NORMAL-"].update(
-            info_encomenda[index_encomenda[0]][3]
-            )
-        editar_encomenda["-INFO_COMPLEMENTARES-"].update(
-            msg[index_encomenda[0]]
-            )
+        keys = [
+            "-NOME_CLIENTE-",
+            "-DATA_ENTREGA-",
+            "-HORA_ENTREGA-",
+            "-BOLO_ANIVERSARIO-",
+            "-BOLO_CASAMENTO-",
+            "-QTD_MINI-",
+            "-QTD_NORMAL-",
+            ]
+        keys_info_clientes = keys[0:3]
+        keys_info_encomenda = keys[3:7]
+
+        for key in range(len(keys_info_clientes)):
+            editar_encomenda[keys_info_clientes[key]].update(
+                lista_clientes[index_encomenda[0]][key+2]
+                )
+        for key in range(len(keys_info_encomenda)):
+            editar_encomenda[keys_info_encomenda[key]].update(
+                info_encomenda[index_encomenda[0]][key]
+                )
+        editar_encomenda["-INFO_COMPLEMENTARES-"].update(msg[0])
         continue
 
     if janela == editar_encomenda and evento == "-CONFIRMAR-":
