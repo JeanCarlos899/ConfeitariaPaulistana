@@ -6,6 +6,7 @@ from Scripts.finalize_order import FinalizeOrder
 from Scripts.new_chart import NewChart
 from Scripts.reports import Relatorios
 from Scripts.delete_order import DeleteOrder
+from Scripts.edit_order import EditOrder
 
 from Design.menu_principal import MenuPrincipal
 from Design.nova_encomenda import NovaEncomenda
@@ -14,27 +15,26 @@ from Design.baixa_encomenda import BaixaEncomenda
 from Design.graficos import Graficos
 from Design.relatorios import FrontRelatorio
 from Design.deletar_encomenda import DeletarEncomenda
-
+from Design.editar_encomenda import EditarEncomenda
 
 def buttons(on_off):
+    keys = [
+        "-NOVA_ENCOMENDA-", 
+        "-LISTAR_ENCOMENDAS-",
+        "-DAR_BAIXA_ENCOMENDA-",
+        "-EDITAR_ENCOMENDA-",
+        "-GRAFICOS-",
+        "-RELATORIOS-",
+        "-DELETAR_ENCOMENDA-",
+        "-SAIR-"
+        ]
+
     if on_off == "on":
-        menu["-NOVA_ENCOMENDA-"].update(disabled=False)
-        menu["-LISTAR_ENCOMENDAS-"].update(disabled=False)
-        menu["-DAR_BAIXA_ENCOMENDA-"].update(disabled=False)
-        menu["-EDITAR_ENCOMENDA-"].update(disabled=False)
-        menu["-GRAFICOS-"].update(disabled=False)
-        menu["-RELATORIOS-"].update(disabled=False)
-        menu["-DELETAR_ENCOMENDA-"].update(disabled=False)
-        menu["-SAIR-"].update(disabled=False)
+        for button in keys:
+            menu[button].update(disabled=False)
     else: 
-        menu["-NOVA_ENCOMENDA-"].update(disabled=True)
-        menu["-LISTAR_ENCOMENDAS-"].update(disabled=True)
-        menu["-DAR_BAIXA_ENCOMENDA-"].update(disabled=True)
-        menu["-EDITAR_ENCOMENDA-"].update(disabled=True)
-        menu["-GRAFICOS-"].update(disabled=True)
-        menu["-RELATORIOS-"].update(disabled=True)
-        menu["-DELETAR_ENCOMENDA-"].update(disabled=True)
-        menu["-SAIR-"].update(disabled=True)
+        for button in keys:
+            menu[button].update(disabled=True)
 
 ####################INICIANDO JANELAS######################
 menu, nova_encomenda = MenuPrincipal.menu_principal(), None
@@ -42,6 +42,7 @@ lista_encomenda, menu_encomenda = None, None
 dar_baixa_encomenda, dados_cliente = None, None
 salgadinhos, mais_informacoes = None, None
 graficos, relatorios, deletar_encomenda = None, None, None
+editar_encomenda = None
 
 menu.maximize()
 
@@ -57,11 +58,10 @@ while True:
         break
 
     if janela == menu:
-
         if evento == "-SAIR-":
             break
         elif evento == "-NOVA_ENCOMENDA-":
-            nova_encomenda = NovaEncomenda.nova_encomenda()
+            nova_encomenda = NovaEncomenda.nova_encomenda("Nova Encomenda")
             buttons("off")
             continue
         elif evento == "-LISTAR_ENCOMENDAS-":
@@ -78,6 +78,10 @@ while True:
             continue
         elif evento == '-RELATORIOS-':
             relatorios = FrontRelatorio.menu_relatorios()
+            buttons("off")
+            continue
+        elif evento == '-EDITAR_ENCOMENDA-':
+            editar_encomenda = EditarEncomenda.listar_encomendas("Pendente")
             buttons("off")
             continue
         elif evento == '-DELETAR_ENCOMENDA-':
@@ -301,4 +305,90 @@ while True:
             deletar_encomenda.close()
             deletar_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
             deletar_encomenda["-STATUS_PENDENTE-"].update(True)
+        continue
+
+    ##########################################################################
+    ###########################EDITAR ENCOMENDAS##############################
+    ##########################################################################
+
+    if (janela == editar_encomenda and evento == sg.WIN_CLOSED 
+        or janela == editar_encomenda and evento == "-VOLTAR-"):
+        editar_encomenda.hide()
+        buttons("on")
+        continue
+
+    if janela == editar_encomenda:
+        try:
+            status_concluido = valor["-STATUS_CONCLUIDO-"] 
+            status_pendente = valor["-STATUS_PENDENTE-"]
+        except:
+            pass
+
+    if janela == editar_encomenda and evento == "-FILTRAR-":
+        if status_concluido == True:
+            editar_encomenda.close()
+            editar_encomenda = EditarEncomenda.listar_encomendas("Concluído")
+            editar_encomenda["-STATUS_CONCLUIDO-"].update(True)
+        elif status_pendente == True:
+            editar_encomenda.close()
+            editar_encomenda = EditarEncomenda.listar_encomendas("Pendente")
+            editar_encomenda["-STATUS_PENDENTE-"].update(True)
+        continue
+
+    ###############################EDITAR ENCOMENDA###########################
+
+    if janela == editar_encomenda and evento == "-EDITAR-":
+        index_encomenda = valor["-INDEX_ENCOMENDA-"]
+        if status_concluido == True:
+            status = "Concluído"
+            lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
+            info_encomenda = DataList("Concluído").get_dados_pedido(False)
+            msg = DataList("Concluído").get_dados_pedido(True)
+        else:
+            status = "Pendente"
+            lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
+            info_encomenda = DataList("Pendente").get_dados_pedido(False)
+            msg = DataList("Pendente").get_dados_pedido(True)
+        
+        editar_encomenda.hide()
+        editar_encomenda = NovaEncomenda.nova_encomenda("Editar Encomenda")
+
+        keys = [
+            "-NOME_CLIENTE-",
+            "-DATA_ENTREGA-",
+            "-HORA_ENTREGA-",
+            "-BOLO_ANIVERSARIO-",
+            "-BOLO_CASAMENTO-",
+            "-QTD_MINI-",
+            "-QTD_NORMAL-",
+            ]
+        keys_info_clientes = keys[0:3]
+        keys_info_encomenda = keys[3:7]
+
+        for key in range(len(keys_info_clientes)):
+            editar_encomenda[keys_info_clientes[key]].update(
+                lista_clientes[index_encomenda[0]][key+2]
+                )
+        for key in range(len(keys_info_encomenda)):
+            editar_encomenda[keys_info_encomenda[key]].update(
+                info_encomenda[index_encomenda[0]][key]
+                )
+        editar_encomenda["-INFO_COMPLEMENTARES-"].update(msg[0])
+        continue
+
+    if janela == editar_encomenda and evento == "-CONFIRMAR-":
+        EditOrder(
+            index_encomenda, lista_clientes, 
+            str(valor["-NOME_CLIENTE-"]), 
+            str(valor["-DATA_ENTREGA-"]),
+            str(valor["-HORA_ENTREGA-"]),
+            int(valor["-BOLO_ANIVERSARIO-"]),
+            int(valor["-BOLO_CASAMENTO-"]),
+            int(valor["-QTD_MINI-"]),
+            int(valor["-QTD_NORMAL-"]),
+            str(valor["-INFO_COMPLEMENTARES-"]),
+            status).editar_encomenda()
+        sg.popup("Encomenda editada com sucesso!")
+        editar_encomenda.close()
+        buttons("on")
         continue

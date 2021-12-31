@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
    
 class NovaEncomenda:
-    def nova_encomenda():
+    def nova_encomenda(titulo):
         sg.theme('Dark Blue 3')
         layout = [
             [sg.Frame('Dados do cliente e entrega (obrigatório)',
@@ -50,4 +50,4 @@ class NovaEncomenda:
             [sg.Button("Confirmar", size=(100,2), key="-CONFIRMAR-")],
             [sg.Button("Voltar", key="-VOLTAR-",size=(100,2))],
         ]
-        return sg.Window("Nova encomenda", layout=layout, finalize=True, size=(800, 520))
+        return sg.Window(titulo, layout=layout, finalize=True, size=(800, 520))
