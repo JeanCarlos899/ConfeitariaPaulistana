@@ -1,21 +1,30 @@
-import PySimpleGUI as sg
+import os
+import sys
 
-from Scripts.data_list import DataList
-from Scripts.insert_dados import InsertDados
-from Scripts.finalize_order import FinalizeOrder
-from Scripts.new_chart import NewChart
-from Scripts.reports import Relatorios
-from Scripts.delete_order import DeleteOrder
-from Scripts.edit_order import EditOrder
+try:
+    import PySimpleGUI as sg
 
-from Design.menu_principal import MenuPrincipal
-from Design.nova_encomenda import NovaEncomenda
-from Design.listar_encomendas import ListarEncomendas
-from Design.baixa_encomenda import BaixaEncomenda
-from Design.graficos import Graficos
-from Design.relatorios import FrontRelatorio
-from Design.deletar_encomenda import DeletarEncomenda
-from Design.editar_encomenda import EditarEncomenda
+    from Scripts.data_list import DataList
+    from Scripts.insert_dados import InsertDados
+    from Scripts.finalize_order import FinalizeOrder
+    from Scripts.new_chart import NewChart
+    from Scripts.reports import Relatorios
+    from Scripts.delete_order import DeleteOrder
+    from Scripts.edit_order import EditOrder
+
+    from Design.menu_principal import MenuPrincipal
+    from Design.nova_encomenda import NovaEncomenda
+    from Design.listar_encomendas import ListarEncomendas
+    from Design.baixa_encomenda import BaixaEncomenda
+    from Design.graficos import Graficos
+    from Design.relatorios import FrontRelatorio
+    from Design.deletar_encomenda import DeletarEncomenda
+    from Design.editar_encomenda import EditarEncomenda
+except:
+    print("Instalando bibliotecas necessárias...")
+    os.system("requirements.bat")
+    print("Bibliotecas instaladas com sucesso!\nReabra o programa.")
+    sys.exit()
 
 def buttons(on_off):
     keys = [
