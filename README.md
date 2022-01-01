@@ -1,21 +1,10 @@
-PROJETO DA DISCIPLINA DE POO: SISTEMA DE UMA CONFEITARIA
+<div align="center">
 
-TECNOLOGIAS UTILIZADAS:
+    > 👋🏼 Olá! seja bem-vindo. 👋🏼
+    >
+    > Aqui é o lugar certo para você saber um pouco como estamos desenvolvendo
+    >
+    >
 
-PYTHON:
-
-Bibliotecas:
-
---PySimpleGUI
-
---Pandas
-
---Datatime
-
---Openpyxl
-
---Matplotlib
-
---Reportlab
-   
-DESENVOLVIDO POR JEAN CARLOS E DANIEL RODRIGUES.
+    ## CONFEITARIA PAULISTANA
+</div>
