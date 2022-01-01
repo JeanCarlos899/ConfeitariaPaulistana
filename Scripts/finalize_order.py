@@ -1,4 +1,5 @@
 from openpyxl import load_workbook
+from Scripts.get_real_index import GetRealIndex
 
 class FinalizeOrder:
     def __init__(self, lista_encomenda, index_encomenda, kg_aniversario, kg_casamento):
@@ -10,13 +11,8 @@ class FinalizeOrder:
     def get_preco_final(self):
         arquivo = load_workbook("dados.xlsx")
         planilha_ativa = arquivo.active
-            
-        def get_real_index(lista_encomenda, index_encomenda):
-            encomenda = lista_encomenda[int(index_encomenda[0])]
-            id_encomenda = encomenda[1]
-            return int(int(id_encomenda) + 1)
         
-        index = get_real_index(self.lista_encomendas, self.index_encomenda)
+        index = GetRealIndex(self.lista_encomendas, self.index_encomenda).return_index()
 
         qtd_salgadinho_mini = planilha_ativa[f"G{index}"].value
         qtd_salgadinho_normal = planilha_ativa[f"H{index}"].value

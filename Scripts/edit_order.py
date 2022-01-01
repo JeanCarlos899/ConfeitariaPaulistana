@@ -1,4 +1,5 @@
 from openpyxl import load_workbook
+from Scripts.get_real_index import GetRealIndex
 
 class EditOrder:
     def __init__(self, order_id, customer_list, nome_cliente:str, 
@@ -22,12 +23,7 @@ class EditOrder:
         dados = load_workbook("dados.xlsx")
         planilha_ativa = dados.active
 
-        def get_real_index(lista_encomenda, index_encomenda):
-            encomenda = lista_encomenda[int(index_encomenda[0])]
-            id_encomenda = encomenda[1]
-            return int(int(id_encomenda) + 1)
-
-        index = get_real_index(self.customer_list, self.order_id)
+        index = GetRealIndex(self.customer_list, self.order_id).return_index()
         
         planilha_ativa[f"A{index}"] = index - 1
         planilha_ativa[f"B{index}"] = self.nome_cliente

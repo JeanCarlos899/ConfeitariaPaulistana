@@ -4,7 +4,7 @@ class Xlsx_to_list:
     def __init__(self, coluna:str):
         self.coluna = coluna
 
-    def toListNum(self):
+    def toListNum(self) -> list:
         planilha = load_workbook("dados.xlsx")
         aba_ativa = planilha.active
         lista = []
@@ -14,7 +14,7 @@ class Xlsx_to_list:
                     lista.append(valores)
         return list(lista)
 
-    def toListStr(self):
+    def toListStr(self) -> list:
         planilha = load_workbook("dados.xlsx")
         aba_ativa = planilha.active
         lista = []
