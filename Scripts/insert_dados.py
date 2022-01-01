@@ -25,16 +25,9 @@ while True:
         continue
 
 class InsertDados:
-    def __init__(self, nome_cliente:str, data_entrega:str, horario_entrega:str, qtd_aniversario:int, qtd_casamento:int, qtd_salgadinho_mini:int, qtd_salgadinho_normal:int, info_complementares:str, status = "Pendente"):
-        self.nome_cliente = nome_cliente
-        self.data_entrega = data_entrega
-        self.horario_entrega = horario_entrega
-        self.qtd_aniversario = qtd_aniversario
-        self.qtd_casamento = qtd_casamento
-        self.qtd_salgadinho_mini = qtd_salgadinho_mini
-        self.qtd_salgadinho_normal = qtd_salgadinho_normal
-        self.info_complementares = info_complementares
-        self.status = status
+    def __init__(self, lista_dados:list):
+        self.lista_dados = lista_dados
+        self.status = "Pendente"
         
     def verificar_data(self, data_entrega:str) -> bool:
         if data_entrega.count("/") == 2:
@@ -62,32 +55,32 @@ class InsertDados:
         else:
             return False
 
-    def inserir_dados(self):
+    def inserir_dados(self) -> bool:
         dados = load_workbook("dados.xlsx")
         planilha_ativa = dados.active
 
         try:
-            index = max(Xlsx_to_list("A").toListNum()) + 1
+            num = max(Xlsx_to_list("A").toListNum()) + 1
         except:
-            index = 1
-        
-        if self.verificar_data(self.data_entrega) and self.verificar_hora(self.horario_entrega) == True:
-            if self.qtd_aniversario >= 0 or self.qtd_casamento >= 0:
-                if (self.qtd_salgadinho_mini + self.qtd_salgadinho_normal >= 25 
-                    or self.qtd_salgadinho_mini + self.qtd_salgadinho_normal == 0):
-                    planilha_ativa[f"A{index+1}"] = index
-                    planilha_ativa[f"B{index+1}"] = self.nome_cliente
-                    planilha_ativa[f"C{index+1}"] = self.data_entrega
-                    planilha_ativa[f"D{index+1}"] = self.horario_entrega
-                    planilha_ativa[f"E{index+1}"] = self.qtd_aniversario
-                    planilha_ativa[f"F{index+1}"] = self.qtd_casamento
-                    planilha_ativa[f"G{index+1}"] = self.qtd_salgadinho_mini
-                    planilha_ativa[f"H{index+1}"] = self.qtd_salgadinho_normal
-                    planilha_ativa[f"J{index+1}"] = self.info_complementares
-                    planilha_ativa[f"K{index+1}"] = self.status
-                
-                    dados.save("dados.xlsx")
-                    return True
+            num = 1
+
+        if self.lista_dados[0] != "":
+            if self.verificar_data(self.lista_dados[1]) and self.verificar_hora(self.lista_dados[2]) == True:
+                if int(self.lista_dados[3]) >= 0 or int(self.lista_dados[4]) >= 0:
+                    if (int(self.lista_dados[5]) + int(self.lista_dados[6]) >= 25 
+                        or int(self.lista_dados[5]) + int(self.lista_dados[6]) == 0):
+
+                        letras = ["B", "C", "D", "E", "F", "G", "H", "J"]
+
+                        planilha_ativa[f"A{num+1}"] = num
+                        for i in range(len(self.lista_dados)):
+                            planilha_ativa[letras[i] + str(num+1)] = self.lista_dados[i]
+                        planilha_ativa[f"K{num+1}"] = self.status 
+
+                        dados.save("dados.xlsx")
+                        return True
+                    else:
+                        return False
                 else:
                     return False
             else:
