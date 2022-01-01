@@ -109,7 +109,7 @@ while True:
         continue
 
     if janela == nova_encomenda and evento == "-CONFIRMAR-":
-        InsertDados(
+        verificacao = InsertDados(
             str(valor["-NOME_CLIENTE-"]), 
             str(valor["-DATA_ENTREGA-"]),
             str(valor["-HORA_ENTREGA-"]),
@@ -120,10 +120,13 @@ while True:
             str(valor["-INFO_COMPLEMENTARES-"])
             ).inserir_dados()
 
-        sg.popup("Encomenda cadastrada com sucesso!")
-        nova_encomenda.hide()
-        buttons("on")
-        continue
+        if verificacao == True:
+            sg.popup("Encomenda cadastrada com sucesso!")
+            nova_encomenda.hide()
+            buttons("on")
+            continue
+        else:
+            sg.popup("Erro ao cadastrar encomenda!")
 
     ##########################################################################
     ###########################LISTAR ENCOMENDAS##############################
