@@ -1,44 +1,76 @@
+<h1 align="center">Welcome to SISTEMA CONFEITARIA PAULISTANA 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version- -blue.svg?cacheSeconds=2592000" />
+  <img src="https://img.shields.io/badge/npm-%3E%3D5.5.0-blue.svg" />
+  <img src="https://img.shields.io/badge/node-%3E%3D9.3.0-blue.svg" />
+  <a href=" " target="_blank">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  </a>
+  <a href="https://github.com/kefranabg/readme-md-generator/graphs/commit-activity" target="_blank">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+  </a>
+  <a href=" " target="_blank">
+    <img alt="License:  " src="https://img.shields.io/github/license/JeanCarlos899/SISTEMA CONFEITARIA PAULISTANA" />
+  </a>
+  <a href="https://twitter.com/ " target="_blank">
+    <img alt="Twitter:  " src="https://img.shields.io/twitter/follow/ .svg?style=social" />
+  </a>
+</p>
 
-<div align="center">
-    <h3>> 👋🏼 Olá! seja bem-vindo. 👋🏼</h3>
-    <br>
-    <br>
-    <h3>Aqui é o lugar certo para você saber um pouco como estamos desenvolvendo o projeto.</h3 >
-    <br>
-    <br>
-    <h2><b>SISTEMA CONFEITARIA PAULISTANA</b></h2>
-    <img src="Design/Images/logo.png" width="320">
-    <br>
-    <br>
-    <img src="https://media.giphy.com/media/H6PNB75ZvYUDZmREn3/giphy.gif" width="80">
-    <img src="https://media.giphy.com/media/H6PNB75ZvYUDZmREn3/giphy.gif" width="80">
-    <img src="https://media.giphy.com/media/H6PNB75ZvYUDZmREn3/giphy.gif" width="80">
-    <img src="https://media.giphy.com/media/H6PNB75ZvYUDZmREn3/giphy.gif" width="80">
-    <img src="https://media.giphy.com/media/H6PNB75ZvYUDZmREn3/giphy.gif" width="80">
-    <img src="https://media.giphy.com/media/H6PNB75ZvYUDZmREn3/giphy.gif" width="80">
-    <h3><b>Nossa missão é oferecer um sistema útil e com um preço justo.</b></h3>
-    <img src="https://media.giphy.com/media/H6PNB75ZvYUDZmREn3/giphy.gif" width="80">
-    <img src="https://media.giphy.com/media/H6PNB75ZvYUDZmREn3/giphy.gif" width="80">
-    <img src="https://media.giphy.com/media/H6PNB75ZvYUDZmREn3/giphy.gif" width="80">
-    <img src="https://media.giphy.com/media/H6PNB75ZvYUDZmREn3/giphy.gif" width="80">
-    <img src="https://media.giphy.com/media/H6PNB75ZvYUDZmREn3/giphy.gif" width="80">
-    <img src="https://media.giphy.com/media/H6PNB75ZvYUDZmREn3/giphy.gif" width="80">
-    <br>
-    <br>
-    <h3><b>DESENVOLVIDO POR: </b></h3> 
-    <img src="Design/Images/logo_jd.png" width="220">
-    <br>
-    <br>
-    <h1><b>Tecnologias utilizadas: </b></h1>
-    <h1>➣
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png" width="30">Python
-    </h1>
-    <h1><b><img src="https://o.remove.bg/downloads/1a8246f8-ef9a-4ee9-9bd4-1a6746fc21fc/image-removebg-preview.png" width="50">BIBLIOTECAS<img src="https://o.remove.bg/downloads/1a8246f8-ef9a-4ee9-9bd4-1a6746fc21fc/image-removebg-preview.png" width="50"></b></h1>
-    <h2>⠀⠀⠀⠀➣ <img src="https://avatars.githubusercontent.com/u/46163555?v=4" width="30"> PySimpleGUI
-    </h2>
-    <h2>➣
-    <img src="https://www.cilans.net/wp-content/uploads/2019/12/Python-Pandas-logo.png" width="30"> Pandas
-    </h2>
+> Um sistema de fácil entendimento que possibilita a realização de tarefas diárias do seu estabelecimento
 
-</div>
+### 🏠 [Homepage](https://github.com/JeanCarlos899/projeto)
+
+### ✨ [Demo](https://github.com/JeanCarlos899/projeto#readme)
+
+## Prerequisites
+
+- npm >=5.5.0
+- node >=9.3.0
+
+## Install
+
+```sh
  
+```
+
+## Usage
+
+```sh
+ 
+```
+
+## Run tests
+
+```sh
+ 
+```
+
+## Author
+
+👤 **JD Technology**
+
+* Website:  
+* Twitter: [@ ](https://twitter.com/ )
+* GitHub: [@JeanCarlos899](https://github.com/JeanCarlos899)
+* LinkedIn: [@ ](https://linkedin.com/in/ )
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page]( ). You can also take a look at the [contributing guide]( ).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+<a href="https://www.patreon.com/ ">
+  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
+</a>
+
+## 📝 License
+
+Copyright © 2022 [JD Technology](https://github.com/JeanCarlos899).<br />
+This project is [ ]( ) licensed.
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
