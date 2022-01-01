@@ -5,5 +5,7 @@
     >
     >
     <h2><b>CONFEITARIA PAULISTANA</b></h2>
-</div>
+    <img src="https://forums-images.oneplus.net/data/webimg/2021/01-29/6014374e3a762.gif" width="120">
 
+</div>
+ 
