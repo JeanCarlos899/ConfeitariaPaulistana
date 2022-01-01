@@ -35,7 +35,7 @@ class InsertDados:
         self.info_complementares = info_complementares
         self.status = status
         
-    def inserir_dados(self):
+    def inserir_dados(self) -> None:
         dados = load_workbook("dados.xlsx")
         planilha_ativa = dados.active
 
