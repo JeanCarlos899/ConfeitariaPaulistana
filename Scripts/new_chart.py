@@ -79,3 +79,44 @@ class NewChart:
         plt.pie([salgadosM, salgadoN], labels=['Salgado mini','Salgado normal'], autopct='%1.1f%%')
         plt.axis('equal')
         plt.show()
+
+    def graficoganho():
+        arquivo = pd.read_excel('dados.xlsx')
+        jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        data = arquivo['Data de entrega']
+        data = pd.to_datetime(data)   
+        for i in range(len(arquivo)):        
+            if arquivo['Status'][i] == ['Concluído']:
+                for lucro in arquivo['Lucro']:
+                    if data[i].month == 1:
+                        jan += lucro
+                    elif data[i].month == 2:
+                        fev += lucro
+                    elif data[i].month == 3:
+                        mar += lucro
+                    elif data[i].month == 4:
+                        abr += lucro
+                    elif data[i].month == 5:
+                        mai += lucro
+                    elif data[i].month == 6:
+                        jun += lucro
+                    elif data[i].month == 7:
+                        jul += lucro
+                    elif data[i].month == 8:
+                        ago += lucro
+                    elif data[i].month == 9:
+                        set += lucro
+                    elif data[i].month == 10:
+                        out += lucro
+                    elif data[i].month == 11:
+                        nov += lucro
+                    elif data[i].month == 12:
+                        dez += lucro
+        
+        meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
+        valores = [jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez]
+        plt.title('Lucro por mês')
+        plt.bar(meses, valores)
+        plt.show()
+
+NewChart.graficoganho()
