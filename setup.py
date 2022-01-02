@@ -391,15 +391,16 @@ while True:
     if janela == editar_encomenda and evento == "-CONFIRMAR-":
         EditOrder(
             index_encomenda, lista_clientes, 
-            str(valor["-NOME_CLIENTE-"]), 
-            str(valor["-DATA_ENTREGA-"]),
-            str(valor["-HORA_ENTREGA-"]),
-            int(valor["-BOLO_ANIVERSARIO-"]),
-            int(valor["-BOLO_CASAMENTO-"]),
-            int(valor["-QTD_MINI-"]),
-            int(valor["-QTD_NORMAL-"]),
-            str(valor["-INFO_COMPLEMENTARES-"]),
-            status).editar_encomenda()
+            [
+                str(valor["-NOME_CLIENTE-"]), 
+                str(valor["-DATA_ENTREGA-"]), 
+                str(valor["-HORA_ENTREGA-"]),
+                int(valor["-BOLO_ANIVERSARIO-"]), 
+                int(valor["-BOLO_CASAMENTO-"]),
+                int(valor["-QTD_MINI-"]), 
+                int(valor["-QTD_NORMAL-"]), 
+                str(valor["-INFO_COMPLEMENTARES-"]), 
+            ], status).editar_encomenda()
         sg.popup("Encomenda editada com sucesso!")
         editar_encomenda.close()
         buttons("on")
