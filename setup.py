@@ -389,7 +389,7 @@ while True:
         continue
 
     if janela == editar_encomenda and evento == "-CONFIRMAR-":
-        EditOrder(
+        verificacao = EditOrder(
             index_encomenda, lista_clientes, 
             [
                 str(valor["-NOME_CLIENTE-"]), 
@@ -401,8 +401,11 @@ while True:
                 int(valor["-QTD_NORMAL-"]), 
                 str(valor["-INFO_COMPLEMENTARES-"]), 
             ], status).editar_encomenda()
-        sg.popup("Encomenda editada com sucesso!")
-        editar_encomenda.close()
-        buttons("on")
-        continue
-
+        if verificacao == True:
+            sg.popup("Encomenda editada com sucesso!")
+            editar_encomenda.close()
+            buttons("on")
+            continue
+        else:
+            sg.popup("Erro ao editar encomenda!")
+            continue
