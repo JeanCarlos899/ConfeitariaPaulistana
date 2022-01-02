@@ -144,12 +144,14 @@ while True:
 
     if janela == menu_encomenda and evento == "-FILTRAR-":
         if status_concluido == True:
-            menu_encomenda.close()
-            menu_encomenda = ListarEncomendas.listar_encomendas("Concluído")
+            menu_encomenda["-INDEX_ENCOMENDA-"].update(
+                values=DataList("Concluído").get_dados_pedido_resumido()
+                )
             menu_encomenda["-STATUS_CONCLUIDO-"].update(True)
         elif status_pendente == True:
-            menu_encomenda.close()
-            menu_encomenda = ListarEncomendas.listar_encomendas("Pendente")
+            menu_encomenda["-INDEX_ENCOMENDA-"].update(
+                values=DataList("Pendente").get_dados_pedido_resumido()
+                )
             menu_encomenda["-STATUS_PENDENTE-"].update(True)
         continue
 
@@ -286,15 +288,17 @@ while True:
     if janela == deletar_encomenda and evento == "-FILTRAR-":
         if status_concluido == True:
             lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
-            deletar_encomenda.close()
-            deletar_encomenda = DeletarEncomenda.deletar_encomenda("Concluído")
+            deletar_encomenda["-INDEX_ENCOMENDA-"].update(
+                values=DataList("Concluído").get_dados_pedido_resumido()
+                )
             deletar_encomenda["-STATUS_CONCLUIDO-"].update(True)
 
         elif status_pendente == True:
             lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
-            deletar_encomenda.close()
-            menu_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
-            deletar_encomenda["-STATUS_PENDENTE-"].update(True)
+            deletar_encomenda["-INDEX_ENCOMENDA-"].update(
+                values=DataList("Pendente").get_dados_pedido_resumido()
+                )
+            deletar_encomenda["-STATUS_CONCLUIDO-"].update(False)
         continue
 
     ##########################DELETAR ENCOMENDA###############################
@@ -307,16 +311,17 @@ while True:
             
         index_encomenda = valor["-INDEX_ENCOMENDA-"]
         DeleteOrder(index_encomenda, lista_clientes).deletar_encomenda()
-        deletar_encomenda["-DELETAR_ENCOMENDA-"].update(disabled=True)
 
         if status_concluido == True:
-            deletar_encomenda.close()
-            deletar_encomenda = DeletarEncomenda.deletar_encomenda("Concluído")
+            deletar_encomenda["-INDEX_ENCOMENDA-"].update(
+                values=DataList("Concluido").get_dados_pedido_resumido()
+                )
             deletar_encomenda["-STATUS_CONCLUIDO-"].update(True)
         elif status_pendente == True:
-            deletar_encomenda.close()
-            deletar_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
-            deletar_encomenda["-STATUS_PENDENTE-"].update(True)
+            deletar_encomenda["-INDEX_ENCOMENDA-"].update(
+                values=DataList("Pendente").get_dados_pedido_resumido()
+                )
+            deletar_encomenda["-STATUS_CONCLUIDO-"].update(False)
         continue
 
     ##########################################################################
