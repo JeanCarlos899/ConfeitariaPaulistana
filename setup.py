@@ -109,23 +109,23 @@ while True:
         continue
 
     if janela == nova_encomenda and evento == "-CONFIRMAR-":
-        verificacao = InsertDados(
+        verificacao = InsertDados([
             str(valor["-NOME_CLIENTE-"]), 
-            str(valor["-DATA_ENTREGA-"]),
-            str(valor["-HORA_ENTREGA-"]),
+            str(valor["-DATA_ENTREGA-"]), 
+            str(valor["-HORA_ENTREGA-"]), 
             int(valor["-BOLO_ANIVERSARIO-"]),
-            int(valor["-BOLO_CASAMENTO-"]),
-            int(valor["-QTD_MINI-"]),
-            int(valor["-QTD_NORMAL-"]),
-            str(valor["-INFO_COMPLEMENTARES-"])
-            ).inserir_dados()
+            int(valor["-BOLO_CASAMENTO-"]), 
+            int(valor["-QTD_MINI-"]), 
+            int(valor["-QTD_NORMAL-"]), 
+            str(valor["-INFO_COMPLEMENTARES-"]) 
+        ]).inserir_dados()
 
         if verificacao == True:
             sg.popup("Encomenda cadastrada com sucesso!")
             nova_encomenda.hide()
             buttons("on")
             continue
-        else:
+        elif verificacao == False:
             sg.popup("Erro ao cadastrar encomenda!")
 
     ##########################################################################
