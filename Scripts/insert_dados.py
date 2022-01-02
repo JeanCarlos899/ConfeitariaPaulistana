@@ -66,7 +66,7 @@ class InsertDados:
 
         if self.lista_dados[0] != "":
             if self.verificar_data(self.lista_dados[1]) and self.verificar_hora(self.lista_dados[2]) == True:
-                if int(self.lista_dados[3]) >= 0 or int(self.lista_dados[4]) >= 0:
+                if int(self.lista_dados[3]) > 0 or int(self.lista_dados[4]) > 0:
                     if (int(self.lista_dados[5]) + int(self.lista_dados[6]) >= 25 
                         or int(self.lista_dados[5]) + int(self.lista_dados[6]) == 0):
 
