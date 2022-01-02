@@ -242,6 +242,14 @@ while True:
         NewChart.graficoBarrasPedidos()
         continue
 
+    if janela == graficos and evento == '-LUCRO_MENSAL-':
+        NewChart.graficoganho()
+        continue
+
+    if janela == graficos and evento == '-LUCRO_POR_TIPO_DE_FESTAS-':
+        NewChart.lucroporfesta()
+        continue
+
     ##########################################################################
     ###########################RELATÓRIOS#####################################
     ##########################################################################
