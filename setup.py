@@ -343,13 +343,15 @@ while True:
 
     if janela == editar_encomenda and evento == "-FILTRAR-":
         if status_concluido == True:
-            editar_encomenda.close()
-            editar_encomenda = EditarEncomenda.listar_encomendas("Concluído")
+            editar_encomenda["-INDEX_ENCOMENDA-"].update(
+                values=DataList("Concluido").get_dados_pedido_resumido()
+                )
             editar_encomenda["-STATUS_CONCLUIDO-"].update(True)
         elif status_pendente == True:
-            editar_encomenda.close()
-            editar_encomenda = EditarEncomenda.listar_encomendas("Pendente")
-            editar_encomenda["-STATUS_PENDENTE-"].update(True)
+            editar_encomenda["-INDEX_ENCOMENDA-"].update(
+                values=DataList("Pendente").get_dados_pedido_resumido()
+                )
+            editar_encomenda["-STATUS_CONCLUIDO-"].update(False)
         continue
 
     ###############################EDITAR ENCOMENDA###########################
