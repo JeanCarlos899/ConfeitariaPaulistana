@@ -1,16 +1,44 @@
 <div align="center">
-
 <h3>👋🏼 Olá! seja bem-vindo 👋🏼 </h3>
 
 ### Para executar, primeiro deve clonar a pasta para sua máquina
 ```bash
 git clone https://github.com/JeanCarlos899/projeto.git
 ```
+<br>
+
+### Com a pasta clonada, execute na sua IDE o arquivo "setup.py"
+<br>
+
 ### O sistema irá instalar as bibliotecas de forma automática, mas caso isso não ocorra, segue abaixo o método manual
 1. PySimpleGui
 ```bash
-pip install pysimplegui
+pip install PySimpleGUI
 ```
+2. Openpyxl
+'''bash
+pip install openpyxl
+'''
+3. Matplotlib
+'''bash
+pip install matplotlib
+'''
+4. Reportlab
+'''bash
+pip install reportlab
+'''
+5. Datetime
+'''bash
+pip install datetime
+'''
+6. Numpy
+'''bash
+pip install numpy
+'''
+7. Pandas
+'''bash
+pip install pandas
+'''
 </div>
 <div align="center">
 <br>
