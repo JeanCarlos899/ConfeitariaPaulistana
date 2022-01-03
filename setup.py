@@ -21,6 +21,7 @@ try:
     from Design.deletar_encomenda import DeletarEncomenda
     from Design.editar_encomenda import EditarEncomenda
     from Design.faturamento import Faturamento
+    from Scripts.revenues import Revenues
 except:
     print("Instalando bibliotecas necessárias...")
     os.system("requirements.bat")
@@ -459,14 +460,15 @@ while True:
 
     if (janela == faturamento and evento == sg.WIN_CLOSED 
         or janela == faturamento and evento == "-VOLTAR-"):
-        faturamento.hide()
+        faturamento.close()
         buttons("on")
         continue
 
-    if janela == faturamento and evento == "-FILTRAR":
-        try:
-            data_inicial = valor["-DATA_INICIAL-"]
-            data_final = valor["-DATA_FINAL-"]
-            print(data_inicial, data_final)
-        except:
-            pass
+    if janela == faturamento and evento == "-FILTRAR-":
+        data_inicial = valor["-DATA_INICIAL-"]
+        data_final = valor["-DATA_FINAL-"]
+        
+        valor = Revenues(data_inicial, data_final).get_value()
+
+        faturamento["-VALOR_FATURAMENTO-"].update(valor)
+        

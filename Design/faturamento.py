@@ -19,10 +19,12 @@ class Faturamento:
                     ], 
                 ], size=(420, 60)
             )],
-            [sg.Multiline(size=(100, 5), key="-OUTPUT-", disabled=True, no_scrollbar=True)],
+            [sg.Multiline(
+                size=(50, 3), key="-VALOR_FATURAMENTO-", disabled=True, no_scrollbar=True, justification="center",
+                font=("Times New Roman", 25, "bold"))],
             [sg.Button("Voltar", key="-VOLTAR-", size=(100, 2))]
         ]
-        return sg.Window("Faturamento", layout=layout, finalize=True, size=(420, 220))
+        return sg.Window("Faturamento", layout=layout, finalize=True, size=(420, 250))
 
 if __name__ == "__main__":
     janela = Faturamento.faturamento()
