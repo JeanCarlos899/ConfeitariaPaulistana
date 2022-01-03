@@ -28,15 +28,5 @@
     <img src="Design/Images/logo_jd.png" width="220">
     <br>
     <br>
-    <h1><b>Tecnologias utilizadas: </b></h1>
-    <h1>➣
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png" width="30">Python
-    </h1>
-    <h1><b><img src="https://o.remove.bg/downloads/1a8246f8-ef9a-4ee9-9bd4-1a6746fc21fc/image-removebg-preview.png" width="50">BIBLIOTECAS<img src="https://o.remove.bg/downloads/1a8246f8-ef9a-4ee9-9bd4-1a6746fc21fc/image-removebg-preview.png" width="50"></b></h1>
-    <h2>⠀⠀⠀⠀➣ <img src="https://avatars.githubusercontent.com/u/46163555?v=4" width="30"> PySimpleGUI
-    </h2>
-    <h2>➣
-    <img src="https://www.cilans.net/wp-content/uploads/2019/12/Python-Pandas-logo.png" width="30"> Pandas
-    </h2>
-
+    <img src="Design/Images/art_readme.png" width="464" height="700">
 </div>
