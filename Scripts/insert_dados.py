@@ -1,6 +1,6 @@
 from Scripts.xlsx_to_list import Xlsx_to_list
 from openpyxl import load_workbook, Workbook
-import datetime
+from datetime import datetime
 
 while True:
     try:
@@ -33,8 +33,12 @@ class InsertDados:
         if data_entrega.count("/") == 2:
             if len(data_entrega.split("/")) == 3:
                 try:
-                    datetime.datetime.strptime(data_entrega, "%d/%m/%Y")
-                    return True
+                    data_entrada = datetime.strptime(
+                        data_entrega, "%d/%m/%Y").strftime("%d/%m/%Y")
+                    data_atual = datetime.today().strftime('%d/%m/%Y')
+     
+                    if data_entrada >= data_atual:
+                        return True
                 except:
                     return False
             else:
@@ -42,12 +46,18 @@ class InsertDados:
         else:
             return False
 
-    def verificar_hora(self, horario_entrega:str) -> bool:
+    def verificar_hora(self, horario_entrega: str, data_entrega: str) -> bool:
         if horario_entrega.count(":") == 1:
             if len(horario_entrega.split(":")) == 2:
+                
                 try:
-                    datetime.datetime.strptime(horario_entrega, "%H:%M")
-                    return True
+                    hora_entrada = datetime.strptime(
+                        (str(data_entrega) + " " + str(horario_entrega)), "%d/%m/%Y %H:%M"
+                        ).strftime("%d/%m/%Y %H:%M")
+                    hora_atual = datetime.today().strftime('%d/%m/%Y %H:%M')
+                    
+                    if hora_entrada >= hora_atual:
+                        return True
                 except:
                     return False
             else:
@@ -65,7 +75,8 @@ class InsertDados:
             num = 1
 
         if self.lista_dados[0] != "":
-            if self.verificar_data(self.lista_dados[1]) and self.verificar_hora(self.lista_dados[2]) == True:
+            if (self.verificar_data(self.lista_dados[1]) 
+                and self.verificar_hora(self.lista_dados[2], self.lista_dados[1]) == True):
                 if int(self.lista_dados[3]) > 0 or int(self.lista_dados[4]) > 0:
                     if (int(self.lista_dados[5]) + int(self.lista_dados[6]) >= 25 
                         or int(self.lista_dados[5]) + int(self.lista_dados[6]) == 0):
