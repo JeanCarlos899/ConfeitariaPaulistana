@@ -19,20 +19,20 @@ class NovaEncomenda:
                     [
                         [sg.Frame('Bolos', 
                             [
-                                [sg.Text("Bolo de aniversário:", background_color="#e0e0e0"), sg.Text("   ", font=(None, 1)), sg.InputText(key="-BOLO_ANIVERSARIO-", size=(100,1), default_text=0)],
-                                [sg.Text("Bolo de casamento:",background_color="#e0e0e0"), sg.Text("", font=(None, 1)), sg.InputText(key="-BOLO_CASAMENTO-", size=(100,1), default_text=0)],
+                                [sg.Text("Bolo de aniversário:", background_color="#e0e0e0"), sg.Text("   ", background_color="#e0e0e0", font=(None, 1)), sg.InputText(key="-BOLO_ANIVERSARIO-", size=(100,1), default_text=0)],
+                                [sg.Text("Bolo de casamento:",background_color="#e0e0e0"), sg.Text("", background_color="#e0e0e0", font=(None, 1)), sg.InputText(key="-BOLO_CASAMENTO-", size=(100,1), default_text=0)],
                             ], size=(480, 80), background_color="#e0e0e0")
                         ],
 
                         [sg.Frame('Salgadinhos', 
                             [
                                 [
-                                    sg.Text("Mini salgadinho:"), 
-                                    sg.Text("                     ", font=(None, 1)), sg.InputText(key="-QTD_MINI-", size=(100,1), default_text=0)
+                                    sg.Text("Mini salgadinho:", background_color="#e0e0e0"), 
+                                    sg.Text("                     ", background_color="#e0e0e0", font=(None, 1)), sg.InputText(key="-QTD_MINI-", size=(100,1), default_text=0)
                                 ],
                                 [
-                                    sg.Text("Salgadinho normal:"), 
-                                    sg.Text("    ", font=(None, 1)), sg.InputText(key="-QTD_NORMAL-", size=(100,1), default_text=0)
+                                    sg.Text("Salgadinho normal:", background_color="#e0e0e0"), 
+                                    sg.Text("    ", background_color="#e0e0e0", font=(None, 1)), sg.InputText(key="-QTD_NORMAL-", size=(100,1), default_text=0)
                                 ],
                             ], size=(480, 80), background_color="#e0e0e0")
                         ],
@@ -58,6 +58,6 @@ if __name__ == "__main__":
     janela = NovaEncomenda.nova_encomenda("Nova encomenda")
     while True:
         janela, evento, valor = sg.read_all_windows()
-        
+
         if evento == sg.WIN_CLOSED:
             break
