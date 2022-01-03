@@ -330,7 +330,7 @@ while True:
         try:
             if status_pendente == True:
                 lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
-            else:
+            elif status_concluido == True:
                 lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
                 
             index_encomenda = valor["-INDEX_ENCOMENDA-"]
@@ -338,9 +338,10 @@ while True:
 
             if status_concluido == True:
                 deletar_encomenda["-INDEX_ENCOMENDA-"].update(
-                    values=DataList("Concluido").get_dados_pedido_resumido()
+                    values=DataList("Concluído").get_dados_pedido_resumido()
                     )
                 deletar_encomenda["-STATUS_CONCLUIDO-"].update(True)
+
             elif status_pendente == True:
                 deletar_encomenda["-INDEX_ENCOMENDA-"].update(
                     values=DataList("Pendente").get_dados_pedido_resumido()
@@ -371,14 +372,14 @@ while True:
     if janela == editar_encomenda and evento == "-FILTRAR-":
         if status_concluido == True:
             editar_encomenda["-INDEX_ENCOMENDA-"].update(
-                values=DataList("Concluido").get_dados_pedido_resumido()
+                values=DataList("Concluído").get_dados_pedido_resumido()
                 )
             editar_encomenda["-STATUS_CONCLUIDO-"].update(True)
         elif status_pendente == True:
             editar_encomenda["-INDEX_ENCOMENDA-"].update(
                 values=DataList("Pendente").get_dados_pedido_resumido()
                 )
-            editar_encomenda["-STATUS_CONCLUIDO-"].update(False)
+            editar_encomenda["-STATUS_PENDENTE-"].update(True)
         continue
 
     ###############################EDITAR ENCOMENDA###########################
