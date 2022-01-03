@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
 from Scripts.get_real_index import GetRealIndex
-import datetime
+from datetime import datetime
 
 class EditOrder:
     def __init__(self, order_id, lista_clientes, lista_dados: list, status):
@@ -13,8 +13,12 @@ class EditOrder:
         if data_entrega.count("/") == 2:
             if len(data_entrega.split("/")) == 3:
                 try:
-                    datetime.datetime.strptime(data_entrega, "%d/%m/%Y")
-                    return True
+                    data_entrada = datetime.strptime(
+                        data_entrega, "%d/%m/%Y").strftime("%d/%m/%Y")
+                    data_atual = datetime.today().strftime('%d/%m/%Y')
+     
+                    if data_entrada >= data_atual:
+                        return True
                 except:
                     return False
             else:
@@ -22,12 +26,18 @@ class EditOrder:
         else:
             return False
 
-    def verificar_hora(self, horario_entrega:str) -> bool:
+    def verificar_hora(self, horario_entrega: str, data_entrega: str) -> bool:
         if horario_entrega.count(":") == 1:
             if len(horario_entrega.split(":")) == 2:
+                
                 try:
-                    datetime.datetime.strptime(horario_entrega, "%H:%M")
-                    return True
+                    hora_entrada = datetime.strptime(
+                        (str(data_entrega) + " " + str(horario_entrega)), "%d/%m/%Y %H:%M"
+                        ).strftime("%d/%m/%Y %H:%M")
+                    hora_atual = datetime.today().strftime('%d/%m/%Y %H:%M')
+                    
+                    if hora_entrada >= hora_atual:
+                        return True
                 except:
                     return False
             else:
@@ -42,12 +52,12 @@ class EditOrder:
         index = GetRealIndex(self.lista_clientes, self.order_id).return_index()
 
         if self.lista_dados[0] != "":
-            if self.verificar_data(self.lista_dados[1]) and self.verificar_hora(self.lista_dados[2]) == True:
+            if (self.verificar_data(self.lista_dados[1]) 
+                and self.verificar_hora(self.lista_dados[2], self.lista_dados[1]) == True):
                 if int(self.lista_dados[3]) >= 0 and int(self.lista_dados[4]) >= 0:
                     if (int(self.lista_dados[5]) + int(self.lista_dados[6]) >= 25 
                         or int(self.lista_dados[5]) + int(self.lista_dados[6]) == 0):
-                        #   NOME       DATA       HORA        QTDS           MSG
-                        # ['Jean', '02/05/2005', '00:00', 10, 20, 30, 40, ' Teste']
+
                         letras = ["B", "C", "D", "E", "F", "G", "H", "J"]
                         
                         planilha_ativa[f"A{index}"] = index - 1

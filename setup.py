@@ -158,22 +158,26 @@ while True:
     ##########################MAIS INFORMACOES###############################
 
     if janela == menu_encomenda and evento == "-MAIS_INFORMACOES-":
-        index_da_lista = int(valor["-INDEX_ENCOMENDA-"][0])
+        try:
+            index_da_lista = int(valor["-INDEX_ENCOMENDA-"][0])
 
-        if status_concluido == True:
-            lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
-            mais_informacoes = ListarEncomendas.mais_informacoes(
-                "Concluído", lista_clientes[index_da_lista], index_da_lista
-                )
-            menu_encomenda.hide()
+            if status_concluido == True:
+                lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
+                mais_informacoes = ListarEncomendas.mais_informacoes(
+                    "Concluído", lista_clientes[index_da_lista], index_da_lista
+                    )
+                menu_encomenda.hide()
 
-        if status_pendente == True:
-            lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
-            mais_informacoes = ListarEncomendas.mais_informacoes(
-                "Pendente", lista_clientes[index_da_lista], index_da_lista
-                )
-            menu_encomenda.hide()
-        continue
+            if status_pendente == True:
+                lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
+                mais_informacoes = ListarEncomendas.mais_informacoes(
+                    "Pendente", lista_clientes[index_da_lista], index_da_lista
+                    )
+                menu_encomenda.hide()
+            continue
+        except:
+            sg.popup("Selecione uma encomenda para mais informações!")
+            continue
 
     if (janela == mais_informacoes and evento == sg.WIN_CLOSED 
         or janela == mais_informacoes and evento == "-VOLTAR-"):
@@ -192,19 +196,23 @@ while True:
         continue
 
     if janela == dar_baixa_encomenda and evento == "-FINALIZAR_ENCOMENDA-":
-        index_encomenda = valor["-TABLE_LISTAR_ENCOMENDA-"]
-        kg_aniversario = valor["-BOLO_ANIVERSARIO-"]
-        kg_casamento = valor["-BOLO_CASAMENTO-"]
-        lista_encomenda = DataList("Pendente").get_dados_pedido_resumido()
+        try:
+            index_encomenda = valor["-TABLE_LISTAR_ENCOMENDA-"]
+            kg_aniversario = valor["-BOLO_ANIVERSARIO-"]
+            kg_casamento = valor["-BOLO_CASAMENTO-"]
+            lista_encomenda = DataList("Pendente").get_dados_pedido_resumido()
 
-        preco_final = FinalizeOrder(
-            lista_encomenda, index_encomenda, 
-            kg_aniversario, kg_casamento
-            ).get_preco_final()
+            preco_final = FinalizeOrder(
+                lista_encomenda, index_encomenda, 
+                kg_aniversario, kg_casamento
+                ).get_preco_final()
 
-        dar_baixa_encomenda["-VALOR_FINAL-"].update("R$" + str(preco_final))
-        dar_baixa_encomenda["-FINALIZAR_ENCOMENDA-"].update(disabled=True)
-        continue
+            dar_baixa_encomenda["-VALOR_FINAL-"].update("R$" + str(preco_final))
+            dar_baixa_encomenda["-FINALIZAR_ENCOMENDA-"].update(disabled=True)
+            continue
+        except:
+            sg.popup("Selecione uma encomenda para finalizar!")
+            continue
 
     if janela == dar_baixa_encomenda and evento == "-ATUALIZAR_LISTA-":
         dar_baixa_encomenda["-TABLE_LISTAR_ENCOMENDA-"].update(
@@ -312,25 +320,29 @@ while True:
     ##########################DELETAR ENCOMENDA###############################
 
     if janela == deletar_encomenda and evento == "-DELETAR_ENCOMENDA-":
-        if status_pendente == True:
-            lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
-        else:
-            lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
-            
-        index_encomenda = valor["-INDEX_ENCOMENDA-"]
-        DeleteOrder(index_encomenda, lista_clientes).deletar_encomenda()
+        try:
+            if status_pendente == True:
+                lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
+            else:
+                lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
+                
+            index_encomenda = valor["-INDEX_ENCOMENDA-"]
+            DeleteOrder(index_encomenda, lista_clientes).deletar_encomenda()
 
-        if status_concluido == True:
-            deletar_encomenda["-INDEX_ENCOMENDA-"].update(
-                values=DataList("Concluido").get_dados_pedido_resumido()
-                )
-            deletar_encomenda["-STATUS_CONCLUIDO-"].update(True)
-        elif status_pendente == True:
-            deletar_encomenda["-INDEX_ENCOMENDA-"].update(
-                values=DataList("Pendente").get_dados_pedido_resumido()
-                )
-            deletar_encomenda["-STATUS_CONCLUIDO-"].update(False)
-        continue
+            if status_concluido == True:
+                deletar_encomenda["-INDEX_ENCOMENDA-"].update(
+                    values=DataList("Concluido").get_dados_pedido_resumido()
+                    )
+                deletar_encomenda["-STATUS_CONCLUIDO-"].update(True)
+            elif status_pendente == True:
+                deletar_encomenda["-INDEX_ENCOMENDA-"].update(
+                    values=DataList("Pendente").get_dados_pedido_resumido()
+                    )
+                deletar_encomenda["-STATUS_CONCLUIDO-"].update(False)
+            continue
+        except:
+            sg.popup("Nenhuma encomenda selecionada!")
+            continue
 
     ##########################################################################
     ###########################EDITAR ENCOMENDAS##############################
@@ -365,62 +377,72 @@ while True:
     ###############################EDITAR ENCOMENDA###########################
 
     if janela == editar_encomenda and evento == "-EDITAR-":
-        index_encomenda = valor["-INDEX_ENCOMENDA-"]
-        if status_concluido == True:
-            status = "Concluído"
-            lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
-            info_encomenda = DataList("Concluído").get_dados_pedido(False)
-            msg = DataList("Concluído").get_dados_pedido(True)
-        else:
-            status = "Pendente"
-            lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
-            info_encomenda = DataList("Pendente").get_dados_pedido(False)
-            msg = DataList("Pendente").get_dados_pedido(True)
-        
-        editar_encomenda.hide()
-        editar_encomenda = NovaEncomenda.nova_encomenda("Editar Encomenda")
+        try:
+            index_encomenda = valor["-INDEX_ENCOMENDA-"]
+            if status_concluido == True:
+                status = "Concluído"
+                lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
+                info_encomenda = DataList("Concluído").get_dados_pedido(False)
+                msg = DataList("Concluído").get_dados_pedido(True)
+            else:
+                status = "Pendente"
+                lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
+                info_encomenda = DataList("Pendente").get_dados_pedido(False)
+                msg = DataList("Pendente").get_dados_pedido(True)
+            
+            editar_encomenda.hide()
+            editar_encomenda = NovaEncomenda.nova_encomenda("Editar Encomenda")
 
-        keys = [
-            "-NOME_CLIENTE-",
-            "-DATA_ENTREGA-",
-            "-HORA_ENTREGA-",
-            "-BOLO_ANIVERSARIO-",
-            "-BOLO_CASAMENTO-",
-            "-QTD_MINI-",
-            "-QTD_NORMAL-",
-            ]
-        keys_info_clientes = keys[0:3]
-        keys_info_encomenda = keys[3:7]
+            keys = [
+                "-NOME_CLIENTE-",
+                "-DATA_ENTREGA-",
+                "-HORA_ENTREGA-",
+                "-BOLO_ANIVERSARIO-",
+                "-BOLO_CASAMENTO-",
+                "-QTD_MINI-",
+                "-QTD_NORMAL-",
+                ]
+            keys_info_clientes = keys[0:3]
+            keys_info_encomenda = keys[3:7]
 
-        for key in range(len(keys_info_clientes)):
-            editar_encomenda[keys_info_clientes[key]].update(
-                lista_clientes[index_encomenda[0]][key+2]
-                )
-        for key in range(len(keys_info_encomenda)):
-            editar_encomenda[keys_info_encomenda[key]].update(
-                info_encomenda[index_encomenda[0]][key]
-                )
-        editar_encomenda["-INFO_COMPLEMENTARES-"].update(msg[0])
-        continue
+            for key in range(len(keys_info_clientes)):
+                editar_encomenda[keys_info_clientes[key]].update(
+                    lista_clientes[index_encomenda[0]][key+2]
+                    )
+            for key in range(len(keys_info_encomenda)):
+                editar_encomenda[keys_info_encomenda[key]].update(
+                    info_encomenda[index_encomenda[0]][key]
+                    )
+            editar_encomenda["-INFO_COMPLEMENTARES-"].update(msg[0])
+            continue
+        except:
+            editar_encomenda.close()
+            editar_encomenda = EditarEncomenda.listar_encomendas("Pendente")
+            sg.popup("Nenhuma encomenda selecionada!")
+            continue
 
     if janela == editar_encomenda and evento == "-CONFIRMAR-":
-        verificacao = EditOrder(
-            index_encomenda, lista_clientes, 
-            [
-                str(valor["-NOME_CLIENTE-"]), 
-                str(valor["-DATA_ENTREGA-"]), 
-                str(valor["-HORA_ENTREGA-"]),
-                int(valor["-BOLO_ANIVERSARIO-"]), 
-                int(valor["-BOLO_CASAMENTO-"]),
-                int(valor["-QTD_MINI-"]), 
-                int(valor["-QTD_NORMAL-"]), 
-                str(valor["-INFO_COMPLEMENTARES-"]), 
-            ], status).editar_encomenda()
-        if verificacao == True:
-            sg.popup("Encomenda editada com sucesso!")
-            editar_encomenda.close()
-            buttons("on")
-            continue
-        else:
-            sg.popup("Erro ao editar encomenda!")
+        try:
+            verificacao = EditOrder(
+                index_encomenda, lista_clientes, 
+                [
+                    str(valor["-NOME_CLIENTE-"]), 
+                    str(valor["-DATA_ENTREGA-"]), 
+                    str(valor["-HORA_ENTREGA-"]),
+                    int(valor["-BOLO_ANIVERSARIO-"]), 
+                    int(valor["-BOLO_CASAMENTO-"]),
+                    int(valor["-QTD_MINI-"]), 
+                    int(valor["-QTD_NORMAL-"]), 
+                    str(valor["-INFO_COMPLEMENTARES-"]), 
+                ], status).editar_encomenda()
+            if verificacao == True:
+                sg.popup("Encomenda editada com sucesso!")
+                editar_encomenda.close()
+                buttons("on")
+                continue
+            else:
+                sg.popup("Erro ao editar encomenda!")
+                continue
+        except:
+            sg.popup("Nenhuma encomenda selecionada!")
             continue
