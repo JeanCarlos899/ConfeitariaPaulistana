@@ -25,28 +25,11 @@ while True:
         continue
 
 class InsertDados:
-    def __init__(self, lista_dados:list):
+    def __init__(self, lista_dados: list):
         self.lista_dados = lista_dados
         self.status = "Pendente"
-        
-    def verificar_data(self, data_entrega:str) -> bool:
-        if data_entrega.count("/") == 2:
-            if len(data_entrega.split("/")) == 3:
-                try:
-                    data_entrada = datetime.strptime(
-                        data_entrega, "%d/%m/%Y").strftime("%d/%m/%Y")
-                    data_atual = datetime.today().strftime('%d/%m/%Y')
-     
-                    if data_entrada >= data_atual:
-                        return True
-                except:
-                    return False
-            else:
-                return False
-        else:
-            return False
 
-    def verificar_hora(self, horario_entrega: str, data_entrega: str) -> bool:
+    def verificar_data(self, horario_entrega: str, data_entrega: str) -> bool:
         if horario_entrega.count(":") == 1:
             if len(horario_entrega.split(":")) == 2:
                 
@@ -75,8 +58,7 @@ class InsertDados:
             num = 1
 
         if self.lista_dados[0] != "":
-            if (self.verificar_data(self.lista_dados[1]) 
-                and self.verificar_hora(self.lista_dados[2], self.lista_dados[1]) == True):
+            if self.verificar_data(self.lista_dados[2], self.lista_dados[1]) == True:
                 if int(self.lista_dados[3]) > 0 or int(self.lista_dados[4]) > 0:
                     if (int(self.lista_dados[5]) + int(self.lista_dados[6]) >= 25 
                         or int(self.lista_dados[5]) + int(self.lista_dados[6]) == 0):
