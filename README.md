@@ -1,13 +1,17 @@
-## Olá! seja bem-vindo. 
-## Para executar, primeiro deve clonar a pasta para sua máquina
+<div align="center">
+
+<h3>👋🏼 Olá! seja bem-vindo 👋🏼 </h3>
+
+### Para executar, primeiro deve clonar a pasta para sua máquina
 ```bash
 git clone https://github.com/JeanCarlos899/projeto.git
 ```
-## O sistema irá instalar as bibliotecas de forma automática, mas caso isso não ocorra, segue abaixo o método manual
+### O sistema irá instalar as bibliotecas de forma automática, mas caso isso não ocorra, segue abaixo o método manual
 1. PySimpleGui
 ```bash
 pip install pysimplegui
 ```
+</div>
 <div align="center">
 <br>
 <br>
