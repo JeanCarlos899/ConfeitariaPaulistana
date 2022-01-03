@@ -22,7 +22,7 @@ class Faturamento:
             [sg.Multiline(
                 size=(50, 3), key="-VALOR_FATURAMENTO-", disabled=True, no_scrollbar=True, justification="center",
                 font=("Times New Roman", 25, "bold"), background_color="#e0e0e0")],
-            [sg.Button("Voltar", key="-VOLTAR-", size=(100, 2), button_color=("White", "#FF8C01"), font=(None, 15, "bold"))]
+            [sg.Button("Voltar", key="-VOLTAR-", size=(100, 2), button_color=("White", "#FF8C01"))]
         ]
         return sg.Window("Faturamento", layout=layout, finalize=True, size=(420, 250))
 
