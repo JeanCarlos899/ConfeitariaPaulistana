@@ -20,6 +20,8 @@ try:
     from Design.relatorios import FrontRelatorio
     from Design.deletar_encomenda import DeletarEncomenda
     from Design.editar_encomenda import EditarEncomenda
+    from Design.faturamento import Faturamento
+    from Scripts.revenues import Revenues
 except:
     print("Instalando bibliotecas necessárias...")
     os.system("requirements.bat")
@@ -34,6 +36,7 @@ def buttons(on_off):
         "-EDITAR_ENCOMENDA-",
         "-GRAFICOS-",
         "-RELATORIOS-",
+        "-FATURAMENTO-",
         "-DELETAR_ENCOMENDA-",
         "-SAIR-"
         ]
@@ -51,7 +54,7 @@ lista_encomenda, menu_encomenda = None, None
 dar_baixa_encomenda, dados_cliente = None, None
 salgadinhos, mais_informacoes = None, None
 graficos, relatorios, deletar_encomenda = None, None, None
-editar_encomenda = None
+editar_encomenda, faturamento = None, None
 
 menu.maximize()
 
@@ -81,19 +84,23 @@ while True:
             dar_baixa_encomenda = BaixaEncomenda.baixa_encomenda()
             buttons("off")
             continue
-        elif evento == '-GRAFICOS-':
+        elif evento == "-GRAFICOS-":
             graficos = Graficos.menu_graficos()
             buttons("off")
             continue
-        elif evento == '-RELATORIOS-':
+        elif evento == "-RELATORIOS-":
             relatorios = FrontRelatorio.menu_relatorios()
             buttons("off")
             continue
-        elif evento == '-EDITAR_ENCOMENDA-':
+        elif evento == "-FATURAMENTO-":
+            faturamento = Faturamento.faturamento()
+            buttons("off")
+            continue
+        elif evento == "-EDITAR_ENCOMENDA-":
             editar_encomenda = EditarEncomenda.listar_encomendas("Pendente")
             buttons("off")
             continue
-        elif evento == '-DELETAR_ENCOMENDA-':
+        elif evento == "-DELETAR_ENCOMENDA-":
             deletar_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
             buttons("off")
             continue
@@ -230,31 +237,31 @@ while True:
     ##########################################################################
 
     if (janela == graficos and evento == sg.WIN_CLOSED 
-        or janela == graficos and evento == '-VOLTAR-'):
+        or janela == graficos and evento == "-VOLTAR-"):
         graficos.hide()
         buttons("on")
 
-    if janela == graficos and evento == '-STATUS_PEDIDO-':
+    if janela == graficos and evento == "-STATUS_PEDIDO-":
         NewChart.graficoPizza()
         continue
 
-    if janela == graficos and evento == '-TIPO_BOLO-':
+    if janela == graficos and evento == "-TIPO_BOLO-":
         NewChart.graficoTipoBolo()
         continue
 
-    if janela == graficos and evento == '-TIPO_SALGADO-':
+    if janela == graficos and evento == "-TIPO_SALGADO-":
         NewChart.graficoTipoSalgados()
         continue
 
-    if janela == graficos and evento == '-MENSAIS-':
+    if janela == graficos and evento == "-MENSAIS-":
         NewChart.graficoBarrasPedidos()
         continue
 
-    if janela == graficos and evento == '-LUCRO_MENSAL-':
+    if janela == graficos and evento == "-LUCRO_MENSAL-":
         NewChart.graficoganho()
         continue
 
-    if janela == graficos and evento == '-LUCRO_POR_TIPO_DE_FESTAS-':
+    if janela == graficos and evento == "-LUCRO_POR_TIPO_DE_FESTAS-":
         NewChart.lucroporfesta()
         continue
 
@@ -263,26 +270,26 @@ while True:
     ##########################################################################
 
     if (janela == relatorios and evento == sg.WIN_CLOSED 
-        or janela == relatorios and evento == '-VOLTAR-'):
+        or janela == relatorios and evento == "-VOLTAR-"):
         relatorios.hide()
         buttons("on")
     
-    if janela == relatorios and evento == '-PEDIDOS_ENTREGUES-':
+    if janela == relatorios and evento == "-PEDIDOS_ENTREGUES-":
         Relatorios.historico_pedidos_concluido()
         sg.popup("Relatório gerado com sucesso!")
         continue
 
-    if janela == relatorios and evento == '-PEDIDOS_NAO_ENTREGUES-':
+    if janela == relatorios and evento == "-PEDIDOS_NAO_ENTREGUES-":
         Relatorios.historico_pedidos_naoentregues()
         sg.popup("Relatório gerado com sucesso!")
         continue
 
-    if janela == relatorios and evento == '-PEDIDOS_PENDENTES-':
+    if janela == relatorios and evento == "-PEDIDOS_PENDENTES-":
         Relatorios.pedidos_pendentes()
         sg.popup("Relatório gerado com sucesso!")
         continue
 
-    if janela == relatorios and evento == '-TODOS_PEDIDOS-':
+    if janela == relatorios and evento == "-TODOS_PEDIDOS-":
         Relatorios.historico_todos_pedidos()
         relatorios.hide()
         sg.popup("Relatório gerado com sucesso!")
@@ -446,3 +453,22 @@ while True:
         except:
             sg.popup("Nenhuma encomenda selecionada!")
             continue
+    
+    ##########################################################################
+    ###############################FATURAMENTO################################
+    ##########################################################################
+
+    if (janela == faturamento and evento == sg.WIN_CLOSED 
+        or janela == faturamento and evento == "-VOLTAR-"):
+        faturamento.close()
+        buttons("on")
+        continue
+
+    if janela == faturamento and evento == "-FILTRAR-":
+        data_inicial = valor["-DATA_INICIAL-"]
+        data_final = valor["-DATA_FINAL-"]
+        
+        valor = Revenues(data_inicial, data_final).get_value()
+
+        faturamento["-VALOR_FATURAMENTO-"].update(valor)
+        
