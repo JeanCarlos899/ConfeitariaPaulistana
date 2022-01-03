@@ -4,7 +4,8 @@ from Scripts.data_list import DataList
 class ListarEncomendas:
 
     def listar_encomendas(tipo):
-        sg.theme('Dark Blue 3')
+        sg.theme("DefaultNoMoreNagging")
+        
         data_values = DataList(tipo).get_dados_pedido_resumido()
         data_headings = ['Nº', 'ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
         data_cols_width = [5, 5, 35, 20, 18]
@@ -31,7 +32,9 @@ class ListarEncomendas:
                                 justification='left',
                                 enable_events=True,
                                 num_rows=20, 
-                                key='-INDEX_ENCOMENDA-')
+                                key='-INDEX_ENCOMENDA-', 
+                                background_color="#aaacb3",
+                                text_color="black")
                     ],
                     [sg.Button('Voltar', size=(46, 2), key="-VOLTAR-", button_color=("White", "#FF8C01")), sg.Button('Mais informações', button_color=("White", "#FF8C01"), size=(46, 2), key="-MAIS_INFORMACOES-")]
                     
