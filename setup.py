@@ -469,6 +469,5 @@ while True:
         data_final = valor["-DATA_FINAL-"]
         
         valor = Revenues(data_inicial, data_final).get_value()
-
         faturamento["-VALOR_FATURAMENTO-"].update(valor)
         

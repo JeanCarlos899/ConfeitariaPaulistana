@@ -4,7 +4,7 @@ from datetime import datetime
 class Faturamento:
     
     def faturamento():
-        sg.theme('Dark Blue 3')
+        sg.theme('Default1')
         layout = [
             [sg.Frame("Filtros",
                 [
@@ -15,14 +15,14 @@ class Faturamento:
                         sg.Text("Até:"), sg.InputText(
                             key="-DATA_FINAL-", size=(10, 1), default_text=datetime.today().strftime("%d/%m/%Y")
                             ),
-                        sg.Button("Filtrar", key="-FILTRAR-", size=(20, 1))
+                        sg.Button("Filtrar", key="-FILTRAR-", size=(20, 1), button_color=("White", "#FF8C01"))
                     ], 
                 ], size=(420, 60)
             )],
             [sg.Multiline(
                 size=(50, 3), key="-VALOR_FATURAMENTO-", disabled=True, no_scrollbar=True, justification="center",
-                font=("Times New Roman", 25, "bold"))],
-            [sg.Button("Voltar", key="-VOLTAR-", size=(100, 2))]
+                font=("Times New Roman", 25, "bold"), background_color="#e0e0e0")],
+            [sg.Button("Voltar", key="-VOLTAR-", size=(100, 2), button_color=("White", "#FF8C01"), font=(None, 15, "bold"))]
         ]
         return sg.Window("Faturamento", layout=layout, finalize=True, size=(420, 250))
 
