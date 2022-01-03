@@ -1,7 +1,6 @@
 <div align="center">
-    <h3>👋🏼 Olá! seja bem-vindo. 👋🏼</h3>
-    <br>
-    <br>
+    ## 👋🏼 Olá! seja bem-vindo. 👋🏼
+    >
     >
     ## Para executar, primeiro deve clonar a pasta para sua máquina
     >
@@ -10,13 +9,14 @@
     ```
     >
     ## 🛠️ O sistema irá instalar as bibliotecas de forma automática, mas caso isso não ocorra, segue abaixo o método manual
-    <br>
+    >
     >
     1. PySimpleGui
     ```bash
     pip install pysimplegui
     ```
     >
+</div>
     <br>
     <br>
     <br>
