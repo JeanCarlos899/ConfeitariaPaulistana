@@ -1,4 +1,3 @@
-<div align="center">
     ## 👋🏼 Olá! seja bem-vindo. 👋🏼
     ## Para executar, primeiro deve clonar a pasta para sua máquina
     ```bash
@@ -9,7 +8,6 @@
     ```bash
     pip install pysimplegui
     ```
-</div>
 <div align="center">
     <br>
     <br>
