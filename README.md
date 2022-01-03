@@ -10,7 +10,9 @@ git clone https://github.com/JeanCarlos899/projeto.git
 ### Com a pasta clonada, execute na sua IDE o arquivo "setup.py"
 <br>
 
-### O sistema irá instalar as bibliotecas de forma automática, mas caso isso não ocorra, segue abaixo o método manual
+### O sistema irá instalar as bibliotecas de forma automática, mas caso isso não ocorra, segue abaixo os métodos manuais
+<br>
+
 1. PySimpleGui
 ```bash
 pip install PySimpleGUI
@@ -39,6 +41,7 @@ pip install numpy
 ```bash
 pip install pandas
 ```
+
 </div>
 <div align="center">
 <br>
