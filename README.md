@@ -2,7 +2,22 @@
     <h3>👋🏼 Olá! seja bem-vindo. 👋🏼</h3>
     <br>
     <br>
-    <h3>Aqui é o lugar certo para você saber um pouco como estamos desenvolvendo o projeto.</h3 >
+    >
+    ## Para executar, primeiro deve clonar a pasta para sua máquina
+    >
+    ```bash
+    git clone https://github.com/JeanCarlos899/projeto.git
+    ```
+    >
+    ## 🛠️ O sistema irá instalar as bibliotecas de forma automática, mas caso isso não ocorra, segue abaixo o método manual
+    <br>
+    >
+    1. PySimpleGui
+    ```bash
+    pip install pysimplegui
+    ```
+    >
+    <br>
     <br>
     <br>
     <h2><b>SISTEMA CONFEITARIA PAULISTANA</b></h2>
@@ -32,6 +47,6 @@
     <br>
     <h3><b>OPÇÕES DE CONTADO:</b></h3>   
     <a href="mailto:jdtechnology56@gmail.com" alt="Gmail"><img src="https://img.shields.io/badge/-Gmail-FF0000?style=for-the-badge&labelColor=FF0000&logo=gmail&logoColor=white"/></a>
-    <!-- FAZER BOTÃO DO LINKEDIN -->
     <a href="https://www.linkedin.com/in/jd-technology-485834228/" alt="Linkedin"><img src="https://img.shields.io/badge/linkedin-linkedin-blue?style=for-the-badge&labelColor=0076b3&logo=linkedin&logoColor=white"/></a>
+<!-- sobeeee meu bommmmmmmmmmmmmmmmm-->
 </div>
