@@ -13,6 +13,7 @@ class MenuPrincipal:
                         sg.Button(image_filename="Design/Images/baixa_encomenda.png", image_size=(65, 65), key="-DAR_BAIXA_ENCOMENDA-", border_width=3, pad=(2,2), button_color=("#E8E5EA", "#E8E5EA")),
                         sg.Button(image_filename="Design/Images/relatorios.png", image_size=(65, 65), key="-RELATORIOS-", border_width=3, pad=(2,2), button_color=("#E8E5EA", "#E8E5EA")),
                         sg.Button(image_filename="Design/Images/graficos.png", image_size=(65, 65), key="-GRAFICOS-", border_width=3, pad=(2,2), button_color=("#E8E5EA", "#E8E5EA")),
+                        sg.Button(image_filename="Design/Images/faturamento.png", image_size=(65, 65), key="-FATURAMENTO-", border_width=3, pad=(2,2), button_color=("#E8E5EA", "#E8E5EA")),
                         sg.Button(image_filename="Design/Images/editar_encomenda.png", image_size=(65, 65), key="-EDITAR_ENCOMENDA-", border_width=3, pad=(2,2), button_color=("#E8E5EA", "#E8E5EA")),
                         sg.Button(image_filename="Design/Images/deletar_encomenda.png", image_size=(65, 65), key="-DELETAR_ENCOMENDA-", border_width=3, pad=(2,2), button_color=("#E8E5EA", "#E8E5EA")),
                         sg.Button(image_filename="Design/Images/sair.png", image_size=(65, 65), key="-SAIR-",border_width=3, pad=(2,2), button_color=("#E8E5EA", "#E8E5EA"))
@@ -23,7 +24,8 @@ class MenuPrincipal:
                         sg.Text("Listar\nEncomendas", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0)),
                         sg.Text("Finalizar\nEncomenda", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0)),
                         sg.Text("Relatórios\nde vendas", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0)),
-                        sg.Text("Gráficos\nde vendas", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0)),
+                        sg.Text("Gráficos\nde vendas", font=(None, 8), background_color="#EEAD2D", justification="center", size=(12, 2), pad=(2, 0)),
+                        sg.Text("Faturamento\ndo mês", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0)),
                         sg.Text("Editar\nencomenda", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0)),
                         sg.Text("Deletar\nencomenda", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0)),
                         sg.Text("Sair", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0))
@@ -38,5 +40,5 @@ class MenuPrincipal:
                 font=(None, 10), justification="center", size=(1366, 3), pad=(2, 0))
             ]
         ]
-        return sg.Window("Confeitaria Paulistana", layout=layout, finalize=True, resizable=True, size=(1366,768), margins=(0,0))
+        return sg.Window("Confeitaria Paulistana", icon="Design/Images/icone.ico" ,layout=layout, finalize=True, resizable=True, size=(1366,768), margins=(0,0))
         
