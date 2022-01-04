@@ -124,7 +124,7 @@ while True:
         continue
 
     if janela == nova_encomenda and evento == "-CONFIRMAR-":
-        verificacao = InsertDados([
+        msg = InsertDados([
             str(valor["-NOME_CLIENTE-"]), 
             str(valor["-DATA_ENTREGA-"]), 
             str(valor["-HORA_ENTREGA-"]), 
@@ -135,13 +135,14 @@ while True:
             str(valor["-INFO_COMPLEMENTARES-"]) 
         ]).inserir_dados()
 
-        if verificacao == True:
-            sg.popup("Encomenda cadastrada com sucesso!")
+        if msg == "Dados inseridos com sucesso!":
+            sg.popup(msg, title="Sucesso!")
             nova_encomenda.hide()
             buttons("on")
             continue
-        elif verificacao == False:
-            sg.popup("Erro ao cadastrar encomenda!")
+        else:
+            sg.popup(msg, title="Erro!")
+            continue
 
     ##########################################################################
     ###########################LISTAR ENCOMENDAS##############################
@@ -439,7 +440,7 @@ while True:
 
     if janela == editar_encomenda and evento == "-CONFIRMAR-":
         try:
-            verificacao = EditOrder(
+            mensagem = EditOrder(
                 index_encomenda, lista_clientes, 
                 [
                     str(valor["-NOME_CLIENTE-"]), 
@@ -451,13 +452,13 @@ while True:
                     int(valor["-QTD_NORMAL-"]), 
                     str(valor["-INFO_COMPLEMENTARES-"]), 
                 ], status).editar_encomenda()
-            if verificacao == True:
-                sg.popup("Encomenda editada com sucesso!")
-                editar_encomenda.close()
+            if mensagem == "Dados atualizados com sucesso!":
+                sg.popup(mensagem, title="Sucesso!")
+                editar_encomenda.hide()
                 buttons("on")
                 continue
             else:
-                sg.popup("Erro ao editar encomenda!")
+                sg.popup(mensagem, title="Erro!")
                 continue
         except:
             sg.popup("Nenhuma encomenda selecionada!")
