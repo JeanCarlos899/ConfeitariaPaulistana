@@ -11,6 +11,7 @@ try:
     from Scripts.reports import Relatorios
     from Scripts.delete_order import DeleteOrder
     from Scripts.edit_order import EditOrder
+    from Scripts.pronfit_in_the_month import Lucromensal
 
     from Design.menu_principal import MenuPrincipal
     from Design.nova_encomenda import NovaEncomenda
@@ -22,7 +23,7 @@ try:
     from Design.editar_encomenda import EditarEncomenda
     from Design.faturamento import Faturamento
     from Scripts.revenues import Revenues
-    from Scripts.pronfit_in_the_month import Lucromensal
+    from Design.lucro_mes import Lucromensal
 
 except:
     print("Instalando bibliotecas necessárias...")
@@ -490,4 +491,3 @@ while True:
         lucro_do_mes.hide()
         buttons("on")
         continue
-    
