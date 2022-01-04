@@ -33,7 +33,8 @@ class EditarEncomenda:
                                 num_rows=20, 
                                 key='-INDEX_ENCOMENDA-', 
                                 background_color="#aaacb3",
-                                text_color="black")
+                                text_color="black",
+                                header_background_color="#FF8C01")
                     ],
                     [
                         sg.Button('Voltar', size=(46, 2), key="-VOLTAR-", button_color=("White", "#FF8C01")), sg.Button('Editar encomenda', size=(46, 2), key="-DELETAR_ENCOMENDA-", button_color=("White", "#FF8C01"))]

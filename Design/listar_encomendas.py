@@ -34,7 +34,8 @@ class ListarEncomendas:
                                 num_rows=20, 
                                 key='-INDEX_ENCOMENDA-', 
                                 background_color="#aaacb3",
-                                text_color="black")
+                                text_color="black",
+                                header_background_color="#FF8C01")
                     ],
                     [sg.Button('Voltar', size=(46, 2), key="-VOLTAR-", button_color=("White", "#FF8C01")), sg.Button('Mais informações', button_color=("White", "#FF8C01"), size=(46, 2), key="-MAIS_INFORMACOES-")]
                     
@@ -67,8 +68,11 @@ class ListarEncomendas:
                                 col_widths=data_cols_width,
                                 auto_size_columns=False,
                                 justification='left',
-                                enable_events=False,
-                                num_rows=5),
+                                enable_events=True,
+                                num_rows=5, 
+                                background_color="#aaacb3",
+                                text_color="black",
+                                header_background_color="#FF8C01")
                     ],
                     [sg.Table(
                                 values=data_values_encomenda,
@@ -78,15 +82,18 @@ class ListarEncomendas:
                                 auto_size_columns=False,
                                 justification='left',
                                 enable_events=False,
-                                num_rows=5),
+                                num_rows=5,
+                                background_color="#aaacb3",
+                                text_color="black",
+                                header_background_color="#FF8C01")
                     ],
                     [sg.Frame('Mensagem adicional',
                         [
-                            [sg.Multiline(size=(800, 12), default_text=mensagem, disabled=True)],
-                        ], size=(800, 200)
+                            [sg.Multiline(size=(800, 12), default_text=mensagem, disabled=True, background_color="#aaacb3")],
+                        ], size=(800, 200), background_color="#e0e0e0", title_color="black",
                     )],
-                    [sg.Button('Voltar', size=(100, 2), key="-VOLTAR-")]
-                ], size=(800, 500)
+                    [sg.Button('Voltar', size=(100, 2), key="-VOLTAR-", button_color=("White", "#FF8C01"))]
+                ], size=(800, 500), background_color="#e0e0e0", title_color="black",
             )]
         ]
-        return sg.Window("Mais informações", layout=layout, finalize=True, size=(800, 500)) 
+        return sg.Window("Mais informações", layout=layout, finalize=True, size=(800, 500), background_color="#e0e0e0") 
