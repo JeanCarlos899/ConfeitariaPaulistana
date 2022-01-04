@@ -10,7 +10,7 @@ git clone https://github.com/JeanCarlos899/projeto.git
 ### Com a pasta clonada, execute na sua IDE o arquivo "setup.py"
 <br>
 
-#### O sistema irá instalar as bibliotecas de forma automática(Apenas para windows, outros sistemas a instalação deverá ser feita manualmente), segue abaixo os métodos manuais
+#### O sistema irá instalar as bibliotecas de forma automática(Apenas para windows, outros sistemas a instalação deverá ser feita manualmente), segue abaixo os métodos manuais para serem utilizados caso a instalação não ocorra
 <br>
 
 #### Windows
