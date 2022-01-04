@@ -10,9 +10,10 @@ git clone https://github.com/JeanCarlos899/projeto.git
 ### Com a pasta clonada, execute na sua IDE o arquivo "setup.py"
 <br>
 
-### O sistema irá instalar as bibliotecas de forma automática, mas caso isso não ocorra, segue abaixo os métodos manuais
+### O sistema irá instalar as bibliotecas de forma automática(Apenas para windows, outros sistemas deverá ser feita a instalação manual), mas caso isso não ocorra, segue abaixo os métodos manuais
 <br>
 
+#### Windows
 1. PySimpleGui
 ```bash
 pip install PySimpleGUI
@@ -40,6 +41,37 @@ pip install numpy
 7. Pandas
 ```bash
 pip install pandas
+```
+<br>
+
+#### Linux
+1. PySimpleGui
+```bash
+sudo pip3 install --upgrade PySimpleGUI 
+```
+2. Openpyxl
+```bash
+sudo pip3 install --upgrade openpyxl
+```
+3. Matplotlib
+```bash
+sudo pip3 install --upgrade matplotlib
+```
+4. Reportlab
+```bash
+sudo pip3 install --upgrade reportlab
+```
+5. Datetime
+```bash
+sudo pip3 install --upgrade datetime
+```
+6. Numpy
+```bash
+sudo pip3 install --upgrade numpy
+```
+7. Pandas
+```bash
+sudo pip3 install --upgrade pandas
 ```
 
 </div>
