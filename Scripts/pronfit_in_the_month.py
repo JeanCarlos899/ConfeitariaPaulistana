@@ -2,18 +2,12 @@ import datetime
 import PySimpleGUI as sg
 from PySimpleGUI.PySimpleGUI import Window
 from Scripts.xlsx_to_list import Xlsx_to_list
-from Design.lucro_mes import Lucromensal
 
 class Gasto:
-    def __init__(self, funcionarios, mercadorias, impostos, outros):
-        self.funcionarios = funcionarios
-        self.mercadorias = mercadorias
-        self.impostos = impostos
-        self.outros = outros
-        
     def descobrirMes():
         mes = datetime.datetime.now().month
         return mes
+        
     def descobrirGanhoMes():
         datas = Xlsx_to_list("C").toListStr()
         status = Xlsx_to_list("K").toListStr()

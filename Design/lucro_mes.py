@@ -45,5 +45,3 @@ class Lucromensal:
                 break
         window.close()
 
-
-

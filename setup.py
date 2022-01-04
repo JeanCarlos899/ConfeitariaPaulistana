@@ -22,6 +22,7 @@ try:
     from Design.editar_encomenda import EditarEncomenda
     from Design.faturamento import Faturamento
     from Scripts.revenues import Revenues
+    from Design.lucro_mes import Lucromensal
 
 except:
     print("Instalando bibliotecas necessárias...")
@@ -57,6 +58,7 @@ dar_baixa_encomenda, dados_cliente = None, None
 salgadinhos, mais_informacoes = None, None
 graficos, relatorios, deletar_encomenda = None, None, None
 editar_encomenda, faturamento = None, None
+lucro_do_mes = None
 
 menu.maximize()
 
@@ -106,7 +108,6 @@ while True:
             deletar_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
             buttons("off")
             continue
-
         
     ##########################################################################
     ###########################NOVA ENCOMENDA#################################
