@@ -87,7 +87,8 @@ class Lucromensal:
                 ],
             )],
         ]
-        window = sg.Window('Controle de Gastos', layout, size=(500, 400))
+        return sg.Window('Controle de Gastos', layout, size=(500, 400), finalize=True)
+
         while True:
             event, values = window.read()
             if event == sg.WIN_CLOSED or event == '-EXIT-':
