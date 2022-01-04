@@ -22,6 +22,8 @@ try:
     from Design.editar_encomenda import EditarEncomenda
     from Design.faturamento import Faturamento
     from Scripts.revenues import Revenues
+    #from Scripts.pronfit_in_the_month import Lucromensal
+
 except:
     print("Instalando bibliotecas necessárias...")
     os.system("requirements.bat")
