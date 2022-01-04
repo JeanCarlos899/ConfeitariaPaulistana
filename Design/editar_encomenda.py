@@ -37,7 +37,7 @@ class EditarEncomenda:
                                 header_background_color="#FF8C01")
                     ],
                     [
-                        sg.Button('Voltar', size=(46, 2), key="-VOLTAR-", button_color=("White", "#FF8C01")), sg.Button('Editar encomenda', size=(46, 2), key="-DELETAR_ENCOMENDA-", button_color=("White", "#FF8C01"))]
+                        sg.Button('Voltar', size=(46, 2), key="-VOLTAR-", button_color=("White", "#FF8C01")), sg.Button('Editar encomenda', size=(46, 2), key="-EDITAR-", button_color=("White", "#FF8C01"))]
                     
                 ], size=(800, 400), background_color="#e0e0e0"
             )]

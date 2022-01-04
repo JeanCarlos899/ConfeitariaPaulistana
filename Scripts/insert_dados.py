@@ -71,12 +71,12 @@ class InsertDados:
                         planilha_ativa[f"K{num+1}"] = self.status 
 
                         dados.save("dados.xlsx")
-                        return True
+                        return "Dados inseridos com sucesso!"
                     else:
-                        return False
+                        return "O valor total dos salgadinhos devem ser igual ou maior que 25"
                 else:
-                    return False
+                    return "O valor total dos bolos devem ser maior que 0"
             else:
-                return False
+                return "A data de entrega deve ser maior ou igual a data atual"
         else:
-            return False
+            return "Preencha todos os campos"
