@@ -16,6 +16,7 @@ class MenuPrincipal:
                         sg.Button(image_filename="Design/Images/faturamento.png", image_size=(65, 65), key="-FATURAMENTO-", border_width=3, pad=(2,2), button_color=("#E8E5EA", "#E8E5EA")),
                         sg.Button(image_filename="Design/Images/editar_encomenda.png", image_size=(65, 65), key="-EDITAR_ENCOMENDA-", border_width=3, pad=(2,2), button_color=("#E8E5EA", "#E8E5EA")),
                         sg.Button(image_filename="Design/Images/deletar_encomenda.png", image_size=(65, 65), key="-DELETAR_ENCOMENDA-", border_width=3, pad=(2,2), button_color=("#E8E5EA", "#E8E5EA")),
+                        sg.Button(image_filename="Design/Images/lucromes.png", image_size=(65, 65), key="-LUCRO_MENSAL-", border_width=3, pad=(2,2), button_color=("#E8E5EA", "#E8E5EA")),
                         sg.Button(image_filename="Design/Images/sair.png", image_size=(65, 65), key="-SAIR-",border_width=3, pad=(2,2), button_color=("#E8E5EA", "#E8E5EA"))
                     ],
                     
@@ -28,6 +29,7 @@ class MenuPrincipal:
                         sg.Text("Faturamento\npor período", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0)),
                         sg.Text("Editar\nencomenda", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0)),
                         sg.Text("Deletar\nencomenda", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0)),
+                        sg.Text("Lucro\ndo mês", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0)),
                         sg.Text("Sair", font=(None, 8), background_color="#EEAD2D", justification="center", size=(11, 2), pad=(2, 0))
                     ]
                 ], border_width=2, background_color="#EEAD2D", size=(1366, 115), pad=(0,0), element_justification="left")

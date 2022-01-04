@@ -106,5 +106,3 @@ class Lucromensal:
             if event == '-EXIT-':
                 break
         window.close()
-
-Lucromensal.lucro()

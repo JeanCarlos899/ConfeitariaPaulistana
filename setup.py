@@ -22,7 +22,7 @@ try:
     from Design.editar_encomenda import EditarEncomenda
     from Design.faturamento import Faturamento
     from Scripts.revenues import Revenues
-    #from Scripts.pronfit_in_the_month import Lucromensal
+    from Scripts.pronfit_in_the_month import Lucromensal
 
 except:
     print("Instalando bibliotecas necessárias...")
@@ -40,6 +40,7 @@ def buttons(on_off):
         "-RELATORIOS-",
         "-FATURAMENTO-",
         "-DELETAR_ENCOMENDA-",
+        "-LUCRO_MENSAL-",
         "-SAIR-"
         ]
 
@@ -57,6 +58,7 @@ dar_baixa_encomenda, dados_cliente = None, None
 salgadinhos, mais_informacoes = None, None
 graficos, relatorios, deletar_encomenda = None, None, None
 editar_encomenda, faturamento = None, None
+lucro_do_mes = None
 
 menu.maximize()
 
@@ -104,6 +106,10 @@ while True:
             continue
         elif evento == "-DELETAR_ENCOMENDA-":
             deletar_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
+            buttons("off")
+            continue
+        elif evento == "-LUCRO_MENSAL-":
+            lucro_do_mes = Lucromensal.lucro()
             buttons("off")
             continue
         
@@ -473,4 +479,15 @@ while True:
         
         valor = Revenues(data_inicial, data_final).get_value()
         faturamento["-VALOR_FATURAMENTO-"].update(valor)
+
         
+    ##########################################################################
+    ###############################Lucro do mês###############################
+    ##########################################################################
+
+    if (janela == lucro_do_mes and evento == sg.WIN_CLOSED 
+        or janela == lucro_do_mes and evento == "-EXIT-"):
+        lucro_do_mes.hide()
+        buttons("on")
+        continue
+    
