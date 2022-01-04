@@ -29,8 +29,8 @@ class BaixaEncomenda:
                             [
                                 [sg.Text("Selecione uma encomenda acima, insira a quantidade de Kg total do(s) bolo(s) de aniversário e casamento, depois clique em finalizar encomenda.", size=(45, 3), background_color="#e0e0e0", text_color="black")],
                                 [sg.Text('', background_color="#e0e0e0")],
-                                [sg.Text('Bolo Aniversário:', size=(15, 1), background_color="#e0e0e0", text_color="black"), sg.InputText(size=(10, 1), key='-BOLO_ANIVERSARIO-')],
-                                [sg.Text('Bolo Casamento:', size=(15, 1), background_color="#e0e0e0", text_color="black"), sg.InputText(size=(10, 1), key='-BOLO_CASAMENTO-')]
+                                [sg.Text('Bolo Aniversário:', size=(15, 1), background_color="#e0e0e0", text_color="black"), sg.InputText(size=(10, 1), key='-BOLO_ANIVERSARIO-', default_text=0)],
+                                [sg.Text('Bolo Casamento:', size=(15, 1), background_color="#e0e0e0", text_color="black"), sg.InputText(size=(10, 1), key='-BOLO_CASAMENTO-', default_text=0)]
                             ], size=(377, 190), background_color="#e0e0e0", title_color="black"
                         ),
                     sg.Frame('Valor final',

@@ -23,6 +23,7 @@ try:
     from Design.faturamento import Faturamento
     from Scripts.revenues import Revenues
     from Design.lucro_mes import Lucromensal
+    from Scripts.pronfit_in_the_month import Gasto
 
 except:
     print("Instalando bibliotecas necessárias...")
@@ -64,7 +65,7 @@ menu.maximize()
 
 while True:
     # Leitura de todas as janelas abertas
-    janela, evento, valor = sg.read_all_windows() 
+    janela, evento, valor = sg.read_all_windows()
     
     ##########################################################################
     ###########################JANELA PRINCIPAL###############################
@@ -106,6 +107,10 @@ while True:
             continue
         elif evento == "-DELETAR_ENCOMENDA-":
             deletar_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
+            buttons("off")
+            continue
+        elif evento == "-LUCRO_MENSAL-":
+            lucro_do_mes = Lucromensal.lucro()
             buttons("off")
             continue
         
@@ -476,3 +481,25 @@ while True:
         
         valor = Revenues(data_inicial, data_final).get_value()
         faturamento["-VALOR_FATURAMENTO-"].update(valor)
+
+    ##########################################################################
+    ###############################LUCRO MENSAL###############################
+    ##########################################################################
+
+    if (janela == lucro_do_mes and evento == sg.WIN_CLOSED
+        or janela == lucro_do_mes and evento == "-EXIT-"):
+        lucro_do_mes.close()
+        buttons("on")
+        continue
+
+    if janela == lucro_do_mes and evento == "-ENVIAR-":
+        try:
+            funcionarios = float(valor['-INPUT_FUNCIONARIOS-'])
+            mercadorias = float(valor['-INPUT_MERCADORIAS-'])
+            impostos = float(valor['-INPUT_IMPOSTOS-'])
+            outros = float(valor['-INPUT_OUTROS-'])
+            total = Gasto.descobrirGanhoMes() - (funcionarios + mercadorias + impostos + outros) 
+            lucro_do_mes['-OUTPUT-'].update(total)
+            lucro_do_mes['-OUTPUT-'].update(f'O lucro mensal será {total} reais')
+        except ValueError:
+            lucro_do_mes['-OUTPUT-'].update('Por favor, digite apenas números.')
