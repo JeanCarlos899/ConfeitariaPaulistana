@@ -2,9 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from Scripts.xlsx_to_list import Xlsx_to_list
 class NewChart:
+
     def graficoPizza():
         arquivo = pd.read_excel('dados.xlsx')
-
         Entregue = arquivo.loc[arquivo['Status']=='Concluído']
         Pendente = arquivo.loc[arquivo['Status']=='Pendente']
         plt.title('Status dos pedidos')
@@ -132,10 +132,9 @@ class NewChart:
 
         for x in range(len(valor)):
             if status[x] == 'Concluído':
-                # somar valor de bolos de aniversário
                 if arquivo['Bolo de aniversário'][x] != 0:
                     valorA += float(valor[x])
-                # somar valor de bolos de casamento
+                    
                 if arquivo['Bolo de casamento'][x] != 0:
                     ValorC += float(valor[x])
 
