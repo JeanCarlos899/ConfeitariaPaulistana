@@ -1,7 +1,4 @@
 <div align="center">
-[![Horas destinadas ao trabalho](https://github-readme-stats.vercel.app/api/wakatime?username=JeanCarlos899)(https://github.com/jean_e_daniel/github-readme-stats)
-</div>
-<div align="center">
 <h3>👋🏼 Olá! seja bem-vindo 👋🏼 </h3>
 
 ### Para executar, primeiro deve clonar a pasta para sua máquina
