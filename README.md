@@ -3,7 +3,7 @@
 
 ### Para executar, primeiro deve clonar a pasta para sua máquina
 ```bash
-git clone https://github.com/JeanCarlos899/jean_e_daniel.git
+git clone https://github.com/JeanCarlos899/ConfeitariaPaulistana.git
 ```
 <br>
 
