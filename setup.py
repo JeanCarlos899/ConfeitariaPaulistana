@@ -248,7 +248,7 @@ while True:
 
     if (janela == graficos and evento == sg.WIN_CLOSED 
         or janela == graficos and evento == "-VOLTAR-"):
-        graficos.hide()
+        graficos.hide() 
         buttons("on")
 
     if janela == graficos and evento == "-STATUS_PEDIDO-":
