@@ -1,6 +1,5 @@
 import os
 import sys
-
 try:
     import PySimpleGUI as sg
 
@@ -24,11 +23,10 @@ try:
     from Scripts.revenues import Revenues
     from Design.lucro_mes import Lucromensal
     from Scripts.pronfit_in_the_month import Gasto
-
-except:
-    print("Instalando bibliotecas necessárias...")
-    os.system("requirements.bat")
-    print("Bibliotecas instaladas com sucesso!\nReabra o programa.")
+except ImportError:
+    os.system("pip3 install -r requirements.txt")
+    print("Bibliotecas instaladas com sucesso!")
+    print("Reabra o programa.")
     sys.exit()
 
 def buttons(on_off):
