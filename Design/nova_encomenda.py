@@ -54,10 +54,3 @@ class NovaEncomenda:
 
 
 
-if __name__ == "__main__":
-    janela = NovaEncomenda.nova_encomenda("Nova encomenda")
-    while True:
-        janela, evento, valor = sg.read_all_windows()
-
-        if evento == sg.WIN_CLOSED:
-            break
