@@ -1,4 +1,5 @@
-[![Horas destinadas ao trabalho](https://github-readme-stats.vercel.app/api/wakatime?username=JeanCarlos899)](https://github.com/jean_e_daniel/github-readme-stats)
+[![Horas destinadas ao trabalho]
+(https://github-readme-stats.vercel.app/api/wakatime?username=JeanCarlos899)](https://github.com/jean_e_daniel/github-readme-stats)
 
 <div align="center">
 <h3>👋🏼 Olá! seja bem-vindo 👋🏼 </h3>
