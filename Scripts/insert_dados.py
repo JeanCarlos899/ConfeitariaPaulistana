@@ -48,7 +48,7 @@ class InsertDados:
         else:
             return False
 
-    def inserir_dados(self) -> bool:
+    def inserir_dados(self) -> str:
         dados = load_workbook("dados.xlsx")
         planilha_ativa = dados.active
 
