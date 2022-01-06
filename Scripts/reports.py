@@ -4,10 +4,11 @@ import matplotlib.pyplot as plt
 import datetime
 import PySimpleGUI as sg
 
-arquivo = pd.read_excel('dados.xlsx')
+
 
 class Relatorios:
     def historico_todos_pedidos():
+        arquivo = pd.read_excel('dados.xlsx')
 
         file_name = f'Histórico de todos os pedidos({datetime.datetime.now().strftime("%d-%m-%Y")})'
         pdf = canvas.Canvas(file_name + '.pdf')
@@ -41,6 +42,8 @@ class Relatorios:
 
 
     def historico_pedidos_concluido():
+        arquivo = pd.read_excel('dados.xlsx')
+
         file_name = f'Pedidos Concluídos({datetime.datetime.now().strftime("%d-%m-%Y")})'
         pdf = canvas.Canvas(file_name + '.pdf')
         pdf.setPageSize((750,1000))
@@ -74,6 +77,8 @@ class Relatorios:
         pdf.save()
 
     def historico_pedidos_naoentregues():
+        arquivo = pd.read_excel('dados.xlsx')
+        
         file_name = f'Pedidos não entregues({datetime.datetime.now().strftime("%d-%m-%Y")})'
         pdf = canvas.Canvas(file_name + '.pdf')
         pdf.setPageSize((750,1000))
@@ -104,6 +109,7 @@ class Relatorios:
         pdf.save()
 
     def pedidos_pendentes():
+        arquivo = pd.read_excel('dados.xlsx')
 
         data = datetime.datetime.now()
         datapedido = arquivo['Data de entrega']
