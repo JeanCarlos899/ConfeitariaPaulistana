@@ -1,7 +1,7 @@
 from openpyxl import load_workbook
 
 class Xlsx_to_list:
-    def __init__(self, coluna:str):
+    def __init__(self, coluna: str) -> None:
         self.coluna = coluna
 
     def toListNum(self) -> list:
