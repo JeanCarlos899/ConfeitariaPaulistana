@@ -1,5 +1,10 @@
 <div align="center">
 <h3>👋🏼 Olá! seja bem-vindo 👋🏼 </h3>
+<br>
+
+### Projeto desenvolvido pelos alunos: Daniel Rodrigues de Sousa e Jean Carlos Rodrigues Sousa
+
+<br>
 
 ### Para executar, primeiro deve clonar a pasta para sua máquina
 ```bash
