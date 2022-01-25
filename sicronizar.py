@@ -3,9 +3,11 @@ import time
 import shutil
 import sys
 
-localOriginal = 'dados.db'
-novolocal = 'C:\\Users\\Rodrigues\\Desktop\\dados.db'
+if not os.path.exists('backup'):
+    os.makedirs('backup')
 
+localOriginal = 'dados.db'
+novolocal = 'backup\\dados.db'
 
 class Sicronizar:
     def __init__(self, localOriginal, novolocal):
@@ -37,3 +39,4 @@ class Sicronizar:
                 shutil.copy(self.localOriginal, self.novolocal)
         else:
             pass
+
