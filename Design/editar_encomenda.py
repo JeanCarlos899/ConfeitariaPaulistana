@@ -14,8 +14,8 @@ class EditarEncomenda:
                 'hora_entrega', 
             ], f'status = "{tipo}"'
         )
-        data_headings = ['Nº', 'ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
-        data_cols_width = [5, 5, 35, 20, 18]
+        data_headings = ['ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
+        data_cols_width = [5, 40, 20, 18]
 
         layout = [ 
             [sg.Frame('Filtros',
