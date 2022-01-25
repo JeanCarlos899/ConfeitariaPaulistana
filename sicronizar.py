@@ -3,12 +3,6 @@ import time
 import shutil
 import sys
 
-if not os.path.exists('backup'):
-    os.makedirs('backup')
-
-localOriginal = 'dados.db'
-novolocal = 'backup\\dados.db'
-
 class Sicronizar:
     def __init__(self, localOriginal, novolocal):
         self.localOriginal = localOriginal
