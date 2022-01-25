@@ -6,6 +6,7 @@ import sys
 localOriginal = 'dados.db'
 novolocal = 'C:\\Users\\Rodrigues\\Desktop\\dados.db'
 
+
 class Sicronizar:
     def __init__(self, localOriginal, novolocal):
         self.localOriginal = localOriginal
@@ -25,14 +26,14 @@ class Sicronizar:
 
     @novolocal.setter
     def novolocal(self, novolocal):
-        self._novolocal = novolocal
+        self._novolocal = novolocal         
 
     def sincronizar(self):
         if os.path.exists(self.localOriginal):
-            shutil.copy(self.localOriginal, self.novolocal)
-            print('Arquivo copiado com sucesso!')
+            if os.path.exists(self.novolocal):
+                os.remove(self.novolocal)
+                shutil.copy(self.localOriginal, self.novolocal)
+            else:
+                shutil.copy(self.localOriginal, self.novolocal)
         else:
-            print('Arquivo não encontrado!')
-
-teste = Sicronizar(localOriginal, novolocal)
-teste.sincronizar()
+            pass
