@@ -1,5 +1,4 @@
-from Scripts.xlsx_to_list import Xlsx_to_list
-from datetime import datetime
+from Scripts.sqlite import SQLite
 
 class Revenues:
     def __init__(self, data_inicial: str, data_final: str):
@@ -7,21 +6,16 @@ class Revenues:
         self.data_final = data_final
 
     def get_value(self) -> str:
-        datas = Xlsx_to_list("C").toListStr()
-        status = Xlsx_to_list("K").toListStr()
-        valor = Xlsx_to_list("I").toListStr()
-
+        valores = SQLite('dados.db').selected_select(
+            'dados', ['valor_final'], 
+            f'''
+            data_entrega >= "{self.data_inicial}" 
+            and data_entrega <= "{self.data_final}" 
+            and status = "Concluído"
+            '''
+        )
         valor_total = 0
-
-        for i in range(len(datas)):
-            try:
-                data_lista = datetime.strptime(datas[i], '%d/%m/%Y').strftime("%d/%m/%Y")
-                data_inicial = datetime.strptime(self.data_inicial, '%d/%m/%Y').strftime('%d/%m/%Y')
-                data_final = datetime.strptime(self.data_final, '%d/%m/%Y').strftime('%d/%m/%Y')
-            except:
-                return "Erro nas datas, confira se estão no formato correto."
-            if status[i] == "Concluído":
-                if data_lista >= data_inicial and data_lista <= data_final:
-                    valor_total += float(valor[i])
+        for valor in valores:
+            valor_total += float(valor[0])
 
         return f"\nR$ {valor_total:.2f}"

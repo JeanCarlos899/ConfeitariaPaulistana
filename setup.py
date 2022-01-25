@@ -1,15 +1,15 @@
 import os
 import sys
+
 try:
     import PySimpleGUI as sg
 
-    from Scripts.data_list import DataList
     from Scripts.insert_dados import InsertDados
     from Scripts.finalize_order import FinalizeOrder
     from Scripts.new_chart import NewChart
     from Scripts.reports import Relatorios
-    from Scripts.delete_order import DeleteOrder
-    from Scripts.edit_order import EditOrder
+    from Scripts.edit_order import EditDados
+    from Scripts.sqlite import SQLite
 
     from Design.menu_principal import MenuPrincipal
     from Design.nova_encomenda import NovaEncomenda
@@ -23,6 +23,7 @@ try:
     from Scripts.revenues import Revenues
     from Design.lucro_mes import Lucromensal
     from Scripts.pronfit_in_the_month import Gasto
+    
 except ImportError:
     os.system("pip3 install -r requirements.txt")
     print("Bibliotecas instaladas com sucesso!")
@@ -160,12 +161,16 @@ while True:
     if janela == menu_encomenda and evento == "-FILTRAR-":
         if status_concluido == True:
             menu_encomenda["-INDEX_ENCOMENDA-"].update(
-                values=DataList("Concluído").get_dados_pedido_resumido()
+                values=SQLite('dados.db').select(
+                    'dados', '*', 'status = "Concluído"'
+                    )
                 )
             menu_encomenda["-STATUS_CONCLUIDO-"].update(True)
         elif status_pendente == True:
             menu_encomenda["-INDEX_ENCOMENDA-"].update(
-                values=DataList("Pendente").get_dados_pedido_resumido()
+                values=SQLite('dados.db').select(
+                    'dados', '*', 'status = "Pendente"'
+                    )
                 )
             menu_encomenda["-STATUS_PENDENTE-"].update(True)
         continue
@@ -174,19 +179,17 @@ while True:
 
     if janela == menu_encomenda and evento == "-MAIS_INFORMACOES-":
         try:
-            index_da_lista = int(valor["-INDEX_ENCOMENDA-"][0])
+            index = int(valor["-INDEX_ENCOMENDA-"][0])
 
             if status_concluido == True:
-                lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
                 mais_informacoes = ListarEncomendas.mais_informacoes(
-                    "Concluído", lista_clientes[index_da_lista], index_da_lista
+                    "Concluído", index
                     )
                 menu_encomenda.hide()
 
             if status_pendente == True:
-                lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
                 mais_informacoes = ListarEncomendas.mais_informacoes(
-                    "Pendente", lista_clientes[index_da_lista], index_da_lista
+                    "Pendente", index
                     )
                 menu_encomenda.hide()
             continue
@@ -215,10 +218,12 @@ while True:
             index_encomenda = valor["-TABLE_LISTAR_ENCOMENDA-"]
             kg_aniversario = valor["-BOLO_ANIVERSARIO-"]
             kg_casamento = valor["-BOLO_CASAMENTO-"]
-            lista_encomenda = DataList("Pendente").get_dados_pedido_resumido()
+            lista_encomendas = SQLite('dados.db').select(
+                    'dados', '*', 'status = "Pendente"'
+                )
 
             preco_final = FinalizeOrder(
-                lista_encomenda, index_encomenda, 
+                lista_encomendas, index_encomenda, 
                 kg_aniversario, kg_casamento
                 ).get_preco_final()
 
@@ -231,8 +236,10 @@ while True:
 
     if janela == dar_baixa_encomenda and evento == "-ATUALIZAR_LISTA-":
         dar_baixa_encomenda["-TABLE_LISTAR_ENCOMENDA-"].update(
-            DataList("Pendente").get_dados_pedido_resumido()
+            SQLite('dados.db').select(
+                'dados', '*', 'status = "Pendente"'
             )
+        )
 
         dar_baixa_encomenda["-FINALIZAR_ENCOMENDA-"].update(disabled=False)
         dar_baixa_encomenda["-VALOR_FINAL-"].update("R$0,00")
@@ -299,7 +306,6 @@ while True:
 
     if janela == relatorios and evento == "-TODOS_PEDIDOS-":
         Relatorios.historico_todos_pedidos()
-        relatorios.hide()
         sg.popup("Relatório gerado com sucesso!")
         continue
 
@@ -318,16 +324,18 @@ while True:
     
     if janela == deletar_encomenda and evento == "-FILTRAR-":
         if status_concluido == True:
-            lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
             deletar_encomenda["-INDEX_ENCOMENDA-"].update(
-                values=DataList("Concluído").get_dados_pedido_resumido()
+                values=SQLite('dados.db').select(
+                    'dados', '*', 'status = "Concluído"'
+                    )
                 )
             deletar_encomenda["-STATUS_CONCLUIDO-"].update(True)
 
         elif status_pendente == True:
-            lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
             deletar_encomenda["-INDEX_ENCOMENDA-"].update(
-                values=DataList("Pendente").get_dados_pedido_resumido()
+                values=SQLite('dados.db').select(
+                    'dados', '*', 'status = "Pendente"'
+                    )
                 )
             deletar_encomenda["-STATUS_CONCLUIDO-"].update(False)
         continue
@@ -336,26 +344,35 @@ while True:
 
     if janela == deletar_encomenda and evento == "-DELETAR_ENCOMENDA-":
         try:
+            index = int(valor["-INDEX_ENCOMENDA-"][0])
+
             if status_pendente == True:
-                lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
+                lista_encomendas = SQLite('dados.db').select(
+                    'dados', 'id', 'status = "Pendente"'
+                )
             elif status_concluido == True:
-                lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
-                
-            index_encomenda = valor["-INDEX_ENCOMENDA-"]
-            DeleteOrder(index_encomenda, lista_clientes).deletar_encomenda()
+                lista_encomendas = SQLite('dados.db').select(
+                    'dados', 'id', 'status = "Concluído"'
+                )
+
+            id = lista_encomendas[index][0]
+            SQLite('dados.db').delete('dados', f'id={id}')
 
             if status_concluido == True:
                 deletar_encomenda["-INDEX_ENCOMENDA-"].update(
-                    values=DataList("Concluído").get_dados_pedido_resumido()
+                    values=SQLite('dados.db').select(
+                        'dados', '*', 'status = "Concluído"'
+                        )
                     )
                 deletar_encomenda["-STATUS_CONCLUIDO-"].update(True)
 
             elif status_pendente == True:
                 deletar_encomenda["-INDEX_ENCOMENDA-"].update(
-                    values=DataList("Pendente").get_dados_pedido_resumido()
+                    values=SQLite('dados.db').select(
+                        'dados', '*', 'status = "Pendente"'
+                        )
                     )
                 deletar_encomenda["-STATUS_CONCLUIDO-"].update(False)
-            continue
         except:
             sg.popup("Nenhuma encomenda selecionada!")
             continue
@@ -368,7 +385,7 @@ while True:
         or janela == editar_encomenda and evento == "-VOLTAR-"):
         editar_encomenda.hide()
         buttons("on")
-        continue
+        continue 
 
     if janela == editar_encomenda:
         try:
@@ -379,88 +396,69 @@ while True:
 
     if janela == editar_encomenda and evento == "-FILTRAR-":
         if status_concluido == True:
-            editar_encomenda["-INDEX_ENCOMENDA-"].update(
-                values=DataList("Concluído").get_dados_pedido_resumido()
+            deletar_encomenda["-INDEX_ENCOMENDA-"].update(
+                values=SQLite('dados.db').select(
+                    'dados', '*', 'status = "Concluído"'
+                    )
                 )
-            editar_encomenda["-STATUS_CONCLUIDO-"].update(True)
+            deletar_encomenda["-STATUS_CONCLUIDO-"].update(True)
+
         elif status_pendente == True:
-            editar_encomenda["-INDEX_ENCOMENDA-"].update(
-                values=DataList("Pendente").get_dados_pedido_resumido()
+            deletar_encomenda["-INDEX_ENCOMENDA-"].update(
+                values=SQLite('dados.db').select(
+                    'dados', '*', 'status = "Pendente"'
+                    )
                 )
-            editar_encomenda["-STATUS_PENDENTE-"].update(True)
+            deletar_encomenda["-STATUS_CONCLUIDO-"].update(False)
         continue
 
     ###############################EDITAR ENCOMENDA###########################
 
     if janela == editar_encomenda and evento == "-EDITAR-":
-        try:
-            index_encomenda = valor["-INDEX_ENCOMENDA-"]
-            if status_concluido == True:
-                status = "Concluído"
-                lista_clientes = DataList("Concluído").get_dados_pedido_resumido()
-                info_encomenda = DataList("Concluído").get_dados_pedido(False)
-                msg = DataList("Concluído").get_dados_pedido(True)
-            else:
-                status = "Pendente"
-                lista_clientes = DataList("Pendente").get_dados_pedido_resumido()
-                info_encomenda = DataList("Pendente").get_dados_pedido(False)
-                msg = DataList("Pendente").get_dados_pedido(True)
-            
-            editar_encomenda.hide()
-            editar_encomenda = NovaEncomenda.nova_encomenda("Editar Encomenda")
+        index = int(valor["-INDEX_ENCOMENDA-"][0])
 
-            keys = [
-                "-NOME_CLIENTE-",
-                "-DATA_ENTREGA-",
-                "-HORA_ENTREGA-",
-                "-BOLO_ANIVERSARIO-",
-                "-BOLO_CASAMENTO-",
-                "-QTD_MINI-",
-                "-QTD_NORMAL-",
-                ]
-            keys_info_clientes = keys[0:3]
-            keys_info_encomenda = keys[3:7]
+        if status_pendente == True:
+            lista_encomendas = SQLite('dados.db').select(
+                'dados', '*', 'status = "Pendente"'
+            )
+        elif status_concluido == True:
+            lista_encomendas = SQLite('dados.db').select(
+                'dados', '*', 'status = "Concluído"'
+            )
+        dados = lista_encomendas[index]
+        id = dados[0]
 
-            for key in range(len(keys_info_clientes)):
-                editar_encomenda[keys_info_clientes[key]].update(
-                    lista_clientes[index_encomenda[0]][key+2]
-                    )
-            for key in range(len(keys_info_encomenda)):
-                editar_encomenda[keys_info_encomenda[key]].update(
-                    info_encomenda[index_encomenda[0]][key]
-                    )
-            editar_encomenda["-INFO_COMPLEMENTARES-"].update(msg[0])
-            continue
-        except:
-            editar_encomenda.close()
-            editar_encomenda = EditarEncomenda.listar_encomendas("Pendente")
-            sg.popup("Nenhuma encomenda selecionada!")
-            continue
+        editar_encomenda.close()
+        editar_encomenda = EditarEncomenda.edit_info()
+
+        editar_encomenda["-NOME_CLIENTE-"].update(dados[1])
+        editar_encomenda["-DATA_ENTREGA-"].update(dados[2])
+        editar_encomenda["-HORA_ENTREGA-"].update(dados[3])
+        editar_encomenda["-BOLO_ANIVERSARIO-"].update(dados[4])
+        editar_encomenda["-BOLO_CASAMENTO-"].update(dados[5])
+        editar_encomenda["-QTD_MINI-"].update(dados[6])
+        editar_encomenda["-QTD_NORMAL-"].update(dados[7])
+        editar_encomenda["-INFO_COMPLEMENTARES-"].update(dados[9])
 
     if janela == editar_encomenda and evento == "-CONFIRMAR-":
-        try:
-            mensagem = EditOrder(
-                index_encomenda, lista_clientes, 
-                [
-                    str(valor["-NOME_CLIENTE-"]), 
-                    str(valor["-DATA_ENTREGA-"]), 
-                    str(valor["-HORA_ENTREGA-"]),
-                    int(valor["-BOLO_ANIVERSARIO-"]), 
-                    int(valor["-BOLO_CASAMENTO-"]),
-                    int(valor["-QTD_MINI-"]), 
-                    int(valor["-QTD_NORMAL-"]), 
-                    str(valor["-INFO_COMPLEMENTARES-"]), 
-                ], status).editar_encomenda()
-            if mensagem == "Dados atualizados com sucesso!":
-                sg.popup(mensagem, title="Sucesso!")
-                editar_encomenda.hide()
-                buttons("on")
-                continue
-            else:
-                sg.popup(mensagem, title="Erro!")
-                continue
-        except:
-            sg.popup("Nenhuma encomenda selecionada!")
+        msg = EditDados([
+            str(valor["-NOME_CLIENTE-"]), 
+            str(valor["-DATA_ENTREGA-"]), 
+            str(valor["-HORA_ENTREGA-"]), 
+            int(valor["-BOLO_ANIVERSARIO-"]),
+            int(valor["-BOLO_CASAMENTO-"]), 
+            int(valor["-QTD_MINI-"]), 
+            int(valor["-QTD_NORMAL-"]), 
+            str(valor["-INFO_COMPLEMENTARES-"]) 
+        ], id).inserir_dados()
+
+        if msg == "Dados atualizados com sucesso!":
+            sg.popup(msg, title="Sucesso!")
+            nova_encomenda.hide()
+            buttons("on")
+            continue
+        else:
+            sg.popup(msg, title="Erro!")
             continue
     
     ##########################################################################

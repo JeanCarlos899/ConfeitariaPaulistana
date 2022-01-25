@@ -1,13 +1,15 @@
 import PySimpleGUI as sg
-from Scripts.data_list import DataList
+from Scripts.sqlite import SQLite
 
 class BaixaEncomenda:
     def baixa_encomenda():
         sg.theme('Dark Blue 3')
 
-        data_values = DataList("Pendente").get_dados_pedido_resumido()
-        data_headings = ['Nº', 'ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
-        data_cols_width = [5, 5, 35, 20, 18]
+        data_values = SQLite('dados.db').select(
+                'dados', '*', 'status = "Pendente"'
+            )
+        data_headings = ['ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
+        data_cols_width = [5, 40, 20, 18]
 
         layout = [ 
             [sg.Frame('Finalizar encomenda',
@@ -35,7 +37,7 @@ class BaixaEncomenda:
                         ),
                     sg.Frame('Valor final',
                             [
-                                [sg.Output(size=(60, 10), key='-VALOR_FINAL-')]
+                                [sg.Multiline(size=(60, 10), key='-VALOR_FINAL-', disabled=True, no_scrollbar=True)]
                             ], size=(400, 190), background_color="#e0e0e0", title_color="black"
                         )
                     ],

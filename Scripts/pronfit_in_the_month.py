@@ -1,7 +1,5 @@
 import datetime
-import PySimpleGUI as sg
-from PySimpleGUI.PySimpleGUI import Window
-from Scripts.xlsx_to_list import Xlsx_to_list
+from Scripts.return_list import ReturnList
 
 class Gasto:
     def descobrirMes():
@@ -9,9 +7,9 @@ class Gasto:
         return mes
         
     def descobrirGanhoMes():
-        datas = Xlsx_to_list("C").toListStr()
-        status = Xlsx_to_list("K").toListStr()
-        valor = Xlsx_to_list("I").toListStr()
+        datas = ReturnList('data_entrega').__call__()
+        status = ReturnList('status').__call__()
+        valor = ReturnList('valor_final').__call__()
 
         jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
@@ -44,6 +42,7 @@ class Gasto:
                     dez += float(valor[x])
 
         mes = Gasto.descobrirMes()
+        
         if mes == 1:
             return jan
         elif mes == 2:

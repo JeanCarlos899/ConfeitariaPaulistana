@@ -1,14 +1,22 @@
 import PySimpleGUI as sg 
-from Scripts.data_list import DataList
- 
+from Scripts.sqlite import SQLite
+
 class DeletarEncomenda:
 
     def deletar_encomenda(tipo):
         sg.theme('Dark Blue 3')
-
-        data_values = DataList(tipo).get_dados_pedido_resumido()
-        data_headings = ['Nº', 'ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
-        data_cols_width = [5, 5, 35, 20, 18]
+        
+        data_values = SQLite('dados.db').selected_select(
+            'dados', 
+            [
+                'id', 
+                'nome_cliente', 
+                'data_entrega', 
+                'hora_entrega', 
+            ], f'status = "{tipo}"'
+        )
+        data_headings = ['ID', 'Nome Cliente', 'Data entrega', 'Hora entrega']
+        data_cols_width = [5, 40, 20, 18]
 
         layout = [ 
             [sg.Frame('Filtros',

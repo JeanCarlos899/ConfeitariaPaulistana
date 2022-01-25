@@ -1,18 +1,14 @@
-from openpyxl import load_workbook
-from Scripts.get_real_index import GetRealIndex
 from datetime import datetime
+from Scripts.sqlite import SQLite
 
-class EditOrder:
-    def __init__(self, order_id, lista_clientes, lista_dados: list, status):
+class EditDados:
+    def __init__(self, lista_dados: list, id: int):
         self.lista_dados = lista_dados
-        self.order_id = order_id
-        self.lista_clientes = lista_clientes
-        self.status = status
+        self.id = id
 
     def verificar_data(self, horario_entrega: str, data_entrega: str) -> bool:
         if horario_entrega.count(":") == 1:
             if len(horario_entrega.split(":")) == 2:
-                
                 try:
                     hora_entrada = datetime.strptime(
                         (str(data_entrega) + " " + str(horario_entrega)), "%d/%m/%Y %H:%M"
@@ -28,25 +24,32 @@ class EditOrder:
         else:
             return False
 
-    def editar_encomenda(self) -> bool:
-        dados = load_workbook("dados.xlsx")
-        planilha_ativa = dados.active
-
-        index = GetRealIndex(self.lista_clientes, self.order_id).return_index()
-
+    def inserir_dados(self) -> str:
         if self.lista_dados[0] != "":
             if self.verificar_data(self.lista_dados[2], self.lista_dados[1]) == True:
-                if int(self.lista_dados[3]) >= 0 and int(self.lista_dados[4]) >= 0:
+                if int(self.lista_dados[3]) > 0 or int(self.lista_dados[4]) > 0:
                     if (int(self.lista_dados[5]) + int(self.lista_dados[6]) >= 25 
                         or int(self.lista_dados[5]) + int(self.lista_dados[6]) == 0):
-                        letras = ["B", "C", "D", "E", "F", "G", "H", "J"]
-                        
-                        planilha_ativa[f"A{index}"] = index - 1
-                        for i in range(len(self.lista_dados)):
-                            planilha_ativa[letras[i] + str(index)] = self.lista_dados[i]
-                        planilha_ativa[f"K{index}"] = self.status
 
-                        dados.save("dados.xlsx")
+                        col_name = [
+                            'nome_cliente',
+                            'data_entrega',
+                            'hora_entrega',
+                            'bolo_aniversario',
+                            'bolo_casamento',
+                            'salgado_mini',
+                            'salgado_normal',
+                            'mensagem'
+                        ]
+
+                        for i in range(len(col_name)):
+                            SQLite('dados.db').update(
+                                'dados',
+                                col_name[i],
+                                f'"{self.lista_dados[i]}"',
+                                f'id = {self.id}'
+                            )
+
                         return "Dados atualizados com sucesso!"
                     else:
                         return "O valor total dos salgadinhos devem ser igual ou maior que 25"

@@ -1,14 +1,9 @@
 from reportlab.pdfgen import canvas
-import pandas as pd
-import matplotlib.pyplot as plt
 import datetime
-import PySimpleGUI as sg
-
-
+from Scripts.return_list import ReturnList
 
 class Relatorios:
     def historico_todos_pedidos():
-        arquivo = pd.read_excel('dados.xlsx')
 
         file_name = f'Histórico de todos os pedidos({datetime.datetime.now().strftime("%d-%m-%Y")})'
         pdf = canvas.Canvas(file_name + '.pdf')
@@ -27,23 +22,20 @@ class Relatorios:
         pdf.drawString(630,900,'Status')
 
         pdf.setFont('Helvetica', 10)
-        for i in range(len(arquivo)):
-            pdf.drawString(10,850-i*20,str(arquivo['ID'][i]))
-            pdf.drawString(50,850-i*20,str(arquivo['Nome cliente'][i]))
-            pdf.drawString(150,850-i*20,str(arquivo['Data de entrega'][i]))
-            pdf.drawString(290,850-i*20,str(arquivo['Bolo de aniversário'][i]))
-            pdf.drawString(360,850-i*20,str(arquivo['Bolo de casamento'][i]))
-            pdf.drawString(460,850-i*20,str(arquivo['Salgado mini'][i]))
-            pdf.drawString(495,850-i*20,str(arquivo['Salgado normal'][i]))
-            pdf.drawString(560,850-i*20,str(arquivo['Valor final'][i]))
-            pdf.drawString(640,850-i*20,str(arquivo['Status'][i]))
+        for i in range(len(ReturnList('id').__call__())):
+            pdf.drawString(10,850-i*20,str(ReturnList('id').__call__()[i]))
+            pdf.drawString(50,850-i*20,str(ReturnList('nome_cliente').__call__()[i]))
+            pdf.drawString(150,850-i*20,str(ReturnList('data_entrega').__call__()[i]))
+            pdf.drawString(290,850-i*20,str(ReturnList('bolo_aniversario').__call__()[i]))
+            pdf.drawString(360,850-i*20,str(ReturnList('bolo_casamento').__call__()[i]))
+            pdf.drawString(460,850-i*20,str(ReturnList('salgado_mini').__call__()[i]))
+            pdf.drawString(495,850-i*20,str(ReturnList('salgado_normal').__call__()[i]))
+            pdf.drawString(560,850-i*20,str(ReturnList('valor_final').__call__()[i]))
+            pdf.drawString(640,850-i*20,str(ReturnList('status').__call__()[i]))
         
         pdf.save()
 
-
     def historico_pedidos_concluido():
-        arquivo = pd.read_excel('dados.xlsx')
-
         file_name = f'Pedidos Concluídos({datetime.datetime.now().strftime("%d-%m-%Y")})'
         pdf = canvas.Canvas(file_name + '.pdf')
         pdf.setPageSize((750,1000))
@@ -60,24 +52,22 @@ class Relatorios:
         pdf.drawString(560,900,'Valor final')
         pdf.drawString(630,900,'Status')
 
-
         pdf.setFont('Helvetica', 10)
-        for i in range(len(arquivo)):
-            if arquivo['Status'][i] == 'Concluído':
-                pdf.drawString(10,850-i*20,str(arquivo['ID'][i]))
-                pdf.drawString(50,850-i*20,str(arquivo['Nome cliente'][i]))
-                pdf.drawString(150,850-i*20,str(arquivo['Data de entrega'][i]))
-                pdf.drawString(270,850-i*20,str(arquivo['Bolo de aniversário'][i]))
-                pdf.drawString(370,850-i*20,str(arquivo['Bolo de casamento'][i]))
-                pdf.drawString(440,850-i*20,str(arquivo['Salgado mini'][i]))
-                pdf.drawString(495,850-i*20,str(arquivo['Salgado normal'][i]))
-                pdf.drawString(570,850-i*20,str(arquivo['Valor final'][i]))
-                pdf.drawString(630,850-i*20,str(arquivo['Status'][i]))
+        for i in range(len(ReturnList('id').__call__())):
+            if ReturnList('status').__call__()[i] == 'Concluído':
+                pdf.drawString(10,850-i*20,str(ReturnList('id').__call__()[i]))
+                pdf.drawString(50,850-i*20,str(ReturnList('nome_cliente').__call__()[i]))
+                pdf.drawString(150,850-i*20,str(ReturnList('data_entrega').__call__()[i]))
+                pdf.drawString(290,850-i*20,str(ReturnList('bolo_aniversario').__call__()[i]))
+                pdf.drawString(360,850-i*20,str(ReturnList('bolo_casamento').__call__()[i]))
+                pdf.drawString(460,850-i*20,str(ReturnList('salgado_mini').__call__()[i]))
+                pdf.drawString(495,850-i*20,str(ReturnList('salgado_normal').__call__()[i]))
+                pdf.drawString(560,850-i*20,str(ReturnList('valor_final').__call__()[i]))
+                pdf.drawString(640,850-i*20,str(ReturnList('status').__call__()[i]))
 
         pdf.save()
 
     def historico_pedidos_naoentregues():
-        arquivo = pd.read_excel('dados.xlsx')
         
         file_name = f'Pedidos não entregues({datetime.datetime.now().strftime("%d-%m-%Y")})'
         pdf = canvas.Canvas(file_name + '.pdf')
@@ -95,26 +85,20 @@ class Relatorios:
         pdf.drawString(560,900,'Status')
 
         pdf.setFont('Helvetica', 10)
-        for i in range(len(arquivo)):
-            if arquivo['Status'][i] == 'Pendente':
-                pdf.drawString(10,850-i*20,str(arquivo['ID'][i]))
-                pdf.drawString(50,850-i*20,str(arquivo['Nome cliente'][i]))
-                pdf.drawString(150,850-i*20,str(arquivo['Data de entrega'][i]))
-                pdf.drawString(270,850-i*20,str(arquivo['Bolo de aniversário'][i]))
-                pdf.drawString(370,850-i*20,str(arquivo['Bolo de casamento'][i]))
-                pdf.drawString(440,850-i*20,str(arquivo['Salgado mini'][i]))
-                pdf.drawString(495,850-i*20,str(arquivo['Salgado normal'][i]))
-                pdf.drawString(570,850-i*20,str(arquivo['Status'][i]))
-            
+        for i in range(len(ReturnList('id').__call__())):
+            if ReturnList('status').__call__()[i] == 'Pendente':
+                pdf.drawString(10,850-i*20,str(ReturnList('id').__call__()[i]))
+                pdf.drawString(50,850-i*20,str(ReturnList('nome_cliente').__call__()[i]))
+                pdf.drawString(150,850-i*20,str(ReturnList('data_entrega').__call__()[i]))
+                pdf.drawString(290,850-i*20,str(ReturnList('bolo_aniversario').__call__()[i]))
+                pdf.drawString(360,850-i*20,str(ReturnList('bolo_casamento').__call__()[i]))
+                pdf.drawString(460,850-i*20,str(ReturnList('salgado_mini').__call__()[i]))
+                pdf.drawString(495,850-i*20,str(ReturnList('salgado_normal').__call__()[i]))
+                pdf.drawString(640,850-i*20,str(ReturnList('status').__call__()[i]))
+
         pdf.save()
 
     def pedidos_pendentes():
-        arquivo = pd.read_excel('dados.xlsx')
-
-        data = datetime.datetime.now()
-        datapedido = arquivo['Data de entrega']
-        datapedido = pd.to_datetime(datapedido)
-
         file_name = f'Pedidos Pendentes({datetime.datetime.now().strftime("%d-%m-%Y")})'
         pdf = canvas.Canvas(file_name + '.pdf')
         pdf.setPageSize((750,1000))
@@ -131,21 +115,15 @@ class Relatorios:
         pdf.drawString(560,900,'Status')
 
         pdf.setFont('Helvetica', 10)
-        for i in range(len(arquivo)):
-            if arquivo['Status'][i] == 'Pendente':
-                if data > datapedido[i]:
-                    pdf.drawString(10,850-i*20,str(arquivo['ID'][i]))
-                    pdf.drawString(50,850-i*20,str(arquivo['Nome cliente'][i]))
-                    pdf.drawString(150,850-i*20,str(arquivo['Data de entrega'][i]))
-                    pdf.drawString(270,850-i*20,str(arquivo['Bolo de aniversário'][i]))
-                    pdf.drawString(370,850-i*20,str(arquivo['Bolo de casamento'][i]))
-                    pdf.drawString(440,850-i*20,str(arquivo['Salgado mini'][i]))
-                    pdf.drawString(495,850-i*20,str(arquivo['Salgado normal'][i]))
-                    pdf.drawString(560,850-i*20,str(arquivo['Status'][i]))
+        for i in range(len(ReturnList('id').__call__())):
+            if ReturnList('status').__call__()[i] == 'Pendente':
+                pdf.drawString(10,850-i*20,str(ReturnList('id').__call__()[i]))
+                pdf.drawString(50,850-i*20,str(ReturnList('nome_cliente').__call__()[i]))
+                pdf.drawString(150,850-i*20,str(ReturnList('data_entrega').__call__()[i]))
+                pdf.drawString(290,850-i*20,str(ReturnList('bolo_aniversario').__call__()[i]))
+                pdf.drawString(360,850-i*20,str(ReturnList('bolo_casamento').__call__()[i]))
+                pdf.drawString(460,850-i*20,str(ReturnList('salgado_mini').__call__()[i]))
+                pdf.drawString(495,850-i*20,str(ReturnList('salgado_normal').__call__()[i]))
+                pdf.drawString(640,850-i*20,str(ReturnList('status').__call__()[i]))
 
-                
         pdf.save()
-
-######################################################################
-######################################################################
-

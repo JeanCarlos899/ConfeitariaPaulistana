@@ -1,19 +1,18 @@
-import pandas as pd
 import matplotlib.pyplot as plt
-from Scripts.xlsx_to_list import Xlsx_to_list
+from Scripts.return_list import ReturnList
+
 class NewChart:
 
     def graficoPizza():
-        arquivo = pd.read_excel('dados.xlsx')
-        Entregue = arquivo.loc[arquivo['Status']=='Concluído']
-        Pendente = arquivo.loc[arquivo['Status']=='Pendente']
+        Entregue = ReturnList('status').__call__().count('Concluído')
+        Pendente = ReturnList('status').__call__().count('Pendente')
         plt.title('Status dos pedidos')
-        plt.pie([len(Entregue),len(Pendente)], labels=['Concluído','Pendente'], autopct='%1.1f%%')
+        plt.pie([Entregue, Pendente], labels=['Concluído','Pendente'], autopct='%1.1f%%')
         plt.axis('equal')
         plt.show()
 
     def graficoBarrasPedidos():
-        datas = Xlsx_to_list("C").toListStr()
+        datas = ReturnList('data_entrega').__call__()
 
         jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
@@ -52,13 +51,13 @@ class NewChart:
         plt.show()
 
     def graficoTipoBolo():
-        arquivo = pd.read_excel('dados.xlsx')
+        bolosA = sum(
+            ReturnList('bolo_aniversario').__call__()
+            )
 
-        bolosA = arquivo['Bolo de aniversário']
-        bolosA = bolosA.sum()
-
-        bolosC = arquivo['Bolo de casamento']
-        bolosC = bolosC.sum()
+        bolosC = sum(
+            ReturnList('bolo_casamento').__call__()
+            )
 
         plt.title('Quantidade de bolos por tipo')
         plt.pie([bolosA, bolosC], labels=['Bolo de aniversário','Bolo de casamento'], autopct='%1.1f%%')
@@ -66,13 +65,13 @@ class NewChart:
         plt.show()
 
     def graficoTipoSalgados():
-        arquivo = pd.read_excel('dados.xlsx')
+        salgadosM = sum(
+            ReturnList('salgado_mini').__call__()
+            )
 
-        salgadosM = arquivo['Salgado mini']
-        salgadosM = salgadosM.sum()
-
-        salgadoN = arquivo['Salgado normal']
-        salgadoN = salgadoN.sum()
+        salgadoN = sum(
+            ReturnList('salgado_normal').__call__()
+            )
 
         plt.title('Quantidade de salgados por tipo')
         plt.pie([salgadosM, salgadoN], labels=['Salgado mini','Salgado normal'], autopct='%1.1f%%')
@@ -80,9 +79,9 @@ class NewChart:
         plt.show()
 
     def graficoganho():
-        datas = Xlsx_to_list("C").toListStr()
-        status = Xlsx_to_list("K").toListStr()
-        valor = Xlsx_to_list("I").toListStr()
+        datas = ReturnList('data_entrega').__call__()
+        status = ReturnList('status').__call__()
+        valor = ReturnList('valor_final').__call__()
 
         jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
@@ -123,27 +122,21 @@ class NewChart:
         plt.show()
 
     def lucroporfesta():
-        arquivo = pd.read_excel('dados.xlsx')
         valorA = 0
         ValorC = 0
-        status = Xlsx_to_list("K").toListStr()
+        status = ReturnList('status').__call__()
 
-        valor = arquivo['Valor final']
+        valor = ReturnList('valor_final').__call__()
 
         for x in range(len(valor)):
             if status[x] == 'Concluído':
-                if arquivo['Bolo de aniversário'][x] != 0:
+                if ReturnList('bolo_aniversario').__call__()[x] != 0:
                     valorA += float(valor[x])
                     
-                if arquivo['Bolo de casamento'][x] != 0:
+                if ReturnList('bolo_casamento').__call__()[x] != 0:
                     ValorC += float(valor[x])
 
         plt.title('Lucro por tipo de festa')
         plt.pie([valorA, ValorC], labels=['Festa de aniversário','festa de casamento'], autopct='%1.1f%%')
         plt.axis('equal')
         plt.show()
-
-
-
-
-
