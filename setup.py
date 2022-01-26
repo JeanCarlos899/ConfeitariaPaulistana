@@ -75,11 +75,10 @@ while True:
     if janela == menu:
         
         if evento == sg.WIN_CLOSED or evento == "-SAIR-":
-            sicronizar = Sicronizar('dados.db', 'caminhos.csv')
-            if os.stat(sicronizar.novolocal).st_size == 0:
-                sg.popup("Nenhum local para Backup foi cadastrado, lembre-se de cadastrar um!", title="Atenção!")
-            else:
-                sicronizar.sincronizar()
+            localOriginal = 'dados.db'
+            novolocal = './dados_novos.db'
+            sincronizar = Sicronizar(localOriginal, novolocal)
+            sincronizar.sincronizar()
             break
 
         elif evento == "-NOVA_ENCOMENDA-":
@@ -518,4 +517,3 @@ while True:
 
             except ValueError:
                 lucro_do_mes['-OUTPUT-'].update('Por favor, digite apenas números.')
-
