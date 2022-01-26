@@ -77,8 +77,7 @@ while True:
         if evento == sg.WIN_CLOSED or evento == "-SAIR-":
             sicronizar = Sicronizar('dados.db', 'caminhos.csv')
             if os.stat(sicronizar.novolocal).st_size == 0:
-                sg.popup('''Nenhum local para Backup foi cadastrado, 
-                    lembre-se de cadastrar um!''', title="Atenção!")
+                sg.popup("Nenhum local para Backup foi cadastrado, lembre-se de cadastrar um!", title="Atenção!")
             else:
                 sicronizar.sincronizar()
             break

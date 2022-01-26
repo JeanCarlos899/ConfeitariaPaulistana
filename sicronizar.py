@@ -33,4 +33,3 @@ class Sicronizar:
                 shutil.copy(self.localOriginal, self.novolocal)
         else:
             pass
-
