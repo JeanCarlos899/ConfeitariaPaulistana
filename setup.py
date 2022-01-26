@@ -24,6 +24,7 @@ try:
     from Design.lucro_mes import Lucromensal
     from Scripts.pronfit_in_the_month import Gasto
     from sicronizar import Sicronizar
+    #from Design.crar_caminho import *
     
 except ImportError:
     os.system("pip3 install -r requirements.txt")
