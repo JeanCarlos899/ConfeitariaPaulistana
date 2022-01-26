@@ -77,7 +77,6 @@ while True:
         
         if evento == sg.WIN_CLOSED or evento == "-SAIR-":
         
-            # Se o caminho for inválido, imprimir mensagem de erro
             try:    
                 if os.path.getsize("caminhos.csv") == 0:
                     sg.popup_ok("Não há caminhos cadastrados no sistema.", )
