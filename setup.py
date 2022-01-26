@@ -497,7 +497,7 @@ while True:
             lucro_do_mes.close()
             buttons("on")
             continue
-
+        
         elif janela == lucro_do_mes and evento == "-ENVIAR-":
             try:
                 funcionarios = float(valor['-INPUT_FUNCIONARIOS-'])
