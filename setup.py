@@ -76,16 +76,27 @@ while True:
     if janela == menu:
         
         if evento == sg.WIN_CLOSED or evento == "-SAIR-":
-            localOriginal = 'dados.db'
-            file = 'caminhos.csv'
+        
+            # Se o caminho for inválido, imprimir mensagem de erro
+            try:    
+                if os.path.getsize("caminhos.csv") == 0:
+                    sg.popup_ok("Não há caminhos cadastrados no sistema.", )
+                    break 
+                else:
+                    localOriginal = 'dados.db'
+                    file = 'caminhos.csv'
 
-            with open(file, 'r') as f:
-                caminhos = f.readlines()
+                    with open(file, 'r') as f:
+                        caminhos = f.readlines()
 
-            novolocal = caminhos[0].strip()            
-            sincronizar = Sicronizar(localOriginal, novolocal)
-            sincronizar.sincronizar()
-            break
+                    novolocal = caminhos[0].strip()            
+                    sincronizar = Sicronizar(localOriginal, novolocal)
+                    sincronizar.sincronizar()
+                    break
+
+            except FileNotFoundError:
+                sg.popup_ok("Caminho inválido, edite-o. Para que o backup possa ser feito.")
+                break
 
         elif evento == "-NOVA_ENCOMENDA-":
             nova_encomenda = NovaEncomenda.nova_encomenda("Nova Encomenda")
