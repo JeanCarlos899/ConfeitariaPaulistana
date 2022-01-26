@@ -523,3 +523,4 @@ while True:
 
             except ValueError:
                 lucro_do_mes['-OUTPUT-'].update('Por favor, digite apenas números.')
+
