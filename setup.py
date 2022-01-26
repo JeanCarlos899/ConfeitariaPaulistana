@@ -1,3 +1,4 @@
+from asyncore import read
 import os
 import sys
 
@@ -76,7 +77,12 @@ while True:
         
         if evento == sg.WIN_CLOSED or evento == "-SAIR-":
             localOriginal = 'dados.db'
-            novolocal = './dados_novos.db'
+            file = 'caminhos.csv'
+
+            with open(file, 'r') as f:
+                caminhos = f.readlines()
+
+            novolocal = caminhos[0].strip()            
             sincronizar = Sicronizar(localOriginal, novolocal)
             sincronizar.sincronizar()
             break

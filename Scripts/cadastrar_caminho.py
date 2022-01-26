@@ -9,16 +9,20 @@ class caminho:
         if os.stat(keys_caminho).st_size == 0:
             pasta = filedialog.askdirectory()
             with open(keys_caminho, 'w') as arquivo:
-                arquivo.write(pasta + '\n')
+                arquivo.write(pasta + '/backup_dados.db\n')
 
         else:
             localOriginal = 'dados.db'
-            novolocal = keys_caminho
+            # Descobrir o caminho
+            with open(keys_caminho, 'r') as arquivo:
+                caminhos = arquivo.readlines()
+                caminhos = [x.strip() for x in caminhos]
 
-        return novolocal, localOriginal
 
     def editar():
         with open(keys_caminho, 'r') as arquivo:
             caminhos = arquivo.readlines()
             caminhos = [x.strip() for x in caminhos]
         return caminhos
+
+test = caminho.criar()
