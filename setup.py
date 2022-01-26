@@ -33,25 +33,25 @@ except ImportError:
     sys.exit()
 
 def buttons(on_off):
-    keys = [
-        "-NOVA_ENCOMENDA-", 
-        "-LISTAR_ENCOMENDAS-",
-        "-DAR_BAIXA_ENCOMENDA-",
-        "-EDITAR_ENCOMENDA-",
-        "-GRAFICOS-",
-        "-RELATORIOS-",
-        "-FATURAMENTO-",
-        "-DELETAR_ENCOMENDA-",
-        "-LUCRO_MENSAL-",
-        "-SAIR-"
-        ]
+    keys = {
+        1: "-NOVA_ENCOMENDA-", 
+        2: "-LISTAR_ENCOMENDAS-",
+        3: "-DAR_BAIXA_ENCOMENDA-",
+        4: "-EDITAR_ENCOMENDA-",
+        5: "-GRAFICOS-",
+        6: "-RELATORIOS-",
+        7: "-FATURAMENTO-",
+        8: "-DELETAR_ENCOMENDA-",
+        9: "-LUCRO_MENSAL-",
+        10: "-SAIR-"
+    }
 
     if on_off == "on":
-        for button in keys:
-            menu[button].update(disabled=False)
+        for key in range(len(keys)):
+            menu[keys[key+1]].update(disabled=False)
     else: 
-        for button in keys:
-            menu[button].update(disabled=True)
+        for key in range(len(keys)):
+            menu[keys[key+1]].update(disabled=True)
 
 ####################INICIANDO JANELAS######################
 menu, nova_encomenda = MenuPrincipal.menu_principal(), None
@@ -504,7 +504,7 @@ while True:
             lucro_do_mes.close()
             buttons("on")
             continue
-
+        
         elif janela == lucro_do_mes and evento == "-ENVIAR-":
             try:
                 funcionarios = float(valor['-INPUT_FUNCIONARIOS-'])
