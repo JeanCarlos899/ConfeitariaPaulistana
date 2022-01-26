@@ -23,6 +23,7 @@ try:
     from Scripts.revenues import Revenues
     from Design.lucro_mes import Lucromensal
     from Scripts.pronfit_in_the_month import Gasto
+    from sicronizar import Sicronizar
     
 except ImportError:
     os.system("pip3 install -r requirements.txt")
@@ -73,6 +74,11 @@ while True:
     if janela == menu:
         
         if evento == sg.WIN_CLOSED or evento == "-SAIR-":
+            sicronizar = Sicronizar('dados.db', 'caminhos.csv')
+            if os.stat(sicronizar.novolocal).st_size == 0:
+                sg.popup("Nenhum local para Backup foi cadastrado, lembre-se de cadastrar um!", title="Atenção!")
+            else:
+                sicronizar.sincronizar()
             break
 
         elif evento == "-NOVA_ENCOMENDA-":
@@ -511,3 +517,4 @@ while True:
 
             except ValueError:
                 lucro_do_mes['-OUTPUT-'].update('Por favor, digite apenas números.')
+
