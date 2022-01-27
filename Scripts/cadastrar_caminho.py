@@ -7,26 +7,37 @@ keys_caminho = 'caminhos.csv'
 
 class Criar:
     def criar():
-        if os.stat(keys_caminho).st_size == 0:
+        # Se for escolhido um local faça, se não, não faça nada
+        try:
+            if os.stat(keys_caminho).st_size == 0:
+                sg.theme('Default1')
+                pasta = sg.PopupGetFolder('Escolha a pasta de destino')
+                with open(keys_caminho, 'w') as arquivo:
+                    arquivo.write(pasta + '/backup_dados.db\n')
+                
+                sg.Popup('Caminho cadastrado com sucesso!', 'Aperte OK para continuar')
+
+            else:
+                sg.popup('Já existe um caminho cadastrado, você pode editá-lo')
+
+        except:
+            sg.popup('Não foi escolhido um caminho')
+
+        return pasta
+        
+
+class Editar:
+    def editar():
+        os.remove(keys_caminho)
+        try:
             sg.theme('Default1')
             pasta = sg.PopupGetFolder('Escolha a pasta de destino')
             with open(keys_caminho, 'w') as arquivo:
                 arquivo.write(pasta + '/backup_dados.db\n')
 
-        else:
-            localOriginal = 'dados.db'
-            # Descobrir o caminho
-            with open(keys_caminho, 'r') as arquivo:
-                caminhos = arquivo.readlines()
-                caminhos = [x.strip() for x in caminhos]
+            sg.popup('Caminho editado com sucesso!', 'Aperte OK para continuar')
 
-class Editar:
-    def editar():
-        os.remove(keys_caminho)
+        except:
+            sg.popup('Não foi escolhido um local')
 
-        sg.theme('Default1')
-        pasta = sg.PopupGetFolder('Escolha a pasta de destino')
-        with open(keys_caminho, 'w') as arquivo:
-            arquivo.write(pasta + '/backup_dados.db\n')
-
-Criar.criar()
+        return pasta
