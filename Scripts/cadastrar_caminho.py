@@ -29,4 +29,4 @@ class Editar:
         with open(keys_caminho, 'w') as arquivo:
             arquivo.write(pasta + '/backup_dados.db\n')
 
-Editar.editar()
+Criar.criar()
