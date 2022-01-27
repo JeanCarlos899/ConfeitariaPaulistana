@@ -5,10 +5,10 @@ from click import option
 
 keys_caminho = 'caminhos.csv'
 
-class caminho:
+class Criar:
     def criar():
         if os.stat(keys_caminho).st_size == 0:
-            # Criar um popup branco pra escolher a pasta
+            sg.theme('Default1')
             pasta = sg.PopupGetFolder('Escolha a pasta de destino')
             with open(keys_caminho, 'w') as arquivo:
                 arquivo.write(pasta + '/backup_dados.db\n')
@@ -20,11 +20,13 @@ class caminho:
                 caminhos = arquivo.readlines()
                 caminhos = [x.strip() for x in caminhos]
 
-
+class Editar:
     def editar():
-        with open(keys_caminho, 'r') as arquivo:
-            caminhos = arquivo.readlines()
-            caminhos = [x.strip() for x in caminhos]
-        return caminhos
+        os.remove(keys_caminho)
 
-test = caminho.criar()
+        sg.theme('Default1')
+        pasta = sg.PopupGetFolder('Escolha a pasta de destino')
+        with open(keys_caminho, 'w') as arquivo:
+            arquivo.write(pasta + '/backup_dados.db\n')
+
+Editar.editar()
