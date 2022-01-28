@@ -1,4 +1,3 @@
-from asyncore import read
 import os
 import sys
 
@@ -154,7 +153,7 @@ while True:
             continue
 
         elif evento == "-CONFIRMAR-":
-            msg = InsertDados([
+            status_menssage = InsertDados([
                 str(valor["-NOME_CLIENTE-"]), 
                 str(valor["-DATA_ENTREGA-"]), 
                 str(valor["-HORA_ENTREGA-"]), 
@@ -163,15 +162,15 @@ while True:
                 int(valor["-QTD_MINI-"]), 
                 int(valor["-QTD_NORMAL-"]), 
                 str(valor["-INFO_COMPLEMENTARES-"]) 
-            ]).inserir_dados()
+            ])
 
-            if msg == "Dados inseridos com sucesso!":
-                sg.popup(msg, title="Sucesso!")
+            if status_menssage() == "Dados inseridos com sucesso!":
+                sg.popup(status_menssage(), title="Sucesso!")
                 nova_encomenda.hide()
                 buttons("on")
                 continue
             else:
-                sg.popup(msg, title="Erro!")
+                sg.popup(status_menssage(), title="Erro!")
                 continue
 
     ##########################################################################
@@ -470,7 +469,7 @@ while True:
                 continue
 
         elif evento == "-CONFIRMAR-":
-            msg = EditDados([
+            status_menssage = EditDados([
                 str(valor["-NOME_CLIENTE-"]), 
                 str(valor["-DATA_ENTREGA-"]), 
                 str(valor["-HORA_ENTREGA-"]), 
@@ -479,15 +478,15 @@ while True:
                 int(valor["-QTD_MINI-"]), 
                 int(valor["-QTD_NORMAL-"]), 
                 str(valor["-INFO_COMPLEMENTARES-"]) 
-            ], id).inserir_dados()
+            ], id)
 
-            if msg == "Dados atualizados com sucesso!":
-                sg.popup(msg, title="Sucesso!")
+            if status_menssage() == "Dados atualizados com sucesso!":
+                sg.popup(status_menssage(), title="Sucesso!")
                 editar_encomenda.hide()
                 buttons("on")
                 continue
             else:
-                sg.popup(msg, title="Erro!")
+                sg.popup(status_menssage(), title="Erro!")
                 continue
     
     ##########################################################################

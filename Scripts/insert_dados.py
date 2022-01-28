@@ -23,7 +23,7 @@ class InsertDados:
         else:
             return False
 
-    def inserir_dados(self) -> str:
+    def __call__(self) -> str:
         if self.lista_dados[0] != "":
             if self.verificar_data(self.lista_dados[2], self.lista_dados[1]) == True:
                 if int(self.lista_dados[3]) > 0 or int(self.lista_dados[4]) > 0:
