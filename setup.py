@@ -181,8 +181,8 @@ while True:
 
             msg = status_menssage()
 
-            if msg == "Dados inseridos com sucesso!":
-                sg.popup(msg, title="Sucesso!")
+            if msg == True:
+                sg.popup("Dados inseridos com sucesso!", title="Sucesso!")
                 nova_encomenda.hide()
                 buttons("on")
                 continue
@@ -499,8 +499,8 @@ while True:
 
             msg = status_menssage()
 
-            if msg == "Dados atualizados com sucesso!":
-                sg.popup(msg, title="Sucesso!")
+            if msg == True:
+                sg.popup("Dados atualizados com sucesso!", title="Sucesso!")
                 editar_encomenda.hide()
                 buttons("on")
                 continue
