@@ -24,13 +24,16 @@ try:
     from Design.lucro_mes import Lucromensal
     from Scripts.pronfit_in_the_month import Gasto
     from sicronizar import Sicronizar
-    #from Design.crar_caminho import *
+    from Scripts.cadastrar_caminho import Criar
+    from Scripts.cadastrar_caminho import Editar
+    from Design.criar_caminho import FrtCam
     
 except ImportError:
-    os.system("pip3 install -r requirements.txt")
-    print("Bibliotecas instaladas com sucesso!")
-    print("Reabra o programa.")
-    sys.exit()
+    # os.system("pip3 install -r requirements.txt")
+    # print("Bibliotecas instaladas com sucesso!")
+    # print("Reabra o programa.")
+    # sys.exit()
+    print('Erro meu chapa')
 
 def buttons(on_off):
     keys = {
@@ -43,7 +46,9 @@ def buttons(on_off):
         7: "-FATURAMENTO-",
         8: "-DELETAR_ENCOMENDA-",
         9: "-LUCRO_MENSAL-",
-        10: "-SAIR-"
+        10: "-LOCAL-",
+        11: "-RECUPERAR-",
+        12: "-SAIR-"
     }
 
     if on_off == "on":
@@ -61,6 +66,7 @@ salgadinhos, mais_informacoes = None, None
 graficos, relatorios, deletar_encomenda = None, None, None
 editar_encomenda, faturamento = None, None
 lucro_do_mes = None
+local, recuperar = None, None
 
 menu.maximize()
 
@@ -78,14 +84,14 @@ while True:
         
             try:    
                 if os.path.getsize("caminhos.csv") == 0:
-                    sg.popup_ok("Não há caminhos cadastrados no sistema.", )
+                    sg.popup_ok("Não há caminhos cadastrados no sistema", "Cadastre um para que possa ser feito o backup" )
                     break 
                 else:
                     localOriginal = 'dados.db'
                     file = 'caminhos.csv'
 
                     with open(file, 'r') as f:
-                        caminhos = f.readlines()
+                        caminhos = f.readlines() 
 
                     novolocal = caminhos[0].strip()            
                     sincronizar = Sicronizar(localOriginal, novolocal)
@@ -140,7 +146,13 @@ while True:
             lucro_do_mes = Lucromensal.lucro()
             buttons("off")
             continue
-        
+
+        elif evento == "-LOCAL-":
+            local = FrtCam.tela()
+            buttons("off")
+            continue
+
+
     ##########################################################################
     ###########################NOVA ENCOMENDA#################################
     ##########################################################################
@@ -533,3 +545,22 @@ while True:
             except ValueError:
                 lucro_do_mes['-OUTPUT-'].update('Por favor, digite apenas números.')
 
+
+    ##########################################################################
+    ###############################Cadastrar caminho###############################
+    ##########################################################################
+
+    if janela == local:
+        
+        if evento == sg.WIN_CLOSED or evento == "-VOLTAR-":
+            local.close()
+            buttons("on")
+            continue
+
+        elif evento == "-PROCURAR-":
+            Criar.criar()
+            continue
+
+        elif evento == "-EDITAR-":
+            Editar.editar()
+            continue

@@ -1,28 +1,62 @@
-from tkinter import filedialog
+from turtle import color
+import PySimpleGUI as sg
 import os
 from click import option
 
 keys_caminho = 'caminhos.csv'
 
-class caminho:
+class Criar:
     def criar():
-        if os.stat(keys_caminho).st_size == 0:
-            pasta = filedialog.askdirectory()
-            with open(keys_caminho, 'w') as arquivo:
-                arquivo.write(pasta + '/backup_dados.db\n')
+        try:
+            if os.stat(keys_caminho).st_size == 0:
+                sg.theme('Default1')
+                pasta = sg.PopupGetFolder('Escolha a pasta de destino')
+                with open(keys_caminho, 'w') as arquivo:
+                    arquivo.write(pasta + '/backup_dados.db\n')
+                
+                sg.Popup('Caminho cadastrado com sucesso!', 'Aperte OK para continuar')
 
-        else:
-            localOriginal = 'dados.db'
-            # Descobrir o caminho
-            with open(keys_caminho, 'r') as arquivo:
-                caminhos = arquivo.readlines()
-                caminhos = [x.strip() for x in caminhos]
+            else:
+                sg.popup('Já existe um caminho cadastrado, você pode editá-lo')
 
+                with open(keys_caminho, 'r') as arquivo:
+                    caminho = arquivo.read()
 
+                pasta = caminho
+
+        except:
+            sg.popup('Não foi escolhido um caminho')
+
+        return pasta
+        
+
+class Editar:
     def editar():
-        with open(keys_caminho, 'r') as arquivo:
-            caminhos = arquivo.readlines()
-            caminhos = [x.strip() for x in caminhos]
-        return caminhos
+        try:
+            if os.stat(keys_caminho).st_size == 0:
+                sg.popup('Não existe um caminho cadastrado, cadastre um caminho')
 
-test = caminho.criar()
+                with open(keys_caminho, 'r') as arquivo:
+                    caminho = arquivo.read()
+
+                pasta = caminho
+
+            else:
+                sg.theme('Default1')
+                pasta = sg.PopupGetFolder('Escolha a pasta de destino')
+
+                if pasta == None:
+                    with open(keys_caminho, 'r') as arquivo:
+                        caminho = arquivo.read()
+                    pasta = caminho
+
+                    sg.popup('Caminho não foi alterado')
+
+                else:
+                    with open(keys_caminho, 'w') as arquivo:
+                        arquivo.write(pasta + '/backup_dados.db\n')         
+                    sg.popup('Caminho editado com sucesso!', 'Aperte OK para continuar')
+
+            return pasta
+        except:
+            sg.popup('Não foi escolhido um caminho')
