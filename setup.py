@@ -85,7 +85,7 @@ while True:
         
             try:    
                 if os.path.getsize("caminhos.csv") == 0:
-                    sg.popup_ok("Não há caminhos cadastrados no sistema.", )
+                    sg.popup_ok("Não há caminhos cadastrados no sistema", "Cadastre um para que possa ser feito o backup" )
                     break 
                 else:
                     localOriginal = 'dados.db'
