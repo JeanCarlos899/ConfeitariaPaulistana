@@ -92,7 +92,7 @@ while True:
                     file = 'caminhos.csv'
 
                     with open(file, 'r') as f:
-                        caminhos = f.readlines()
+                        caminhos = f.readlines() 
 
                     novolocal = caminhos[0].strip()            
                     sincronizar = Sicronizar(localOriginal, novolocal)

@@ -20,6 +20,11 @@ class Criar:
             else:
                 sg.popup('Já existe um caminho cadastrado, você pode editá-lo')
 
+                with open(keys_caminho, 'r') as arquivo:
+                    caminho = arquivo.read()
+
+                pasta = caminho
+
         except:
             sg.popup('Não foi escolhido um caminho')
 
