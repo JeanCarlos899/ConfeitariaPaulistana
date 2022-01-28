@@ -24,7 +24,10 @@ try:
     from Design.lucro_mes import Lucromensal
     from Scripts.pronfit_in_the_month import Gasto
     from sicronizar import Sicronizar
-    #from Design.crar_caminho import *
+    from Scripts.cadastrar_caminho import Criar
+    from Scripts.cadastrar_caminho import Editar
+    from Design.criar_caminho import FrtCam
+    from Design.recuperar import Recuperar
     
 except ImportError:
     os.system("pip3 install -r requirements.txt")
@@ -43,7 +46,9 @@ def buttons(on_off):
         7: "-FATURAMENTO-",
         8: "-DELETAR_ENCOMENDA-",
         9: "-LUCRO_MENSAL-",
-        10: "-SAIR-"
+        10: "-LOCAL-",
+        11: "-RECUPERAR-",
+        12: "-SAIR-"
     }
 
     if on_off == "on":
@@ -60,7 +65,7 @@ dar_baixa_encomenda, dados_cliente = None, None
 salgadinhos, mais_informacoes = None, None
 graficos, relatorios, deletar_encomenda = None, None, None
 editar_encomenda, faturamento = None, None
-lucro_do_mes = None
+lucro_do_mes, local, recuperar = None, None, None
 
 menu.maximize()
 
@@ -78,16 +83,16 @@ while True:
         
             try:    
                 if os.path.getsize("caminhos.csv") == 0:
-                    sg.popup_ok("Não há caminhos cadastrados no sistema.", )
+                    sg.popup_ok("Não há caminhos cadastrados no sistema", "Cadastre um para que possa ser feito o backup" )
                     break 
                 else:
                     localOriginal = 'dados.db'
                     file = 'caminhos.csv'
 
                     with open(file, 'r') as f:
-                        caminhos = f.readlines()
+                        caminhos = f.readlines() 
 
-                    novolocal = caminhos[0].strip()            
+                    novolocal = caminhos[0].strip()          
                     sincronizar = Sicronizar(localOriginal, novolocal)
                     sincronizar.sincronizar()
                     break
@@ -140,7 +145,17 @@ while True:
             lucro_do_mes = Lucromensal.lucro()
             buttons("off")
             continue
-        
+
+        elif evento == "-LOCAL-":
+            local = FrtCam.tela()
+            buttons("off")
+            continue
+
+        elif evento == "-RECUPERAR-":
+            recuperar = Recuperar.escolher_arquivo()
+            continue
+
+
     ##########################################################################
     ###########################NOVA ENCOMENDA#################################
     ##########################################################################
@@ -163,7 +178,7 @@ while True:
                 int(valor["-QTD_NORMAL-"]), 
                 str(valor["-INFO_COMPLEMENTARES-"]) 
             ])
-            
+
             msg = status_menssage()
 
             if msg == "Dados inseridos com sucesso!":
@@ -482,13 +497,15 @@ while True:
                 str(valor["-INFO_COMPLEMENTARES-"]) 
             ], id)
 
-            if status_menssage() == "Dados atualizados com sucesso!":
-                sg.popup(status_menssage(), title="Sucesso!")
+            msg = status_menssage()
+
+            if msg == "Dados atualizados com sucesso!":
+                sg.popup(msg, title="Sucesso!")
                 editar_encomenda.hide()
                 buttons("on")
                 continue
             else:
-                sg.popup(status_menssage(), title="Erro!")
+                sg.popup(msg, title="Erro!")
                 continue
     
     ##########################################################################
@@ -535,3 +552,22 @@ while True:
             except ValueError:
                 lucro_do_mes['-OUTPUT-'].update('Por favor, digite apenas números.')
 
+
+    ##########################################################################
+    ###############################Cadastrar caminho###############################
+    ##########################################################################
+
+    if janela == local:
+        
+        if evento == sg.WIN_CLOSED or evento == "-VOLTAR-":
+            local.close()
+            buttons("on")
+            continue
+
+        elif evento == "-PROCURAR-":
+            Criar.criar()
+            continue
+
+        elif evento == "-EDITAR-":
+            Editar.editar()
+            continue
