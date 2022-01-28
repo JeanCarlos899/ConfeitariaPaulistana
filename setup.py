@@ -28,6 +28,7 @@ try:
     from Scripts.cadastrar_caminho import Criar
     from Scripts.cadastrar_caminho import Editar
     from Design.criar_caminho import FrtCam
+    from Design.recuperar import Recuperar
     
 except ImportError:
     # os.system("pip3 install -r requirements.txt")
@@ -94,7 +95,7 @@ while True:
                     with open(file, 'r') as f:
                         caminhos = f.readlines() 
 
-                    novolocal = caminhos[0].strip()            
+                    novolocal = caminhos[0].strip()          
                     sincronizar = Sicronizar(localOriginal, novolocal)
                     sincronizar.sincronizar()
                     break
@@ -151,6 +152,10 @@ while True:
         elif evento == "-LOCAL-":
             local = FrtCam.tela()
             buttons("off")
+            continue
+
+        elif evento == "-RECUPERAR-":
+            recuperar = Recuperar.escolher_arquivo()
             continue
 
 
