@@ -163,14 +163,16 @@ while True:
                 int(valor["-QTD_NORMAL-"]), 
                 str(valor["-INFO_COMPLEMENTARES-"]) 
             ])
+            
+            msg = status_menssage()
 
-            if status_menssage() == "Dados inseridos com sucesso!":
-                sg.popup(status_menssage(), title="Sucesso!")
+            if msg == "Dados inseridos com sucesso!":
+                sg.popup(msg, title="Sucesso!")
                 nova_encomenda.hide()
                 buttons("on")
                 continue
             else:
-                sg.popup(status_menssage(), title="Erro!")
+                sg.popup(msg, title="Erro!")
                 continue
 
     ##########################################################################
