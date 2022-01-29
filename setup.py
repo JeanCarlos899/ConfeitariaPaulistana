@@ -486,48 +486,73 @@ class Program:
         self.menu.maximize()
 
         while True:
-
+            # get event
             self._window, self._event, self._value = sg.read_all_windows()
 
+            # check if window is menu
             if self._window == self.menu:
                 sair = self.functionsMenu(self._event)
 
+                # if user want to exit                    
                 if sair == False:
                     break
 
+            # check if window is new order
             elif self._window == self.nova_encomenda:
+                # call method to create new order
                 self.newOrder(self._event, self._value)
 
+            # check if window is list of orders
             elif self._window == self.menu_encomenda:
+                # call method to list orders
                 self.listOrder(self._event, self._value)
 
+            # check if window is more information and exit
             elif (self._window == self.mais_informacoes and self._event == sg.WIN_CLOSED 
                 or self._window == self.mais_informacoes and self._event == "-VOLTAR-"):
+                # hide more information
                 self.mais_informacoes.hide()
+                # show list of orders
                 self.menu_encomenda.un_hide()
 
+            # check if window is low order
             elif self._window == self.dar_baixa_encomenda:
+                # call method to low order
                 self.lowOrder(self._event, self._value)
 
+            # check if window graph
             elif self._window == self.graficos:
+                # call method to graph
                 self.graphics(self._event)
 
+            # check if window is reports
             elif self._window == self.relatorios:
+                # call method to reports
                 self.reports(self._event)
 
+            # check if window is del order
             elif self._window == self.deletar_encomenda:
+                # call method to delete order
                 self.delOrder(self._event, self._value)
 
+            # check if window is edit order
             elif self._window == self.editar_encomenda:
+                # call method to edit order
                 self.editOrder(self._event, self._value)
 
+            # check if window is revenues
             elif self._window == self.faturamento:
+                # call method to revenues
                 self.revenues(self._event, self._value)
 
+            # check if window is monthly profit
             elif self._window == self.lucro_do_mes:
+                # call method to monthly profit
                 self.monthlyPronfit(self._event, self._value)
 
-            if self._window == self.local:
+            # check if window is register path
+            elif self._window == self.local:
+                # call method to register path
                 self.registerPath(self._event)
 
 # run program
