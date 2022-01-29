@@ -20,9 +20,7 @@ class Recuperar:
                         if os.path.exists('dados.db'):
                             os.remove('dados.db')
 
-                        shutil.move(file, '.')
-                        sg.popup('Arquivo recuperado com sucesso!')
-
+                        shutil.copy(file, 'dados.db')
                     else:
                         sg.popup('Arquivo não encontrado')
             
