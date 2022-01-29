@@ -113,6 +113,7 @@ class Program:
 
             except FileNotFoundError:
                 sg.popup_ok("Caminho inválido, edite-o. Para que o backup possa ser feito.")
+                Editar.editar()
 
                 return False
 

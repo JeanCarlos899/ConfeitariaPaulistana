@@ -60,4 +60,4 @@ class Editar:
 
             return pasta
         except:
-            sg.popup('Não foi escolhido um caminho')
+            sg.popup('Não foi escolhido um caminho', 'Aperte OK para continuar')
