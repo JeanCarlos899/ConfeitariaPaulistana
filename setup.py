@@ -23,7 +23,7 @@ try:
     from Scripts.revenues import Revenues
     from Design.lucro_mes import Lucromensal
     from Scripts.pronfit_in_the_month import Gasto
-    from sicronizar import Sicronizar
+    from Scripts.sicronizar import Sicronizar
     from Scripts.cadastrar_caminho import Criar
     from Scripts.cadastrar_caminho import Editar
     from Design.criar_caminho import FrtCam

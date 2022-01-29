@@ -25,7 +25,7 @@ class Recuperar:
                         sg.popup('Arquivo não encontrado')
             
         except:
-            sg.popup('Não foi escolhido um arquivo')
+            sg.popup('Não foi escolhido nenhuum arquivo')
 
         return file
 
