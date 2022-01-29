@@ -120,14 +120,17 @@ class Program:
 
                     with open(file, 'r') as f:
                         caminhos = f.readlines() 
-
+                    
                     novolocal = caminhos[0].strip()          
                     sincronizar = Sicronizar(localOriginal, novolocal)
                     sincronizar.sincronizar()
+
                     return False
 
             except FileNotFoundError:
                 sg.popup_ok("Caminho inválido, edite-o. Para que o backup possa ser feito.")
+                Editar.editar()
+
                 return False
 
         elif event == "-NOVA_ENCOMENDA-":
