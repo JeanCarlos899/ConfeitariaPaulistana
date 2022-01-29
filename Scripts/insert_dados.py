@@ -1,4 +1,5 @@
 from datetime import datetime
+from genericpath import exists
 from Scripts.sqlite import SQLite
 
 class InsertDados:
@@ -46,7 +47,7 @@ class InsertDados:
                             '''
                         ) 
 
-                        return "Dados inseridos com sucesso!"
+                        return True
                     else:
                         return "O valor total dos salgadinhos devem ser igual ou maior que 25"
                 else:

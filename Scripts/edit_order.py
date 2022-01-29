@@ -50,7 +50,7 @@ class EditDados:
                                 f'id = {self.id}'
                             )
 
-                        return "Dados atualizados com sucesso!"
+                        return True
                     else:
                         return "O valor total dos salgadinhos devem ser igual ou maior que 25"
                 else:
