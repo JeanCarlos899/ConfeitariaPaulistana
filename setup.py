@@ -65,7 +65,8 @@ class Program:
 
         # Program startup run method
         self.__run()
-
+        
+    # deactivate buttons
     def buttons(self, on_off):
         keys = {
             1: "-NOVA_ENCOMENDA-", 
@@ -88,7 +89,7 @@ class Program:
         else: 
             for key in range(len(keys)):
                 self.menu[keys[key+1]].update(disabled=True)
-
+    # functions menu
     def functionsMenu(self, event):
 
         if event == sg.WIN_CLOSED or event == "-SAIR-":
