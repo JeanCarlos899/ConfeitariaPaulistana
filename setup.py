@@ -65,7 +65,8 @@ class Program:
 
         # Program startup run method
         self.__run()
-
+        
+    # deactivate buttons
     def buttons(self, on_off):
         keys = {
             1: "-NOVA_ENCOMENDA-", 
@@ -88,7 +89,7 @@ class Program:
         else: 
             for key in range(len(keys)):
                 self.menu[keys[key+1]].update(disabled=True)
-
+    # functions menu
     def functionsMenu(self, event):
 
         if event == sg.WIN_CLOSED or event == "-SAIR-":
@@ -157,7 +158,7 @@ class Program:
 
         elif event == "-RECUPERAR-":
             self.recuperar = Recuperar.escolher_arquivo()
-
+    # insert new order into the database
     def newOrder(self, event, value):
 
         if event == sg.WIN_CLOSED or event == "-VOLTAR-":
@@ -187,7 +188,7 @@ class Program:
             else:
                 sg.popup(msg, title="Erro!")
                 return
-
+    # llist orders in database
     def listOrder(self, event, value):
         
         status_concluido = value["-STATUS_CONCLUIDO-"] 
@@ -234,7 +235,7 @@ class Program:
             except:
                 sg.popup("Selecione uma encomenda para mais informações!")
                 return
-
+    # low the order in the database
     def lowOrder(self, event, value):
 
         if event == sg.WIN_CLOSED or event == "-VOLTAR-":
@@ -275,7 +276,7 @@ class Program:
             self.dar_baixa_encomenda["-BOLO_ANIVERSARIO-"].update(0)
             self.dar_baixa_encomenda["-BOLO_CASAMENTO-"].update(0)
             return
-
+    # graphics 
     def graphics(self, event):
 
         if event == sg.WIN_CLOSED or event == "-VOLTAR-":
@@ -299,7 +300,7 @@ class Program:
     
         elif event == "-LUCRO_POR_TIPO_DE_FESTAS-":
             NewChart.lucroporfesta()
-
+    # reports
     def reports(self, event):      
         if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.relatorios.hide()
@@ -320,7 +321,7 @@ class Program:
         elif event == "-TODOS_PEDIDOS-":
             Relatorios.historico_todos_pedidos()
             sg.popup("Relatório gerado com sucesso!")
-
+    # delete order from database
     def delOrder(self, event, value):
 
         status_concluido = value["-STATUS_CONCLUIDO-"] 
@@ -375,7 +376,7 @@ class Program:
             except:
                 sg.popup("Nenhuma encomenda selecionada!")
                 return
-
+    # edit data order from database
     def editOrder(self, event, value):
         id = 0
 
@@ -463,7 +464,7 @@ class Program:
             else:
                 sg.popup(msg, title="Erro!")
                 return
-
+    # show full value of revenue
     def revenues(self, event, value):
         if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.faturamento.close()
@@ -475,7 +476,7 @@ class Program:
             
             full_value = Revenues(data_inicial, data_final).get_value()
             self.faturamento["-VALOR_FATURAMENTO-"].update(full_value)
-
+    # monthly earnings calculator
     def monthlyPronfit(self, event, value):
         if event == sg.WIN_CLOSED or event == "-EXIT-":
             self.lucro_do_mes.close()
@@ -494,7 +495,7 @@ class Program:
 
             except ValueError:
                 self.lucro_do_mes['-OUTPUT-'].update('Por favor, digite apenas números.')
-
+    # register new path to database backup
     def registerPath(self, event):
         if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.local.close()
@@ -505,7 +506,7 @@ class Program:
 
         elif event == "-EDITAR-":
             Editar.editar()
-
+    # run method
     def __run(self):
 
         self.menu.maximize()
