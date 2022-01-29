@@ -59,6 +59,7 @@ class Program:
         self.local = None
         self.recuperar = None
 
+        # window values
         self._window = None
         self._event = None
         self._value = None
@@ -529,5 +530,6 @@ class Program:
             if self._window == self.local:
                 self.registerPath(self._event)
 
+# run program
 if __name__ == "__main__":
     program = Program()
