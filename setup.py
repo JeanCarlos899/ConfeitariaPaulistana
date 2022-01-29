@@ -59,6 +59,10 @@ class Program:
         self.local = None
         self.recuperar = None
 
+        self._window = None
+        self._event = None
+        self._value = None
+
         # Program startup run method
         self.__run()
 
@@ -85,9 +89,9 @@ class Program:
             for key in range(len(keys)):
                 self.menu[keys[key+1]].update(disabled=True)
 
-    def functionsMenu(self, evento):
+    def functionsMenu(self, event):
 
-        if evento == sg.WIN_CLOSED or evento == "-SAIR-":
+        if event == sg.WIN_CLOSED or event == "-SAIR-":
         
             try:    
                 if os.path.getsize("caminhos.csv") == 0:
@@ -109,66 +113,66 @@ class Program:
                 sg.popup_ok("Caminho inválido, edite-o. Para que o backup possa ser feito.")
                 return False
 
-        elif evento == "-NOVA_ENCOMENDA-":
+        elif event == "-NOVA_ENCOMENDA-":
             self.nova_encomenda = NovaEncomenda.nova_encomenda("Nova Encomenda")
             self.buttons("off")
 
-        elif evento == "-LISTAR_ENCOMENDAS-":
+        elif event == "-LISTAR_ENCOMENDAS-":
             self.menu_encomenda = ListarEncomendas.listar_encomendas("Pendente")
             self.buttons("off")
 
-        elif evento == "-DAR_BAIXA_ENCOMENDA-":
+        elif event == "-DAR_BAIXA_ENCOMENDA-":
             self.dar_baixa_encomenda = BaixaEncomenda.baixa_encomenda()
             self.buttons("off")
 
-        elif evento == "-GRAFICOS-":
+        elif event == "-GRAFICOS-":
             self.graficos = Graficos.menu_graficos()
             self.buttons("off")
 
-        elif evento == "-RELATORIOS-":
+        elif event == "-RELATORIOS-":
             self.relatorios = FrontRelatorio.menu_relatorios()
             self.buttons("off")
 
-        elif evento == "-FATURAMENTO-":
+        elif event == "-FATURAMENTO-":
             self.faturamento = Faturamento.faturamento()
             self.buttons("off")
 
-        elif evento == "-EDITAR_ENCOMENDA-":
+        elif event == "-EDITAR_ENCOMENDA-":
             self.editar_encomenda = EditarEncomenda.listar_encomendas("Pendente")
             self.buttons("off")
 
-        elif evento == "-DELETAR_ENCOMENDA-":
+        elif event == "-DELETAR_ENCOMENDA-":
             self.deletar_encomenda = DeletarEncomenda.deletar_encomenda("Pendente")
             self.buttons("off")
 
-        elif evento == "-LUCRO_MENSAL-":
+        elif event == "-LUCRO_MENSAL-":
             self.lucro_do_mes = Lucromensal.lucro()
             self.buttons("off")
 
-        elif evento == "-LOCAL-":
+        elif event == "-LOCAL-":
             self.local = FrtCam.tela()
             self.buttons("off")
 
-        elif evento == "-RECUPERAR-":
+        elif event == "-RECUPERAR-":
             self.recuperar = Recuperar.escolher_arquivo()
 
-    def newOrder(self, evento, valor):
+    def newOrder(self, event, value):
 
-        if evento == sg.WIN_CLOSED or evento == "-VOLTAR-":
+        if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.nova_encomenda.hide()
             self.buttons("on")
             return
 
-        elif evento == "-CONFIRMAR-":
+        elif event == "-CONFIRMAR-":
             status_menssage = InsertDados([
-                str(valor["-NOME_CLIENTE-"]), 
-                str(valor["-DATA_ENTREGA-"]), 
-                str(valor["-HORA_ENTREGA-"]), 
-                int(valor["-BOLO_ANIVERSARIO-"]),
-                int(valor["-BOLO_CASAMENTO-"]), 
-                int(valor["-QTD_MINI-"]), 
-                int(valor["-QTD_NORMAL-"]), 
-                str(valor["-INFO_COMPLEMENTARES-"]) 
+                str(value["-NOME_CLIENTE-"]), 
+                str(value["-DATA_ENTREGA-"]), 
+                str(value["-HORA_ENTREGA-"]), 
+                int(value["-BOLO_ANIVERSARIO-"]),
+                int(value["-BOLO_CASAMENTO-"]), 
+                int(value["-QTD_MINI-"]), 
+                int(value["-QTD_NORMAL-"]), 
+                str(value["-INFO_COMPLEMENTARES-"]) 
             ])
 
             msg = status_menssage()
@@ -182,17 +186,17 @@ class Program:
                 sg.popup(msg, title="Erro!")
                 return
 
-    def listOrder(self, evento, valor):
+    def listOrder(self, event, value):
         
-        status_concluido = valor["-STATUS_CONCLUIDO-"] 
-        status_pendente = valor["-STATUS_PENDENTE-"]
+        status_concluido = value["-STATUS_CONCLUIDO-"] 
+        status_pendente = value["-STATUS_PENDENTE-"]
 
-        if evento == sg.WIN_CLOSED or evento == "-VOLTAR-":
+        if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.menu_encomenda.hide()
             self.buttons("on")
             return
 
-        elif evento == "-FILTRAR-":
+        elif event == "-FILTRAR-":
             if status_concluido == True:
                 self.menu_encomenda["-INDEX_ENCOMENDA-"].update(
                     values=SQLite('dados.db').select(
@@ -209,9 +213,9 @@ class Program:
                 self.menu_encomenda["-STATUS_PENDENTE-"].update(True)
             return
 
-        elif evento == "-MAIS_INFORMACOES-":
+        elif event == "-MAIS_INFORMACOES-":
             try:
-                index = int(valor["-INDEX_ENCOMENDA-"][0])
+                index = int(value["-INDEX_ENCOMENDA-"][0])
 
                 if status_concluido == True:
                     self.mais_informacoes = ListarEncomendas.mais_informacoes(
@@ -229,18 +233,18 @@ class Program:
                 sg.popup("Selecione uma encomenda para mais informações!")
                 return
 
-    def lowOrder(self, evento, valor):
+    def lowOrder(self, event, value):
 
-        if evento == sg.WIN_CLOSED or evento == "-VOLTAR-":
+        if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.dar_baixa_encomenda.hide()
             self.buttons("on")
             return
 
-        elif evento == "-FINALIZAR_ENCOMENDA-":
+        elif event == "-FINALIZAR_ENCOMENDA-":
             try:
-                index_encomenda = valor["-TABLE_LISTAR_ENCOMENDA-"]
-                kg_aniversario = valor["-BOLO_ANIVERSARIO-"]
-                kg_casamento = valor["-BOLO_CASAMENTO-"]
+                index_encomenda = value["-TABLE_LISTAR_ENCOMENDA-"]
+                kg_aniversario = value["-BOLO_ANIVERSARIO-"]
+                kg_casamento = value["-BOLO_CASAMENTO-"]
                 lista_encomendas = SQLite('dados.db').select(
                         'dados', '*', 'status = "Pendente"'
                     )
@@ -257,7 +261,7 @@ class Program:
                 sg.popup("Selecione uma encomenda para finalizar!")
                 return
 
-        elif evento == "-ATUALIZAR_LISTA-":
+        elif event == "-ATUALIZAR_LISTA-":
             self.dar_baixa_encomenda["-TABLE_LISTAR_ENCOMENDA-"].update(
                 SQLite('dados.db').select(
                     'dados', '*', 'status = "Pendente"'
@@ -270,55 +274,55 @@ class Program:
             self.dar_baixa_encomenda["-BOLO_CASAMENTO-"].update(0)
             return
 
-    def graphics(self, evento):
+    def graphics(self, event):
 
-        if evento == sg.WIN_CLOSED or evento == "-VOLTAR-":
+        if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.graficos.hide() 
             self.buttons("on")
 
-        elif evento == "-STATUS_PEDIDO-":
+        elif event == "-STATUS_PEDIDO-":
             NewChart.graficoPizza()
 
-        elif evento == "-TIPO_BOLO-":
+        elif event == "-TIPO_BOLO-":
             NewChart.graficoTipoBolo()
 
-        elif evento == "-TIPO_SALGADO-":
+        elif event == "-TIPO_SALGADO-":
             NewChart.graficoTipoSalgados()
 
-        elif evento == "-MENSAIS-":
+        elif event == "-MENSAIS-":
             NewChart.graficoBarrasPedidos()
 
-        elif evento == "-LUCRO_MENSAL-":
+        elif event == "-LUCRO_MENSAL-":
             NewChart.graficoganho()
     
-        elif evento == "-LUCRO_POR_TIPO_DE_FESTAS-":
+        elif event == "-LUCRO_POR_TIPO_DE_FESTAS-":
             NewChart.lucroporfesta()
 
-    def reports(self, evento):      
-        if evento == sg.WIN_CLOSED or evento == "-VOLTAR-":
+    def reports(self, event):      
+        if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.relatorios.hide()
             self.buttons("on")
         
-        elif evento == "-PEDIDOS_ENTREGUES-":
+        elif event == "-PEDIDOS_ENTREGUES-":
             Relatorios.historico_pedidos_concluido()
             sg.popup("Relatório gerado com sucesso!")
 
-        elif evento == "-PEDIDOS_NAO_ENTREGUES-":
+        elif event == "-PEDIDOS_NAO_ENTREGUES-":
             Relatorios.historico_pedidos_naoentregues()
             sg.popup("Relatório gerado com sucesso!")
 
-        elif evento == "-PEDIDOS_PENDENTES-":
+        elif event == "-PEDIDOS_PENDENTES-":
             Relatorios.pedidos_pendentes()
             sg.popup("Relatório gerado com sucesso!")
 
-        elif evento == "-TODOS_PEDIDOS-":
+        elif event == "-TODOS_PEDIDOS-":
             Relatorios.historico_todos_pedidos()
             sg.popup("Relatório gerado com sucesso!")
 
-    def delOrder(self, evento, valor):
+    def delOrder(self, event, value):
 
-        status_concluido = valor["-STATUS_CONCLUIDO-"] 
-        status_pendente = valor["-STATUS_PENDENTE-"]
+        status_concluido = value["-STATUS_CONCLUIDO-"] 
+        status_pendente = value["-STATUS_PENDENTE-"]
 
         def status(concluido, pendente):
             if concluido == True:
@@ -337,20 +341,20 @@ class Program:
                     )
                 self.deletar_encomenda["-STATUS_CONCLUIDO-"].update(False)
             
-        if evento == sg.WIN_CLOSED or evento == "-VOLTAR-":
+        if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.deletar_encomenda.hide()
             self.buttons("on")
             return
         
-        elif evento == "-FILTRAR-":
+        elif event == "-FILTRAR-":
             status(status_concluido, status_pendente)
             return
 
         ##########################DELETAR ENCOMENDA###############################
 
-        elif evento == "-DELETAR_ENCOMENDA-":
+        elif event == "-DELETAR_ENCOMENDA-":
             try:
-                index = int(valor["-INDEX_ENCOMENDA-"][0])
+                index = int(value["-INDEX_ENCOMENDA-"][0])
 
                 if status_pendente == True:
                     lista_encomendas = SQLite('dados.db').select(
@@ -370,21 +374,21 @@ class Program:
                 sg.popup("Nenhuma encomenda selecionada!")
                 return
 
-    def editOrder(self, evento, valor):
+    def editOrder(self, event, value):
         id = 0
 
         try:
-            status_concluido = valor["-STATUS_CONCLUIDO-"] 
-            status_pendente = valor["-STATUS_PENDENTE-"]
+            status_concluido = value["-STATUS_CONCLUIDO-"] 
+            status_pendente = value["-STATUS_PENDENTE-"]
         except:
             pass
 
-        if evento == sg.WIN_CLOSED or evento == "-VOLTAR-":
+        if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.editar_encomenda.hide()
             self.buttons("on")
             return
 
-        elif evento == "-FILTRAR-":
+        elif event == "-FILTRAR-":
             if status_concluido == True:
                 self.editar_encomenda["-INDEX_ENCOMENDA-"].update(
                     values=SQLite('dados.db').select(
@@ -404,9 +408,9 @@ class Program:
 
         ###############################EDITAR ENCOMENDA###########################
 
-        elif evento == "-EDITAR-":
+        elif event == "-EDITAR-":
             try:
-                index = int(valor["-INDEX_ENCOMENDA-"][0])
+                index = int(value["-INDEX_ENCOMENDA-"][0])
 
                 if status_pendente == True:
                     lista_encomendas = SQLite('dados.db').select(
@@ -435,16 +439,16 @@ class Program:
                 sg.popup("Nenhuma encomenda selecionada!")
                 
 
-        elif evento == "-CONFIRMAR-":
+        elif event == "-CONFIRMAR-":
             status_menssage = EditDados([
-                str(valor["-NOME_CLIENTE-"]), 
-                str(valor["-DATA_ENTREGA-"]), 
-                str(valor["-HORA_ENTREGA-"]), 
-                int(valor["-BOLO_ANIVERSARIO-"]),
-                int(valor["-BOLO_CASAMENTO-"]), 
-                int(valor["-QTD_MINI-"]), 
-                int(valor["-QTD_NORMAL-"]), 
-                str(valor["-INFO_COMPLEMENTARES-"]) 
+                str(value["-NOME_CLIENTE-"]), 
+                str(value["-DATA_ENTREGA-"]), 
+                str(value["-HORA_ENTREGA-"]), 
+                int(value["-BOLO_ANIVERSARIO-"]),
+                int(value["-BOLO_CASAMENTO-"]), 
+                int(value["-QTD_MINI-"]), 
+                int(value["-QTD_NORMAL-"]), 
+                str(value["-INFO_COMPLEMENTARES-"]) 
             ], id)
 
             msg = status_menssage()
@@ -458,29 +462,29 @@ class Program:
                 sg.popup(msg, title="Erro!")
                 return
 
-    def revenues(self, evento, valor):
-        if evento == sg.WIN_CLOSED or evento == "-VOLTAR-":
+    def revenues(self, event, value):
+        if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.faturamento.close()
             self.buttons("on")
 
-        elif evento == "-FILTRAR-":
-            data_inicial = valor["-DATA_INICIAL-"]
-            data_final = valor["-DATA_FINAL-"]
+        elif event == "-FILTRAR-":
+            data_inicial = value["-DATA_INICIAL-"]
+            data_final = value["-DATA_FINAL-"]
             
-            valor = Revenues(data_inicial, data_final).get_value()
-            self.faturamento["-VALOR_FATURAMENTO-"].update(valor)
+            full_value = Revenues(data_inicial, data_final).get_value()
+            self.faturamento["-VALOR_FATURAMENTO-"].update(full_value)
 
-    def monthlyPronfit(self, evento, valor):
-        if evento == sg.WIN_CLOSED or evento == "-EXIT-":
+    def monthlyPronfit(self, event, value):
+        if event == sg.WIN_CLOSED or event == "-EXIT-":
             self.lucro_do_mes.close()
             self.buttons("on")
         
-        elif evento == "-ENVIAR-":
+        elif event == "-ENVIAR-":
             try:
-                funcionarios = float(valor['-INPUT_FUNCIONARIOS-'])
-                mercadorias = float(valor['-INPUT_MERCADORIAS-'])
-                impostos = float(valor['-INPUT_IMPOSTOS-'])
-                outros = float(valor['-INPUT_OUTROS-'])
+                funcionarios = float(value['-INPUT_FUNCIONARIOS-'])
+                mercadorias = float(value['-INPUT_MERCADORIAS-'])
+                impostos = float(value['-INPUT_IMPOSTOS-'])
+                outros = float(value['-INPUT_OUTROS-'])
 
                 total = Gasto.descobrirGanhoMes() - (funcionarios + mercadorias + impostos + outros) 
                 self.lucro_do_mes['-OUTPUT-'].update(total)
@@ -489,15 +493,15 @@ class Program:
             except ValueError:
                 self.lucro_do_mes['-OUTPUT-'].update('Por favor, digite apenas números.')
 
-    def registerPath(self, evento):
-        if evento == sg.WIN_CLOSED or evento == "-VOLTAR-":
+    def registerPath(self, event):
+        if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.local.close()
             self.buttons("on")
 
-        elif evento == "-PROCURAR-":
+        elif event == "-PROCURAR-":
             Criar.criar()
 
-        elif evento == "-EDITAR-":
+        elif event == "-EDITAR-":
             Editar.editar()
 
     def __run(self):
@@ -506,48 +510,48 @@ class Program:
 
         while True:
 
-            janela, evento, valor = sg.read_all_windows()
+            self._window, self._event, self._value = sg.read_all_windows()
 
-            if janela == self.menu:
-                sair = self.functionsMenu(evento)
+            if self._window == self.menu:
+                sair = self.functionsMenu(self._event)
 
                 if sair == False:
                     break
 
-            elif janela == self.nova_encomenda:
-                self.newOrder(evento, valor)
+            elif self._window == self.nova_encomenda:
+                self.newOrder(self._event, self._value)
 
-            elif janela == self.menu_encomenda:
-                self.listOrder(evento, valor)
+            elif self._window == self.menu_encomenda:
+                self.listOrder(self._event, self._value)
 
-            elif (janela == self.mais_informacoes and evento == sg.WIN_CLOSED 
-                or janela == self.mais_informacoes and evento == "-VOLTAR-"):
+            elif (self._window == self.mais_informacoes and self._event == sg.WIN_CLOSED 
+                or self._window == self.mais_informacoes and self._event == "-VOLTAR-"):
                 self.mais_informacoes.hide()
                 self.menu_encomenda.un_hide()
 
-            elif janela == self.dar_baixa_encomenda:
-                self.lowOrder(evento, valor)
+            elif self._window == self.dar_baixa_encomenda:
+                self.lowOrder(self._event, self._value)
 
-            elif janela == self.graficos:
-                self.graphics(evento)
+            elif self._window == self.graficos:
+                self.graphics(self._event)
 
-            elif janela == self.relatorios:
-                self.reports(evento)
+            elif self._window == self.relatorios:
+                self.reports(self._event)
 
-            elif janela == self.deletar_encomenda:
-                self.delOrder(evento, valor)
+            elif self._window == self.deletar_encomenda:
+                self.delOrder(self._event, self._value)
 
-            elif janela == self.editar_encomenda:
-                self.editOrder(evento, valor)
+            elif self._window == self.editar_encomenda:
+                self.editOrder(self._event, self._value)
 
-            elif janela == self.faturamento:
-                self.revenues(evento, valor)
+            elif self._window == self.faturamento:
+                self.revenues(self._event, self._value)
 
-            elif janela == self.lucro_do_mes:
-                self.monthlyPronfit(evento, valor)
+            elif self._window == self.lucro_do_mes:
+                self.monthlyPronfit(self._event, self._value)
 
-            if janela == self.local:
-                self.registerPath(evento)
+            if self._window == self.local:
+                self.registerPath(self._event)
 
 if __name__ == "__main__":
     program = Program()
