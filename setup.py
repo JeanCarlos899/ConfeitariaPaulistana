@@ -65,7 +65,7 @@ class Program:
 
         # Program startup run method
         self.__run()
-        
+
     # deactivate buttons
     def buttons(self, on_off):
         keys = {
@@ -89,6 +89,22 @@ class Program:
         else: 
             for key in range(len(keys)):
                 self.menu[keys[key+1]].update(disabled=True)
+    # update the list of orders
+    def update_list(self, concluded, pending):
+        if concluded == True:
+            self._window["-INDEX_ENCOMENDA-"].update(
+                values=SQLite('dados.db').select(
+                    'dados', '*', 'status = "Concluído"'
+                    )
+                )
+            self.menu_encomenda["-STATUS_CONCLUIDO-"].update(True)
+        elif pending == True:
+            self._window["-INDEX_ENCOMENDA-"].update(
+                values=SQLite('dados.db').select(
+                    'dados', '*', 'status = "Pendente"'
+                    )
+                )
+            self.menu_encomenda["-STATUS_PENDENTE-"].update(True)
     # functions menu
     def functionsMenu(self, event):
 
@@ -198,22 +214,9 @@ class Program:
             return
 
         elif event == "-FILTRAR-":
-            if status_concluido == True:
-                self.menu_encomenda["-INDEX_ENCOMENDA-"].update(
-                    values=SQLite('dados.db').select(
-                        'dados', '*', 'status = "Concluído"'
-                        )
-                    )
-                self.menu_encomenda["-STATUS_CONCLUIDO-"].update(True)
-            elif status_pendente == True:
-                self.menu_encomenda["-INDEX_ENCOMENDA-"].update(
-                    values=SQLite('dados.db').select(
-                        'dados', '*', 'status = "Pendente"'
-                        )
-                    )
-                self.menu_encomenda["-STATUS_PENDENTE-"].update(True)
+            self.update_list(status_concluido, status_pendente)
             return
-
+            
         elif event == "-MAIS_INFORMACOES-":
             try:
                 index = int(value["-INDEX_ENCOMENDA-"][0])
@@ -324,23 +327,6 @@ class Program:
 
         status_concluido = value["-STATUS_CONCLUIDO-"] 
         status_pendente = value["-STATUS_PENDENTE-"]
-
-        def status(concluido, pendente):
-            if concluido == True:
-                self.deletar_encomenda["-INDEX_ENCOMENDA-"].update(
-                    values=SQLite('dados.db').select(
-                        'dados', '*', 'status = "Concluído"'
-                        )
-                    )
-                self.deletar_encomenda["-STATUS_CONCLUIDO-"].update(True)
-
-            elif pendente == True:
-                self.deletar_encomenda["-INDEX_ENCOMENDA-"].update(
-                    values=SQLite('dados.db').select(
-                        'dados', '*', 'status = "Pendente"'
-                        )
-                    )
-                self.deletar_encomenda["-STATUS_CONCLUIDO-"].update(False)
             
         if event == sg.WIN_CLOSED or event == "-VOLTAR-":
             self.deletar_encomenda.hide()
@@ -348,7 +334,7 @@ class Program:
             return
         
         elif event == "-FILTRAR-":
-            status(status_concluido, status_pendente)
+            self.update_list(status_concluido, status_pendente)
             return
 
         ##########################DELETAR ENCOMENDA###############################
@@ -369,7 +355,7 @@ class Program:
                 id = lista_encomendas[index][0]
                 SQLite('dados.db').delete('dados', f'id={id}')
 
-                status(status_concluido, status_pendente)
+                self.update_list(status_concluido, status_pendente)
 
             except:
                 sg.popup("Nenhuma encomenda selecionada!")
@@ -390,21 +376,7 @@ class Program:
             return
 
         elif event == "-FILTRAR-":
-            if status_concluido == True:
-                self.editar_encomenda["-INDEX_ENCOMENDA-"].update(
-                    values=SQLite('dados.db').select(
-                        'dados', '*', 'status = "Concluído"'
-                        )
-                    )
-                self.editar_encomenda["-STATUS_CONCLUIDO-"].update(True)
-
-            elif status_pendente == True:
-                self.editar_encomenda["-INDEX_ENCOMENDA-"].update(
-                    values=SQLite('dados.db').select(
-                        'dados', '*', 'status = "Pendente"'
-                        )
-                    )
-                self.editar_encomenda["-STATUS_CONCLUIDO-"].update(False)
+            self.update_list(status_concluido, status_pendente)
             return
 
         ###############################EDITAR ENCOMENDA###########################
