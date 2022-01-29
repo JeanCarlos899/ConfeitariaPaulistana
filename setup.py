@@ -478,7 +478,7 @@ def revenues(evento, valor):
         valor = Revenues(data_inicial, data_final).get_value()
         faturamento["-VALOR_FATURAMENTO-"].update(valor)
 
-def monthlyPofit(evento, valor):
+def monthlyPronfit(evento, valor):
     if evento == sg.WIN_CLOSED or evento == "-EXIT-":
         lucro_do_mes.close()
         buttons("on")
