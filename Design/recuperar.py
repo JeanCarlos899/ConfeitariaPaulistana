@@ -16,16 +16,9 @@ class Recuperar:
                     file = Recuperar.escolher_arquivo()
 
                 else:
-                    if os.path.exists(file):
-                        if os.path.exists('dados.db'):
-                            os.remove('dados.db')
-
-                        shutil.copy(file, 'dados.db')
-                    else:
-                        sg.popup('Arquivo não encontrado')
-            
+                    shutil.copy(file, 'dados.db')            
         except:
-            sg.popup('Não foi escolhido nenhuum arquivo')
+            sg.popup('Não foi escolhido nenhum arquivo')
 
         return file
 
