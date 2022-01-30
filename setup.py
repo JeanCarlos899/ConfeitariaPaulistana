@@ -119,14 +119,15 @@ class Program:
     def functionsMenu(self, event) -> object:
 
         if event == sg.WIN_CLOSED or event == "-SAIR-":
+            local = './Config/caminhos.csv'
         
             try:    
-                if os.path.getsize("caminhos.csv") == 0:
+                if os.path.getsize(local) == 0:
                     sg.popup_ok("Não há caminhos cadastrados no sistema", "Cadastre um para que possa ser feito o backup" )
                     return False 
                 else:
                     localOriginal = 'dados.db'
-                    file = 'caminhos.csv'
+                    file = local
 
                     with open(file, 'r') as f:
                         caminhos = f.readlines() 

@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 import os
 from click import option
 
-keys_caminho = 'caminhos.csv'
+keys_caminho = './Config/caminhos.csv'
 
 class Criar:
     def criar():
