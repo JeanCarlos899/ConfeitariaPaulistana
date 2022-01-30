@@ -1,3 +1,4 @@
+from operator import ne
 from Scripts.validade_login import validadeLogin
 from Scripts.sqlite import SQLite
 import PySimpleGUI as sg
@@ -55,13 +56,6 @@ class Login:
                     [sg.InputText(key="-USERNAME-", size=(100, 1))],
                     [sg.Text("Senha:", size=(15, 1))],
                     [sg.InputText(key="-PASSWORD-", size=(100, 1), password_char="*")],
-                    [sg.Text("")],
-                    [sg.Button("Cadastrar", size=(100, 2), button_color=("White", "#027F9E"), border_width=0)],
-                    [sg.Text(" ", font=("Arial", 5))],
-                    [
-                        sg.Text("Clique aqui para voltar ao login: "),
-                        sg.Button("Login", size=(100, 1), button_color=("white", "green"), border_width=0)
-                    ],
                     [sg.Frame("Tipo de usuário",
                         [
                             [
@@ -70,6 +64,13 @@ class Login:
                             ]
                         ], size=(600, 60)
                     )],
+                    [sg.Text("")],
+                    [sg.Button("Cadastrar", size=(100, 2), button_color=("White", "#027F9E"), border_width=0)],
+                    [sg.Text(" ", font=("Arial", 5))],
+                    [
+                        sg.Text("Clique aqui para voltar ao login: "),
+                        sg.Button("Login", size=(100, 1), button_color=("white", "green"), border_width=0)
+                    ],
                 ]
             )],
             [sg.Text("_________________________________________________________________________________", text_color="#FF8C01")],
@@ -105,7 +106,9 @@ class Login:
             
             if window == newAccount:
                 if event == sg.WIN_CLOSED:
-                    break
+                    newAccount.close()
+                    login.un_hide()
+
                 elif event == "Login":
                     newAccount.close()
                     login.un_hide()
@@ -123,9 +126,14 @@ class Login:
                     elif values["-FUNCIONARIO-"] == True:
                         tipo = "funcionario"
 
-                    if validadeLogin(username, password).newAccount(adminUsername, adminPassword, tipo) == True:
-                        sg.popup("Cadastro realizado com sucesso. ")
-                        newAccount.close()
-                        login.un_hide()
-                    else:
-                        sg.popup("O usuário não tem permissão para criar novos usuários.")
+                    try:
+                        status =  validadeLogin(username, password).newAccount(adminUsername, adminPassword, tipo)
+                    
+                        if status == True:
+                            sg.popup("Cadastro realizado com sucesso. ")
+                            newAccount.close()
+                            login.un_hide()
+                        else:
+                            sg.popup("O usuário não tem permissão para criar novos usuários.")
+                    except:
+                        sg.popup("Já existe um usuário com esse nome.")
