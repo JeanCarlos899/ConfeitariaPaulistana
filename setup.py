@@ -10,7 +10,6 @@ try:
     from Scripts.reports import Relatorios
     from Scripts.edit_order import EditDados
     from Scripts.sqlite import SQLite
-    from Scripts.validade_login import validadeLogin
 
     from Design.menu_principal import MenuPrincipal
     from Design.nova_encomenda import NovaEncomenda
