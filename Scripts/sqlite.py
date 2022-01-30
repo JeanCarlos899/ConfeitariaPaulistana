@@ -23,6 +23,15 @@ class SQLite:
             '''
         )
 
+        self.create_table(
+            'usuarios',
+            '''
+                username TEXT PRIMARY KEY,
+                password TEXT,
+                tipo TEXT
+            '''
+        )
+
     def create_table(self, table_name, col_list):
         sql = f"CREATE TABLE IF NOT EXISTS {table_name} ({col_list})"
         self.cursor.execute(sql)

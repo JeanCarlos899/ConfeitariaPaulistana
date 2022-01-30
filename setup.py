@@ -1,5 +1,6 @@
 import os
 import sys
+from traceback import print_tb
 
 try:
     import PySimpleGUI as sg
@@ -10,6 +11,7 @@ try:
     from Scripts.reports import Relatorios
     from Scripts.edit_order import EditDados
     from Scripts.sqlite import SQLite
+    from Scripts.validade_login import validadeLogin
 
     from Design.menu_principal import MenuPrincipal
     from Design.nova_encomenda import NovaEncomenda
@@ -28,7 +30,7 @@ try:
     from Scripts.cadastrar_caminho import Editar
     from Design.criar_caminho import FrtCam
     from Design.recuperar import Recuperar
-    
+    from Design.login import Login
 except ImportError:
     os.system("pip3 install -r requirements.txt")
     print("Bibliotecas instaladas com sucesso!")
@@ -39,33 +41,40 @@ class Program:
 
     def __init__(self) -> object:
 
-        # Menu initializes next to the class
-        self.menu = MenuPrincipal.menu_principal()
+        self.login = Login()
 
-        # Definition of windows in the builder
-        self.nova_encomenda = None
-        self.dados_cliente = None
-        self.lista_encomenda = None
-        self.menu_encomenda = None
-        self.dar_baixa_encomenda = None
-        self.salgadinhos = None
-        self.mais_informacoes = None
-        self.graficos = None
-        self.relatorios = None
-        self.deletar_encomenda = None 
-        self.editar_encomenda = None
-        self.faturamento = None
-        self.lucro_do_mes = None
-        self.local = None
-        self.recuperar = None
+        if self.login():
 
-        # window values
-        self._window = None
-        self._event = None
-        self._value = None
+            # Menu initializes next to the class
+            self.menu = MenuPrincipal.menu_principal()
 
-        # Program startup run method
-        self.__run()
+            # Definition of windows in the builder
+            self.nova_encomenda = None
+            self.dados_cliente = None
+            self.lista_encomenda = None
+            self.menu_encomenda = None
+            self.dar_baixa_encomenda = None
+            self.salgadinhos = None
+            self.mais_informacoes = None
+            self.graficos = None
+            self.relatorios = None
+            self.deletar_encomenda = None 
+            self.editar_encomenda = None
+            self.faturamento = None
+            self.lucro_do_mes = None
+            self.local = None
+            self.recuperar = None
+
+            # window values
+            self._window = None
+            self._event = None
+            self._value = None
+
+            # id
+            self._id = None
+
+            # Program startup run method
+            self.__run()
 
     # deactivate buttons
     def buttons(self, on_off) -> None:
@@ -376,7 +385,6 @@ class Program:
     
     # edit data order from database
     def editOrder(self, event, value) -> object:
-        id = 0
 
         try:
             status_concluido = value["-STATUS_CONCLUIDO-"] 
@@ -408,7 +416,7 @@ class Program:
                         'dados', '*', 'status = "Concluído"'
                     )
                 dados = lista_encomendas[index]
-                id = dados[0]
+                self._id = dados[0]
 
                 self.editar_encomenda.close()
                 self.editar_encomenda = EditarEncomenda.edit_info()
@@ -436,7 +444,7 @@ class Program:
                 int(value["-QTD_MINI-"]), 
                 int(value["-QTD_NORMAL-"]), 
                 str(value["-INFO_COMPLEMENTARES-"]) 
-            ], id)
+            ], self._id)
 
             msg = status_menssage()
 

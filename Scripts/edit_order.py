@@ -10,12 +10,13 @@ class EditDados:
         if horario_entrega.count(":") == 1:
             if len(horario_entrega.split(":")) == 2:
                 try:
-                    hora_entrada = datetime.strptime(
+                    data_entrega = datetime.strptime(
                         (str(data_entrega) + " " + str(horario_entrega)), "%d/%m/%Y %H:%M"
-                        ).strftime("%d/%m/%Y %H:%M")
-                    hora_atual = datetime.today().strftime('%d/%m/%Y %H:%M')
+                        ).strftime("%Y/%m/%d %H:%M")
+                        
+                    hora_atual = datetime.today().strftime('%Y/%m/%d %H:%M')
                     
-                    if hora_entrada >= hora_atual:
+                    if data_entrega >= hora_atual:
                         return True
                 except:
                     return False
@@ -23,6 +24,8 @@ class EditDados:
                 return False
         else:
             return False
+
+        return False
 
     def __call__(self) -> str:
         if self.lista_dados[0] != "":
