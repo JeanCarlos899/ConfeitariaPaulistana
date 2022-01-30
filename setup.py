@@ -129,6 +129,9 @@ class Program:
                     localOriginal = 'dados.db'
                     file = local
 
+                    if os.path.exists('backup_dados.db'):
+                        os.remove('backup_dados.db')
+
                     with open(file, 'r') as f:
                         caminhos = f.readlines() 
                     
