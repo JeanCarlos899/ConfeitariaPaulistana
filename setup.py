@@ -1,6 +1,5 @@
 import os
 import sys
-from traceback import print_tb
 
 try:
     import PySimpleGUI as sg

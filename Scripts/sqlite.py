@@ -32,6 +32,17 @@ class SQLite:
             '''
         )
 
+        self.user = self.select(
+            'usuarios', '*', f"username='admin' AND password='admin'"
+            )
+            
+        if self.user == []:
+            self.execute(
+                '''
+                    INSERT INTO usuarios VALUES ("admin", "admin", "admin")
+                '''
+            )
+
     def create_table(self, table_name, col_list):
         sql = f"CREATE TABLE IF NOT EXISTS {table_name} ({col_list})"
         self.cursor.execute(sql)
@@ -73,6 +84,10 @@ class SQLite:
 
     def drop_table(self, table_name):
         sql = 'DROP TABLE {}'.format(table_name)
+        self.cursor.execute(sql)
+        self.conn.commit()
+    
+    def execute(self, sql):
         self.cursor.execute(sql)
         self.conn.commit()
 
@@ -121,22 +136,29 @@ if __name__ == '__main__':
 
 
 
-    class ReturnList:
-        def __init__(self, col_name: str) -> None:
-            self.col_name = col_name
+    # class ReturnList:
+    #     def __init__(self, col_name: str) -> None:
+    #         self.col_name = col_name
 
-        def __call__(self) -> list:
-            colList = []
+    #     def __call__(self) -> list:
+    #         colList = []
 
-            idList = SQLite("dados.db").select(
-                'dados',
-                col_str=self.col_name,
-            )
+    #         idList = SQLite("dados.db").select(
+    #             'dados',
+    #             col_str=self.col_name,
+    #         )
 
-            for value in idList:
-                if value != None:
-                    colList.append(value[0]) 
+    #         for value in idList:
+    #             if value != None:
+    #                 colList.append(value[0]) 
 
-            return colList
+    #         return colList
         
-    lista = ReturnList('id').__call__()
+    # lista = ReturnList('id').__call__()
+
+    # teste = SQLite('dados.db').select(
+    #         'usuarios', '*', f"username='admin' AND password='admin'"
+    #         )
+    # print(teste)
+
+    teste = SQLite('dados.db')

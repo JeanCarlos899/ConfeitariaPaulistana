@@ -1,7 +1,10 @@
 from Scripts.validade_login import validadeLogin
+from Scripts.sqlite import SQLite
 import PySimpleGUI as sg
 
 class Login:
+    def __init__(self):
+        self.initializeSQLite = SQLite("dados.db")
 
     def loginWindow():
         sg.theme("DefaultNoMoreNagging")
