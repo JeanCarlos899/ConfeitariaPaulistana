@@ -12,3 +12,17 @@ class validadeLogin:
 
         if user:
             return True
+
+    def newAccount(self, adminUsername, adminPassword, tipo):
+        adminUser = SQLite('dados.db').select(
+            'usuarios', '*', f"username='{adminUsername}' AND password='{adminPassword}' AND tipo='admin'"
+            )
+            
+
+        if adminUser:
+            SQLite('dados.db').execute(
+                f'''
+                    INSERT INTO usuarios VALUES ("{self.user}", "{self.password}", "{tipo}")
+                '''
+            )
+            return True
