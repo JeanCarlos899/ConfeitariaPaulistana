@@ -1,4 +1,3 @@
-from operator import ne
 from Scripts.validade_login import validadeLogin
 from Scripts.sqlite import SQLite
 import PySimpleGUI as sg
