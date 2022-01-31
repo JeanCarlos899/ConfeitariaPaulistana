@@ -73,6 +73,7 @@ class Program:
 
             # Program startup run method
             self.__run()
+    
 
     # deactivate buttons
     def buttons(self, on_off) -> None:
@@ -581,4 +582,5 @@ class Program:
 
 # run program
 if __name__ == "__main__":
+    # create object, this object will run the program automaticly with __run method
     program = Program()
