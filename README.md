@@ -2,7 +2,7 @@
 <h3>👋🏼 Olá! seja bem-vindo 👋🏼 </h3>
 <br>
 
-#### Projeto desenvolvido pelos alunos: Daniel Rodrigues de Sousa e Jean Carlos Rodrigues Sousa
+#### Projeto desenvolvido por: Daniel Rodrigues de Sousa e Jean Carlos Rodrigues Sousa
 
 <br>
 
